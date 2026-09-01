@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import logo from '../assets/logo.png'
 import { messenger, nav, wa } from '../data/site'
 import { useLang } from '../i18n/LanguageContext'
 import { MessengerIcon, WhatsAppIcon } from './ui'
+import { EASE, Magnetic, useMotionPrefs } from '../fx'
 
 const OPENING_MESSAGE =
   "Hello Heaven Furniture Mart, I'd like to book a free design consultation."
@@ -27,15 +28,20 @@ function LangToggle({ compact = false }) {
 
 export default function Header() {
   const { t } = useLang()
+  const { still } = useMotionPrefs()
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  // The bar gets out of the way when someone is reading downward and comes
+  // straight back the moment they scroll up looking for it. On a page this
+  // long, a permanently pinned bar is just a strip of the screen you lose.
+  const { scrollY } = useScroll()
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const previous = scrollY.getPrevious() ?? 0
+    setScrolled(y > 40)
+    setHidden(!open && y > previous && y > 280)
+  })
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -53,21 +59,25 @@ export default function Header() {
         {t('skip')}
       </a>
 
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      <motion.header
+        animate={{ y: hidden && !still ? '-105%' : '0%' }}
+        transition={{ duration: 0.5, ease: EASE }}
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,padding,border-color] duration-500 ${
           scrolled
             ? 'border-b border-walnut/10 bg-ivory/90 py-3 backdrop-blur-md'
             : 'border-b border-transparent py-5'
         }`}
       >
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 sm:px-8 lg:px-12">
-          <a href="#top" aria-label="Heaven Furniture Mart — home" className="shrink-0">
+          <a href="#top" aria-label="Heaven Furniture Mart — home" className="group shrink-0">
             <img
               src={logo}
               alt="Heaven Furniture Mart"
               width={612}
               height={174}
-              className={`w-auto transition-all duration-500 ${scrolled ? 'h-8' : 'h-9 sm:h-10'}`}
+              className={`w-auto transition-all duration-500 group-hover:opacity-80 ${
+                scrolled ? 'h-8' : 'h-9 sm:h-10'
+              }`}
             />
           </a>
 
@@ -85,15 +95,17 @@ export default function Header() {
 
           <div className="flex items-center gap-2.5">
             <LangToggle />
-            <a
-              href={wa(OPENING_MESSAGE)}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden items-center gap-2 rounded-full bg-forest px-6 py-3 text-[0.9rem] font-medium text-ivory transition-colors duration-300 hover:bg-gold hover:text-forest-deep sm:inline-flex"
-            >
-              <WhatsAppIcon />
-              {t('ctaBook')}
-            </a>
+            <Magnetic className="hidden sm:inline-block">
+              <a
+                href={wa(OPENING_MESSAGE)}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-forest px-6 py-3 text-[0.9rem] font-medium text-ivory transition-colors duration-300 hover:bg-gold hover:text-forest-deep"
+              >
+                <WhatsAppIcon />
+                {t('ctaBook')}
+              </a>
+            </Magnetic>
 
             <button
               type="button"
@@ -107,7 +119,7 @@ export default function Header() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <AnimatePresence>
         {open && (

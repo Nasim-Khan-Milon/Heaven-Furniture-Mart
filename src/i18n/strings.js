@@ -406,4 +406,63 @@ export const strings = {
   marqueeDesigned: { en: 'Designed', bn: 'ডিজাইন' },
   marqueeCrafted: { en: 'Crafted', bn: 'তৈরি' },
   marqueeCustomized: { en: 'Customized', bn: 'কাস্টমাইজ' },
+
+  // ----------------------------------------------------------------- intro
+  introTagline: { en: 'Designed. Crafted. Customized.', bn: 'ডিজাইন। তৈরি। আপনার মাপে।' },
+  introLoading: { en: 'Opening', bn: 'খুলছে' },
+
+  // -------------------------------------------------------------- workshop
+  shopMarker: { en: 'Inside the workshop', bn: 'কারখানার ভেতরে' },
+  shopTitle: {
+    en: 'Five stages between a drawing and your living room.',
+    bn: 'একটা ড্রয়িং থেকে আপনার ঘর — মাঝে পাঁচটা ধাপ।',
+  },
+  shopNote: {
+    en: 'Every piece passes through the same hands in Agrabad. Keep scrolling to walk the floor.',
+    bn: 'প্রতিটা আসবাব আগ্রাবাদে একই হাতে তৈরি হয়। স্ক্রল করে পুরো কারখানা ঘুরে দেখুন।',
+  },
+  shopNoteSwipe: {
+    en: 'Every piece passes through the same hands in Agrabad. Swipe to walk the floor.',
+    bn: 'প্রতিটা আসবাব আগ্রাবাদে একই হাতে তৈরি হয়। পাশে সরিয়ে পুরো কারখানা ঘুরে দেখুন।',
+  },
+
+  shop1s: { en: 'Stage 01', bn: 'ধাপ ০১' },
+  shop1: { en: 'Carving', bn: 'কাঠের কারুকাজ' },
+  shop1b: {
+    en: 'Patterns are cut by hand into seasoned wood — the detail that makes a Heaven piece recognisable from across a room.',
+    bn: 'শুকনো কাঠে হাতে নকশা কাটা হয় — এই কারুকাজই দূর থেকে হেভেনের আসবাব চিনিয়ে দেয়।',
+  },
+
+  shop2s: { en: 'Stage 02', bn: 'ধাপ ০২' },
+  shop2: { en: 'Upholstery', bn: 'ফোম ও কাপড়' },
+  shop2b: {
+    en: 'Frames are padded and covered in the fabric you chose, stitched tight so the shape holds for years.',
+    bn: 'ফ্রেমে ফোম বসিয়ে আপনার পছন্দের কাপড়ে মোড়ানো হয়, শক্ত সেলাই — যাতে বছরের পর বছর শেপ ঠিক থাকে।',
+  },
+
+  shop3s: { en: 'Stage 03', bn: 'ধাপ ০৩' },
+  shop3: { en: 'Joinery', bn: 'জোড়া ও কাঠামো' },
+  shop3b: {
+    en: 'Doors, drawers and shelves are fitted and squared, then checked so nothing sticks or sags later.',
+    bn: 'দরজা, ড্রয়ার আর তাক মেপে বসানো হয়, তারপর দেখা হয় কোথাও আটকে যাচ্ছে বা ঝুলে পড়ছে কি না।',
+  },
+
+  shop4s: { en: 'Stage 04', bn: 'ধাপ ০৪' },
+  shop4: { en: 'Finishing', bn: 'ফিনিশিং' },
+  shop4b: {
+    en: 'Surfaces are sanded, polished and sealed. Marble and glass go on last, once the dust has settled.',
+    bn: 'সারফেস ঘষে, পলিশ করে সিল করা হয়। ধুলো বসার পর সবার শেষে মার্বেল আর কাচ বসানো হয়।',
+  },
+
+  shop5s: { en: 'Stage 05', bn: 'ধাপ ০৫' },
+  shop5: { en: 'The showroom', bn: 'শোরুম' },
+  shop5b: {
+    en: 'Finished pieces go onto the Agrabad floor, where you can sit on them before anything is delivered.',
+    bn: 'তৈরি আসবাব আগ্রাবাদের শোরুমে ওঠে — ডেলিভারির আগে এসে বসে দেখে নিতে পারবেন।',
+  },
+
+  // ------------------------------------------------------------------ misc
+  cursorView: { en: 'View', bn: 'দেখুন' },
+  cursorDrag: { en: 'Drag', bn: 'টানুন' },
+  heroScroll: { en: 'Scroll', bn: 'স্ক্রল' },
 }

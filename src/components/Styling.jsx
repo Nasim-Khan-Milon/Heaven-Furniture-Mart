@@ -1,5 +1,6 @@
 import { sofaEmbroidery, styling, wa } from '../data/site'
-import { ArchImage, ArrowIcon, Marker, Reveal, Unveil } from './ui'
+import { ArchImage, ArrowIcon, Marker } from './ui'
+import { Reveal, SplitText, Stagger, StaggerItem } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
 
@@ -13,27 +14,29 @@ export default function Styling() {
           <div className="lg:col-span-6">
             <Reveal>
               <Marker>{t('styMarker')}</Marker>
-              <h2 className="balance mt-6 font-display text-[length:var(--text-display)] leading-[1.02]">
-                {t('styTitle')}
-              </h2>
             </Reveal>
+            <SplitText
+              as="h2"
+              text={t('styTitle')}
+              className={`balance mt-6 block font-display text-[length:var(--text-display)] leading-[1.02]`}
+            />
 
             <Reveal delay={0.1}>
               <p className="pretty mt-7 max-w-xl text-lg leading-relaxed text-walnut/85">{t('styBody')}</p>
             </Reveal>
 
-            <ul className="mt-10 divide-y divide-walnut/15 border-y border-walnut/15">
-              {styling.map((item, i) => (
-                <Reveal key={item.title} delay={0.05 * i} as="li">
+            <Stagger as="ul" className="mt-10 divide-y divide-walnut/15 border-y border-walnut/15">
+              {styling.map((item) => (
+                <StaggerItem key={item.title} as="li">
                   <div className="py-5">
                     <h3 className="font-display text-xl text-ink">{t(item.title)}</h3>
                     <p className="pretty mt-1.5 text-[0.95rem] leading-relaxed text-walnut/75">
                       {t(item.body)}
                     </p>
                   </div>
-                </Reveal>
+                </StaggerItem>
               ))}
-            </ul>
+            </Stagger>
 
             <Reveal delay={0.15}>
               <a
@@ -51,16 +54,15 @@ export default function Styling() {
           </div>
 
           <div className="lg:col-span-6">
-            <Unveil>
-              <ArchImage
-                src={sofaEmbroidery}
-                alt="Embroidered sofa styled within a full living room scheme"
-                w={1024}
-                h={1024}
-                shape="soft"
-                className="aspect-[4/5] w-full"
-              />
-            </Unveil>
+            <ArchImage
+              src={sofaEmbroidery}
+              alt="Embroidered sofa styled within a full living room scheme"
+              w={1024}
+              h={1024}
+              shape="soft"
+              drift={8}
+              className="aspect-[4/5] w-full"
+            />
           </div>
         </div>
       </div>

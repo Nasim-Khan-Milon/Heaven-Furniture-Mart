@@ -98,20 +98,47 @@ split in `Unveil` (`src/components/ui.jsx`) is what avoids that.
 
 ```
 src/
-  App.jsx                 section order, Lenis smooth scroll
-  index.css               Tailwind v4 theme tokens, arch utilities
+  App.jsx                 section order, providers, Lenis smooth scroll
+  index.css               Tailwind v4 theme tokens, arch utilities, grain keyframes
   data/site.js            contact details, collections, milestones — edit copy here
+  i18n/strings.js         every visible string, English and Bangla
   assets/                 WebP photography, logo variants
+
+  fx/                     the motion system — components compose these
+    MotionProvider.jsx    still / fine / lite capability gate, intro ready flag
+    config.js             every easing curve and spring on the page
+    Preloader.jsx         the intro: dimension lines, counter, parting curtains
+    SplitText.jsx         masked word reveals, Bangla-safe
+    ParallaxImage.jsx     curtain + zoom settle + light sweep + scroll drift
+    Reveal.jsx            Reveal, Stagger, StaggerItem
+    LitText.jsx           scroll-lit passage (the founder quote)
+    VelocityMarquee.jsx   scroll-velocity-driven band
+    Cursor.jsx            brass pointer ring
+    Magnetic.jsx          pointer-seeking CTA wrapper
+    Atmosphere.jsx        film grain, drifting ambient light
+    DustMotes.jsx         hero dust canvas
+    ScrollRail.jsx        top reading-progress hairline
+
   components/
-    ui.jsx                Reveal, Unveil, ArchImage, buttons, icons
-    Header.jsx            sticky nav, mobile drawer
-    Hero.jsx              orchestrated page-load sequence
+    ui.jsx                ArchImage, Tilt, Marker, buttons, icons
+    Header.jsx            sticky nav that retreats on scroll, mobile drawer
+    Hero.jsx              headline, arch alcove, dimension overlay
+    HeroShowcase.jsx      rotating cut-out pieces with contact shadow
+    MeasureOverlay.jsx    self-drawing architect's dimension annotation
+    Reassure.jsx          how ordering works, showroom address
     Studio.jsx            brand introduction
+    WhyHeaven.jsx         eight trust points
     Collections.jsx       four room categories
     Bespoke.jsx           the brief builder
-    Process.jsx           four-step process
+    Range.jsx             classic / modern flip cards
+    Materials.jsx         swatch board with sheen
+    Workshop.jsx          pinned horizontal five-stage rail
+    Styling.jsx           full-room styling service
+    Marquee.jsx           velocity-reactive brand band
+    Process.jsx           four-step process with self-drawing rule
     Story.jsx             founder quote, milestone timeline
-    Gallery.jsx           horizontal work strip
+    Gallery.jsx           draggable work rail
+    Faq.jsx               six questions
     Visit.jsx             closing call to action, contact, footer
     MobileBar.jsx         sticky mobile call to action
 ```
@@ -188,28 +215,86 @@ a share link taken straight from Google Maps.
 
 ## Motion
 
-- **Hero** — one orchestrated load sequence. Each headline word rises out of
-  its own mask so the line assembles rather than fades, the photo and its
-  outline frame drift apart on scroll for depth, and an architect's dimension
-  annotation draws itself over the photo (`MeasureOverlay.jsx`) using
-  `pathLength` — extension lines, arrowed dimension line, and a label sitting
-  in a break in the line. The headline promises furniture made to the measure
-  of your home; this draws that promise.
-- **Classic / Modern toggle** — `Range.jsx` flips four cards on the Y axis in
-  real perspective, each with a slight stagger, swapping between Heaven's
-  carved-and-gilded work and their modern pieces. Backface visibility is
-  hidden so only one side is ever readable.
-- **Process** — the rule connecting the four steps draws itself as you scroll,
-  scaling on X across the desktop layout and on Y down the mobile one, with
-  each diamond node popping in as it is reached.
-- **3D tilt** — trust cards, collection photos and material swatches rotate in
-  perspective under the cursor. `Tilt` in `ui.jsx` only arms itself on devices
-  reporting `(hover: hover) and (pointer: fine)`, so a tap on mobile never
-  leaves a card stuck at an angle, and it bails out entirely under reduced
-  motion.
-- **Unveil** — images rise from behind a clip-path curtain as they enter view.
-- **FAQ** — height and opacity animate open; the marker rotates to an ×.
-- **Marquee** — the company's own tagline loops across a dark band.
+All motion lives in `src/fx/`. Nothing in `components/` implements an animation
+directly — it composes these.
+
+### The gate: `MotionProvider`
+
+Decides once, at the top of the tree, how much motion a visitor gets. Three
+independent questions with three different answers:
+
+| Flag | Question | What it turns off |
+| --- | --- | --- |
+| `still` | `prefers-reduced-motion` | Almost everything. The intro never runs, masks render open, scroll-linked values freeze. |
+| `fine` | `(hover: hover) and (pointer: fine)` | Cursor ring, magnetic buttons, 3D tilt, gallery drag. A tap can never strand a card at an angle. |
+| `lite` | `≤4 cores`, `≤4GB`, `saveData`, or `2g` | Per-frame work only: dust canvas, grain, scroll-velocity tracking. Every entrance and scroll animation still plays. |
+
+A mid-range Android on 4G in Chattogram is the visitor this is tuned for, not
+the desktop it was built on.
+
+### The one orchestrated moment
+
+`Preloader.jsx` — gold dimension lines draw around the brand, a counter runs to
+100, then two forest panels part like the showroom doors. Scroll is held for its
+1.8s. Skippable on any pointer, key or wheel event. The hero's own entrance is
+gated on the curtain opening (`ready`), so load reads as one continuous sequence
+rather than two competing ones.
+
+Everything after this point is triggered by the visitor.
+
+### Signature scroll moments
+
+- **`Workshop.jsx`** — vertical scroll converted to horizontal travel while the
+  section holds the screen. Five stages from carving to showroom. The outer
+  height is travel distance *plus one screen*, so scroll maps 1:1 — the thing
+  most pinned sections get wrong. Each panel lifts and brightens at centre
+  screen. Below `lg` it becomes an ordinary swipe rail; pinning fights the
+  mobile address bar and wins nothing on a touchscreen.
+- **`LitText.jsx`** — the managing director's quote lights word by word as it
+  crosses the screen, so reading pace and scroll pace match. Used exactly once.
+  It earns the effect *because* nothing else uses it.
+- **`VelocityMarquee.jsx`** — the brand band drifts on its own, but scrolling
+  shoves it and scrolling up reverses it. The one place the visitor's own
+  movement visibly drives something.
+- **`ParallaxImage.jsx`** — every photograph arrives the same way: curtain lifts,
+  image settles back from an over-zoom, one light sweep crosses it, then it
+  drifts slower than its own frame forever after. The drift does the real work —
+  a photo pinned to its frame reads as a sticker; one that lags reads as
+  something seen through an opening.
+
+### Supporting layers
+
+- **`SplitText.jsx`** — masked word reveals on every heading. Split by *word*,
+  never character: Bangla builds conjuncts and vowel signs across several code
+  points, and slicing to characters scatters যুক্তাক্ষর like ক্ষ and matras like ি
+  into separate boxes. Word boundaries are the smallest unit safe in both
+  scripts. Masks are padded and the padding pulled back with a negative margin,
+  so descenders and matras have room without the layout shifting.
+- **`Cursor.jsx`** — brass ring lagging the pointer, dot sitting on it. The lag
+  is the effect. The native cursor is kept, not hidden, so a failed script never
+  leaves someone without one.
+- **`Magnetic.jsx`** — only the WhatsApp CTAs lean toward the pointer. On every
+  link it would be a gimmick; on the one action the page is built around it is
+  emphasis.
+- **`Atmosphere.jsx`** — film grain that jumps between four positions rather than
+  sliding (a slide reads as moving texture; a jump reads as a new frame), and one
+  warm light pool drifting as though the room has a single window.
+- **`DustMotes.jsx`** — 34 motes on one canvas in the hero. Stops the instant the
+  hero leaves the viewport.
+- **`Reveal` / `Stagger`** — rise with a blur burning off as it lands. The blur is
+  what separates it from the fade-and-slide every page does.
+- **`Process`** — the rule connecting four steps draws as you scroll, X across
+  desktop, Y down mobile, each node ringing once as the line reaches it. The
+  animation is a genuine progress indicator, so its length means something.
+- **`Range`** — four cards flip on Y in real perspective, backface hidden.
+- **`Header`** — retreats when reading downward, returns the moment you scroll up.
+
+### Cost
+
++26 KB raw / +7.5 KB gzipped over the pre-animation build, entirely from the
+Framer Motion surface already in use. No new dependencies were added — no GSAP,
+no Locomotive. Everything animates `transform`, `opacity`, `clip-path` or
+`filter`; nothing animates layout.
 
 ---
 

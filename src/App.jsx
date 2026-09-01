@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { LanguageProvider } from './i18n/LanguageContext'
+import { AmbientLight, Cursor, Grain, MotionProvider, Preloader, ScrollRail } from './fx'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Reassure from './components/Reassure'
@@ -10,6 +11,7 @@ import Collections from './components/Collections'
 import Bespoke from './components/Bespoke'
 import Range from './components/Range'
 import Materials from './components/Materials'
+import Workshop from './components/Workshop'
 import Styling from './components/Styling'
 import Marquee from './components/Marquee'
 import Process from './components/Process'
@@ -19,9 +21,11 @@ import Faq from './components/Faq'
 import Visit from './components/Visit'
 import MobileBar from './components/MobileBar'
 
-export default function App() {
+function SmoothScroll() {
   useEffect(() => {
-    // Smooth scrolling — skipped entirely for anyone who asks for reduced motion.
+    // Skipped entirely for anyone who asks for reduced motion — hijacking the
+    // scroll of someone who has said they get motion sick is the one thing a
+    // page like this must never do.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true })
@@ -49,27 +53,41 @@ export default function App() {
     }
   }, [])
 
+  return null
+}
+
+export default function App() {
   return (
     <LanguageProvider>
-      <Header />
-      <main id="main">
-        <Hero />
-        <Reassure />
-        <Studio />
-        <WhyHeaven />
-        <Collections />
-        <Bespoke />
-        <Range />
-        <Materials />
-        <Styling />
-        <Marquee />
-        <Process />
-        <Story />
-        <Gallery />
-        <Faq />
-      </main>
-      <Visit />
-      <MobileBar />
+      <MotionProvider>
+        <SmoothScroll />
+        <Preloader />
+        {/* <Cursor /> */}
+        <Grain />
+        <AmbientLight />
+        <ScrollRail />
+
+        <Header />
+        <main id="main">
+          <Hero />
+          <Reassure />
+          <Studio />
+          <WhyHeaven />
+          <Collections />
+          <Bespoke />
+          <Range />
+          <Materials />
+          <Workshop />
+          <Styling />
+          <Marquee />
+          <Process />
+          <Story />
+          <Gallery />
+          <Faq />
+        </main>
+        <Visit />
+        <MobileBar />
+      </MotionProvider>
     </LanguageProvider>
   )
 }

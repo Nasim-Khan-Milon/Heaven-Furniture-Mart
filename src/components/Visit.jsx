@@ -1,7 +1,8 @@
 import logoLight from '../assets/logo-light.png'
 import { contact, messenger, wa } from '../data/site'
 import { useLang } from '../i18n/LanguageContext'
-import { Marker, Reveal, MessengerIcon, WhatsAppIcon } from './ui'
+import { Marker, MessengerIcon, WhatsAppIcon } from './ui'
+import { Magnetic, Reveal, SplitText } from '../fx'
 
 const socials = [
   { label: 'Facebook', href: contact.facebook },
@@ -19,35 +20,41 @@ export default function Visit() {
           <div className="lg:col-span-6">
             <Reveal>
               <Marker dark>{t('visitMarker')}</Marker>
-              <h2 className="balance mt-6 font-display text-[length:var(--text-display)] leading-[1.02] text-ivory">
-                {t('visitTitle')}
-              </h2>
+            </Reveal>
+            <SplitText
+              as="h2"
+              text={t('visitTitle')}
+              className={`balance mt-6 block text-ivory font-display text-[length:var(--text-display)] leading-[1.02]`}
+            />
+            <Reveal delay={0.18}>
               <p className="pretty mt-6 max-w-md text-lg leading-relaxed text-ivory/70">{t('visitBody')}</p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href={wa(
-                    "Hello Heaven Furniture Mart, I'd like to book a free design consultation.",
-                  )}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full bg-gold px-8 py-4 font-medium text-forest-deep transition-colors duration-300 hover:bg-ivory"
-                >
-                  <WhatsAppIcon />
-                  {t('ctaWhatsapp')}
-                </a>
+                <Magnetic>
+                  <a
+                    href={wa(
+                      "Hello Heaven Furniture Mart, I'd like to book a free design consultation.",
+                    )}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2.5 rounded-full bg-gold px-8 py-4 font-medium whitespace-nowrap text-forest-deep transition-colors duration-300 hover:bg-ivory"
+                  >
+                    <WhatsAppIcon />
+                    {t('ctaWhatsapp')}
+                  </a>
+                </Magnetic>
                 <a
                   href={messenger}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-ivory/30 px-8 py-4 font-medium text-ivory transition-colors duration-300 hover:border-gold hover:text-gold"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-ivory/30 px-8 py-4 font-medium whitespace-nowrap text-ivory transition-colors duration-300 hover:border-gold hover:text-gold"
                 >
                   <MessengerIcon />
                   {t('ctaMessenger')}
                 </a>
                 <a
                   href={`tel:${contact.phoneRaw}`}
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-ivory/30 px-8 py-4 font-medium text-ivory transition-colors duration-300 hover:border-gold hover:text-gold"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-ivory/30 px-8 py-4 font-medium whitespace-nowrap text-ivory transition-colors duration-300 hover:border-gold hover:text-gold"
                 >
                   {t('ctaCall')} {contact.phoneDisplay}
                 </a>

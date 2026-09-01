@@ -156,6 +156,32 @@
   }
 }
 
+/* The grain jumps between four positions rather than sliding, which is how
+   film grain actually behaves — a slide reads as a moving texture, a jump
+   reads as a new frame. The layer is oversized so the jumps never expose an
+   edge. */
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -2%); }
+  100% { transform: translate(0, 0); }
+}
+
+.grain-layer {
+  inset: -6%;
+  width: 112%;
+  height: 112%;
+  animation: grain-shift 0.9s steps(1) infinite;
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-layer {
+    animation: none;
+  }
+}
+
 @keyframes marquee-drift {
   from {
     transform: translate3d(0, 0, 0);

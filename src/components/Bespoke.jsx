@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { craftShowcase, wa } from '../data/site'
 import { useLang } from '../i18n/LanguageContext'
-import { ArchImage, Marker, Reveal, Unveil, WhatsAppIcon } from './ui'
+import { ArchImage, Marker, WhatsAppIcon } from './ui'
+import { Magnetic, Reveal, SplitText } from '../fx'
 
 const QUESTIONS = [
   {
@@ -86,26 +87,28 @@ export default function Bespoke() {
           <div className="lg:col-span-5">
             <Reveal>
               <Marker dark>{t('bespokeMarker')}</Marker>
-              <h2 className="balance mt-6 font-display text-[length:var(--text-display)] leading-[1.02] text-ivory">
-                {t('bespokeTitle')}
-              </h2>
             </Reveal>
+            <SplitText
+              as="h2"
+              text={t('bespokeTitle')}
+              className={`balance mt-6 block text-ivory font-display text-[length:var(--text-display)] leading-[1.02]`}
+            />
 
             <Reveal delay={0.1}>
               <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-ivory/75">{t('bespokeBody')}</p>
             </Reveal>
 
             <div className="mt-10 hidden max-w-sm lg:block">
-              <Unveil delay={0.15}>
-                <ArchImage
-                  src={craftShowcase}
-                  alt="Hand-carved and glazed display cabinet made by Heaven Furniture Mart"
-                  w={1024}
-                  h={1024}
-                  shape="soft"
-                  className="aspect-[4/5] w-full"
-                />
-              </Unveil>
+              <ArchImage
+                src={craftShowcase}
+                alt="Hand-carved and glazed display cabinet made by Heaven Furniture Mart"
+                w={1024}
+                h={1024}
+                shape="soft"
+                drift={9}
+                delay={0.1}
+                className="aspect-[4/5] w-full"
+              />
             </div>
           </div>
 
@@ -133,8 +136,9 @@ export default function Bespoke() {
                               type="button"
                               onClick={() => select(q.key, option)}
                               aria-pressed={active}
-                              whileTap={{ scale: 0.95 }}
-                              transition={{ duration: 0.15 }}
+                              whileTap={{ scale: 0.94 }}
+                              whileHover={{ y: -2 }}
+                              transition={{ type: 'spring', stiffness: 420, damping: 26 }}
                               className={`rounded-full border px-4 py-2 text-[0.9rem] transition-colors duration-250 ${
                                 active
                                   ? 'border-gold bg-gold text-forest-deep'
@@ -170,15 +174,17 @@ export default function Bespoke() {
                     </AnimatePresence>
                   </div>
 
-                  <a
-                    href={wa(message)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-5 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-gold px-8 py-4 font-medium text-forest-deep transition-colors duration-300 hover:bg-ivory sm:w-auto"
-                  >
-                    <WhatsAppIcon />
-                    {t('briefSend')}
-                  </a>
+                  <Magnetic className="mt-5 block w-full sm:w-auto">
+                    <a
+                      href={wa(message)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-gold px-8 py-4 font-medium text-forest-deep transition-colors duration-300 hover:bg-ivory sm:w-auto"
+                    >
+                      <WhatsAppIcon />
+                      {t('briefSend')}
+                    </a>
+                  </Magnetic>
 
                   <p className="mt-4 text-[0.82rem] leading-relaxed text-ivory/50">
                     {t('briefFree')}

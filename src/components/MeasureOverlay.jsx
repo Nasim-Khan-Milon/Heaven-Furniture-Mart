@@ -1,5 +1,6 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useLang } from '../i18n/LanguageContext'
+import { useMotionPrefs } from '../fx'
 
 const DRAW = { duration: 1.05, ease: [0.65, 0, 0.35, 1] }
 
@@ -9,19 +10,19 @@ const DRAW = { duration: 1.05, ease: [0.65, 0, 0.35, 1] }
  * that promise, drawn. Set out like a real drawing: extension lines, arrowed
  * dimension line, and the label sitting in a break in the line.
  */
-export default function MeasureOverlay({ start = 1.5 }) {
+export default function MeasureOverlay({ start = 1.5, play = true }) {
   const { t, lang } = useLang()
-  const still = useReducedMotion()
+  const { still } = useMotionPrefs()
 
   const draw = (delay, duration = DRAW.duration) => ({
     initial: still ? false : { pathLength: 0, opacity: 0 },
-    animate: { pathLength: 1, opacity: 1 },
+    animate: play ? { pathLength: 1, opacity: 1 } : {},
     transition: { duration, ease: DRAW.ease, delay: start + delay },
   })
 
   const fade = (delay) => ({
     initial: still ? false : { opacity: 0 },
-    animate: { opacity: 1 },
+    animate: play ? { opacity: 1 } : {},
     transition: { duration: 0.45, delay: start + delay },
   })
 

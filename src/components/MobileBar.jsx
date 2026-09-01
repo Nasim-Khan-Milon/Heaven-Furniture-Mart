@@ -49,10 +49,10 @@ export default function MobileBar() {
               href={wa("Hello Heaven Furniture Mart, I'd like to book a free design consultation.")}
               target="_blank"
               rel="noreferrer"
-              className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-gold py-3.5 font-medium text-forest-deep"
+              className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-gold py-3.5 font-medium whitespace-nowrap text-forest-deep"
             >
               <WhatsAppIcon />
-              {t('ctaBookLong')}
+              {t('ctaBook')}
             </a>
           </div>
         </motion.div>

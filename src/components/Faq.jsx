@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { faqs, wa } from '../data/site'
-import { Marker, Reveal, WhatsAppIcon } from './ui'
+import { Marker, WhatsAppIcon } from './ui'
+import { Reveal, SplitText } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
 
@@ -16,9 +17,13 @@ export default function Faq() {
           <div className="lg:col-span-4">
             <Reveal>
               <Marker>{t('faqMarker')}</Marker>
-              <h2 className="balance mt-6 font-display text-[length:var(--text-display)] leading-[1.02]">
-                {t('faqTitle')}
-              </h2>
+            </Reveal>
+            <SplitText
+              as="h2"
+              text={t('faqTitle')}
+              className={`balance mt-6 block font-display text-[length:var(--text-display)] leading-[1.02]`}
+            />
+            <Reveal delay={0.18}>
               <p className="pretty mt-6 max-w-sm text-[0.95rem] leading-relaxed text-walnut/75">{t('faqNote')}</p>
               <a
                 href={wa('Hello Heaven Furniture Mart, I have a question about your work.')}

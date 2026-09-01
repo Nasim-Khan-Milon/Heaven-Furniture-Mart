@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { range, wa } from '../data/site'
-import { ArrowIcon, Marker, Reveal } from './ui'
+import { ArrowIcon, Marker } from './ui'
+import { Reveal, SplitText, Stagger, StaggerItem, useMotionPrefs } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
 
@@ -13,19 +14,27 @@ const MODES = [
 export default function Range() {
   const { t } = useLang()
   const [mode, setMode] = useState('classic')
-  const still = useReducedMotion()
+  const { still } = useMotionPrefs()
 
   return (
     <section id="range" className="py-20 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <Reveal className="max-w-2xl">
-            <Marker>{t('rangeMarker')}</Marker>
-            <h2 className="balance mt-6 font-display text-[length:var(--text-display)] leading-[1.02]">
-              {t('rangeTitle')}
-            </h2>
-            <p className="pretty mt-6 max-w-lg text-lg leading-relaxed text-walnut/85">{t('rangeBody')}</p>
-          </Reveal>
+          <div className="max-w-2xl">
+            <Reveal>
+              <Marker>{t('rangeMarker')}</Marker>
+            </Reveal>
+            <SplitText
+              as="h2"
+              text={t('rangeTitle')}
+              className={`balance mt-6 block font-display text-[length:var(--text-display)] leading-[1.02]`}
+            />
+            <Reveal delay={0.18}>
+              <p className="pretty mt-6 max-w-lg text-lg leading-relaxed text-walnut/85">
+                {t('rangeBody')}
+              </p>
+            </Reveal>
+          </div>
 
           {/* segmented control */}
           <Reveal delay={0.1}>
@@ -62,11 +71,11 @@ export default function Range() {
           </Reveal>
         </div>
 
-        <ul className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger as="ul" className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {range.map((pair, i) => {
             const flipped = mode === 'modern'
             return (
-              <Reveal key={pair.room} delay={0.05 * i} as="li">
+              <StaggerItem key={pair.room} as="li">
                 <div style={{ perspective: 1400 }}>
                   <motion.div
                     className="relative aspect-[3/4] w-full"
@@ -87,10 +96,10 @@ export default function Range() {
                 <p className="mt-1 text-[0.85rem] leading-relaxed text-walnut/65">
                   {t(flipped ? pair.modern.label : pair.classic.label)}
                 </p>
-              </Reveal>
+              </StaggerItem>
             )
           })}
-        </ul>
+        </Stagger>
 
         <Reveal delay={0.15}>
           <a

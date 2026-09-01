@@ -1,52 +1,53 @@
-import { useEffect, useRef, useState } from 'react'
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { Reveal, Stagger, StaggerItem } from '../fx/Reveal'
+import ParallaxImage from '../fx/ParallaxImage'
+import Magnetic from '../fx/Magnetic'
+import { useMotionPrefs } from '../fx/MotionProvider'
+import { SPRING } from '../fx/config'
 
-/* ---------------------------------------------------------------- reveals */
+/* --------------------------------------------------------------- reveals */
 
-/** Quiet text entrance. Used once per section, not on every element. */
-export function Reveal({ children, delay = 0, className = '', as = 'div' }) {
-  const still = useReducedMotion()
-  const Tag = motion[as] || motion.div
-  return (
-    <Tag
-      className={className}
-      initial={still ? false : { opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </Tag>
-  )
-}
+export { Reveal, Stagger, StaggerItem }
 
 /**
- * Images rise into view behind a curtain rather than fading up — it reads like
- * a piece being uncovered in the showroom.
+ * Kept for the handful of places that wrap something other than a photograph
+ * in the curtain — a map panel, a bordered card. Photographs should use
+ * ParallaxImage, which does this plus the drift and the light sweep.
+ *
+ * The observer sits on the outer wrapper because Chromium factors an element's
+ * own clip-path into its intersection ratio; observing the clipped node would
+ * leave it stuck at zero and permanently hidden.
  */
 export function Unveil({ children, delay = 0, className = '' }) {
-  const ref = useRef(null)
-  const still = useReducedMotion()
-  const inView = useInView(ref, { once: true, amount: 0.2 })
-  const shown = still || inView
+  const { still } = useMotionPrefs()
+  const [shown, setShown] = useState(false)
+  const [node, setNode] = useState(null)
 
-  // The observer sits on the outer wrapper on purpose: Chromium factors an
-  // element's own clip-path into its intersection ratio, so observing the
-  // clipped node directly would leave it permanently hidden.
+  useEffect(() => {
+    if (!node || still) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShown(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2 },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [node, still])
+
+  const open = still || shown
+
   return (
-    <div ref={ref} className={className}>
+    <div ref={setNode} className={className}>
       <div
         className="h-full w-full"
         style={{
-          clipPath: shown ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
-          transition: still ? 'none' : `clip-path 1s cubic-bezier(0.65, 0, 0.35, 1) ${delay}s`,
+          clipPath: open ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)',
+          transition: still ? 'none' : `clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1) ${delay}s`,
         }}
       >
         {children}
@@ -55,28 +56,26 @@ export function Unveil({ children, delay = 0, className = '' }) {
   )
 }
 
-/* ------------------------------------------------------------------- 3D */
+/* -------------------------------------------------------------------- 3D */
 
 /**
- * Pointer-driven 3D tilt. Only arms itself on devices with a real hover
- * pointer, so a tap on mobile never leaves a card stuck at an angle.
+ * Pointer-driven tilt with a specular highlight that tracks the pointer, so a
+ * card catches light the way a polished surface would rather than just leaning.
  */
-export function Tilt({ children, className = '', max = 9, lift = 14 }) {
-  const still = useReducedMotion()
-  const [hoverable, setHoverable] = useState(false)
+export function Tilt({ children, className = '', max = 9, lift = 14, glare = true }) {
+  const { fine } = useMotionPrefs()
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
-  const spring = { stiffness: 170, damping: 20, mass: 0.6 }
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [max, -max]), spring)
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-max, max]), spring)
-  const z = useSpring(useMotionValue(0), spring)
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [max, -max]), SPRING)
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-max, max]), SPRING)
+  const z = useSpring(useMotionValue(0), SPRING)
 
-  useEffect(() => {
-    setHoverable(window.matchMedia('(hover: hover) and (pointer: fine)').matches)
-  }, [])
+  const glareX = useTransform(x, [-0.5, 0.5], ['0%', '100%'])
+  const glareY = useTransform(y, [-0.5, 0.5], ['0%', '100%'])
+  const glareOpacity = useSpring(useMotionValue(0), SPRING)
 
-  if (still || !hoverable) return <div className={className}>{children}</div>
+  if (!fine) return <div className={className}>{children}</div>
 
   const onMove = (event) => {
     const box = event.currentTarget.getBoundingClientRect()
@@ -89,18 +88,34 @@ export function Tilt({ children, className = '', max = 9, lift = 14 }) {
       className={className}
       style={{ perspective: 1000 }}
       onPointerMove={onMove}
-      onPointerEnter={() => z.set(lift)}
+      onPointerEnter={() => {
+        z.set(lift)
+        glareOpacity.set(1)
+      }}
       onPointerLeave={() => {
         x.set(0)
         y.set(0)
         z.set(0)
+        glareOpacity.set(0)
       }}
     >
       <motion.div
         style={{ rotateX, rotateY, z, transformStyle: 'preserve-3d' }}
-        className="h-full w-full"
+        className="relative h-full w-full"
       >
         {children}
+        {glare && (
+          <motion.span
+            aria-hidden="true"
+            style={{
+              opacity: glareOpacity,
+              background: 'radial-gradient(circle at var(--gx) var(--gy), rgba(217,162,39,0.22), transparent 58%)',
+              '--gx': glareX,
+              '--gy': glareY,
+            }}
+            className="pointer-events-none absolute inset-0 rounded-[inherit]"
+          />
+        )}
       </motion.div>
     </div>
   )
@@ -108,15 +123,10 @@ export function Tilt({ children, className = '', max = 9, lift = 14 }) {
 
 /* ------------------------------------------------------------ arch frames */
 
-const shapes = {
-  full: 'arch',
-  soft: 'arch-soft',
-  low: 'arch-low',
-}
-
 /**
- * The arch motif: borrowed from the crowns of Heaven's display cabinets and
- * the curved headboards on their beds.
+ * The arch motif: taken from the crowns of Heaven's display cabinets and the
+ * curved headboards on their beds. Delegates to ParallaxImage so every framed
+ * photograph on the page reveals and drifts identically.
  */
 export function ArchImage({
   src,
@@ -127,62 +137,86 @@ export function ArchImage({
   className = '',
   imgClassName = '',
   priority = false,
+  drift = 7,
+  delay = 0,
 }) {
   return (
-    <div className={`relative overflow-hidden bg-sand ${shapes[shape]} ${className}`}>
-      <img
-        src={src}
-        alt={alt}
-        width={w}
-        height={h}
-        loading={priority ? 'eager' : 'lazy'}
-        fetchPriority={priority ? 'high' : 'auto'}
-        decoding="async"
-        className={`h-full w-full object-cover ${imgClassName}`}
-      />
-    </div>
+    <ParallaxImage
+      src={src}
+      alt={alt}
+      w={w}
+      h={h}
+      shape={shape}
+      className={className}
+      imgClassName={imgClassName}
+      priority={priority}
+      drift={drift}
+      delay={delay}
+    />
   )
 }
 
 /* ---------------------------------------------------------------- buttons */
 
 const base =
-  'inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[0.95rem] font-medium tracking-wide transition-all duration-300 rounded-full'
+  'group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full px-7 py-3.5 text-[0.95rem] font-medium tracking-wide transition-colors duration-500'
 
-export function GoldButton({ href, children, className = '', ...rest }) {
+/** The wipe that fills a button from its lower edge on hover. */
+function Fill({ className }) {
   return (
-    <a
-      href={href}
-      className={`${base} bg-gold text-forest-deep hover:bg-gold-deep hover:text-ivory ${className}`}
-      {...rest}
-    >
-      {children}
-    </a>
+    <span
+      aria-hidden="true"
+      className={`absolute inset-0 origin-bottom scale-y-0 rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100 ${className}`}
+    />
   )
 }
 
-export function GhostButton({ href, children, dark = false, className = '', ...rest }) {
-  const tone = dark
-    ? 'border-ivory/35 text-ivory hover:border-gold hover:text-gold'
-    : 'border-walnut/30 text-walnut hover:border-ink hover:text-ink'
-  return (
-    <a href={href} className={`${base} border ${tone} ${className}`} {...rest}>
-      {children}
+export function GoldButton({ href, children, className = '', magnetic = false, ...rest }) {
+  const button = (
+    <a
+      href={href}
+      className={`${base} bg-gold text-forest-deep hover:text-ivory ${className}`}
+      {...rest}
+    >
+      <Fill className="bg-gold-deep" />
+      <span className="relative flex items-center gap-2.5">{children}</span>
     </a>
   )
+  return magnetic ? <Magnetic>{button}</Magnetic> : button
+}
+
+export function GhostButton({ href, children, dark = false, className = '', magnetic = false, ...rest }) {
+  const tone = dark
+    ? 'border-ivory/35 text-ivory hover:text-forest-deep'
+    : 'border-walnut/30 text-walnut hover:text-ivory'
+  const button = (
+    <a href={href} className={`${base} border ${tone} ${className}`} {...rest}>
+      <Fill className={dark ? 'bg-gold' : 'bg-forest'} />
+      <span className="relative flex items-center gap-2.5">{children}</span>
+    </a>
+  )
+  return magnetic ? <Magnetic>{button}</Magnetic> : button
 }
 
 /* ----------------------------------------------------------------- labels */
 
 /** Small section marker. Sentence case on purpose — no shouty all-caps. */
 export function Marker({ children, dark = false, className = '' }) {
+  const { still } = useMotionPrefs()
   return (
     <p
       className={`flex items-center gap-3 text-[0.8rem] font-medium tracking-[0.12em] ${
         dark ? 'text-gold' : 'text-gold-deep'
       } ${className}`}
     >
-      <span className="inline-block h-[5px] w-[5px] rotate-45 bg-current" />
+      <motion.span
+        aria-hidden="true"
+        className="inline-block h-[5px] w-[5px] bg-current"
+        initial={still ? false : { rotate: 0, scale: 0 }}
+        whileInView={{ rotate: 45, scale: 1 }}
+        viewport={{ once: true, amount: 0.8 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      />
       {children}
     </p>
   )

@@ -1,5 +1,6 @@
 import { showroomLiving } from '../data/site'
-import { ArchImage, Marker, Reveal, Unveil } from './ui'
+import { ArchImage, Marker } from './ui'
+import { Reveal, SplitText, Stagger, StaggerItem } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
 
@@ -19,10 +20,12 @@ export default function Studio() {
           <div className="lg:col-span-5">
             <Reveal>
               <Marker>{t('studioMarker')}</Marker>
-              <h2 className="balance mt-6 font-display text-[length:var(--text-display)] leading-[1.02]">
-                {t('studioTitle')}
-              </h2>
             </Reveal>
+            <SplitText
+              as="h2"
+              text={t('studioTitle')}
+              className={`balance mt-6 block font-display text-[length:var(--text-display)] leading-[1.02]`}
+            />
 
             <Reveal delay={0.1}>
               <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-walnut/85">
@@ -30,31 +33,30 @@ export default function Studio() {
               </p>
             </Reveal>
 
-            <dl className="mt-12 divide-y divide-walnut/15 border-y border-walnut/15">
-              {facts.map((fact, i) => (
-                <Reveal key={t(fact.big)} delay={0.05 * i}>
+            <Stagger as="dl" className="mt-12 divide-y divide-walnut/15 border-y border-walnut/15">
+              {facts.map((fact) => (
+                <StaggerItem key={t(fact.big)}>
                   <div className="flex items-baseline gap-6 py-5">
                     <dt className="w-32 shrink-0 font-display text-2xl text-forest sm:text-3xl">
                       {t(fact.big)}
                     </dt>
                     <dd className="text-[0.95rem] leading-relaxed text-walnut/75">{t(fact.small)}</dd>
                   </div>
-                </Reveal>
+                </StaggerItem>
               ))}
-            </dl>
+            </Stagger>
           </div>
 
           <div className="lg:col-span-7">
-            <Unveil>
-              <ArchImage
-                src={showroomLiving}
-                alt="Carved living room set on display in the Agrabad showroom"
-                w={1448}
-                h={1086}
-                shape="low"
-                className="aspect-[4/3] w-full"
-              />
-            </Unveil>
+            <ArchImage
+              src={showroomLiving}
+              alt="Carved living room set on display in the Agrabad showroom"
+              w={1448}
+              h={1086}
+              shape="low"
+              drift={9}
+              className="aspect-[4/3] w-full"
+            />
             <Reveal delay={0.12}>
               <p className="mt-4 max-w-md text-[0.85rem] leading-relaxed text-walnut/60">
                 {t('studioCaption')}
