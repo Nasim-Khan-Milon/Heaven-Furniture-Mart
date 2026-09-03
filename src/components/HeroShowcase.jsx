@@ -39,7 +39,9 @@ export default function HeroShowcase({ play = true }) {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="arch relative flex aspect-[9/10] w-full items-end justify-center overflow-hidden bg-gradient-to-b from-linen via-linen to-sand">
+      {/* <div className="arch relative flex aspect-[9/10] w-full items-end justify-center overflow-hidden bg-gradient-to-b from-linen via-linen to-sand"> */}
+      <div className="arch relative flex aspect-[9/10] w-full items-end justify-center overflow-hidden bg-transparent">
+      {/* <div className="relative flex aspect-[9/10] w-full items-end justify-center"> */}
         {/* the light in the alcove, breathing very slowly */}
         <motion.div
           aria-hidden="true"
