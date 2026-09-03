@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { diningMarble, materials } from '../data/site'
-import { ArchImage, Marker, Tilt } from './ui'
+import { ArchImage, Layer, Marker, Tilt } from './ui'
 import { useLang } from '../i18n/LanguageContext'
 import { Reveal, SplitText, Stagger, StaggerItem, useMotionPrefs } from '../fx'
 
@@ -57,9 +57,10 @@ export default function Materials() {
                 <StaggerItem key={material.name} as="li" y={22}>
                   <Tilt max={12} lift={22} glare={false} className="h-full">
                     <div className="group flex h-full flex-col rounded-xl border border-walnut/15 bg-linen/40 p-4 transition-colors duration-500 hover:border-gold/60">
+                      <Layer z={40} className="w-full">
                       <span
                         aria-hidden="true"
-                        className="relative block h-14 w-full overflow-hidden rounded-lg shadow-sm"
+                        className="relative block h-14 w-full overflow-hidden rounded-lg shadow-md"
                         style={{ background: material.swatch }}
                       >
                         {!still && (
@@ -72,10 +73,13 @@ export default function Materials() {
                           />
                         )}
                       </span>
-                      <span className="mt-3 font-display text-lg text-ink">{t(material.name)}</span>
-                      <span className="mt-0.5 text-[0.8rem] leading-snug text-walnut/65">
-                        {t(material.note)}
-                      </span>
+                      </Layer>
+                      <Layer z={18}>
+                        <span className="mt-3 block font-display text-lg text-ink">{t(material.name)}</span>
+                        <span className="mt-0.5 block text-[0.8rem] leading-snug text-walnut/65">
+                          {t(material.note)}
+                        </span>
+                      </Layer>
                     </div>
                   </Tilt>
                 </StaggerItem>

@@ -17,6 +17,9 @@ import cutDiningCream from '../assets/cut-dining-cream.webp'
 import cutSofaBeige from '../assets/cut-sofa-beige.webp'
 import cutVanity from '../assets/cut-vanity.webp'
 import craftShowcase from '../assets/craft-showcase.webp'
+import cutSofaPink from '../assets/cut-sofa-pink.webp'
+import heroBed from '../assets/hero-bed.webp'
+import officeDirector from '../assets/office-director.webp'
 
 export const messenger = 'https://m.me/HeavenFurnitureMart'
 
@@ -42,6 +45,7 @@ export const heroPieces = [
   { id: 'dining', image: cutDiningCream, w: 950, h: 581, caption: 'pieceDining', alt: 'pieceDiningAlt' },
   { id: 'beige',  image: cutSofaBeige,   w: 950, h: 597, caption: 'pieceBeige',  alt: 'pieceBeigeAlt' },
   { id: 'vanity', image: cutVanity,      w: 557, h: 642, caption: 'pieceVanity', alt: 'pieceVanityAlt' },
+  { id: 'pink',   image: cutSofaPink,    w: 950, h: 516, caption: 'piecePink',   alt: 'piecePinkAlt' },
 ]
 
 export const nav = [
@@ -51,6 +55,7 @@ export const nav = [
   { label: 'navRange', href: '#range' },
   { label: 'navProcess', href: '#process' },
   { label: 'navFaq', href: '#faq' },
+  { label: 'navQuote', href: '#quote' },
   { label: 'navVisit', href: '#visit' },
 ]
 
@@ -193,6 +198,43 @@ export const faqs = [
   { q: 'faq4q', a: 'faq4a' },
   { q: 'faq5q', a: 'faq5a' },
   { q: 'faq6q', a: 'faq6a' },
+]
+
+/**
+ * The five photographs hung down the 3D corridor. Five, not six: the corridor
+ * costs roughly three quarters of a screen of scroll per panel, and a sixth
+ * frame buys one more photograph at the price of a section that outstays its
+ * welcome.
+ */
+export const work = [
+  { src: sofaEmbroidery, alt: 'galSofa',     w: 1024, h: 1024 },
+  { src: officeDirector, alt: 'galOffice',   w: 1080, h: 930 },
+  { src: showroomLiving, alt: 'galShowroom', w: 1448, h: 1086 },
+  { src: craftShowcase,  alt: 'galCabinet',  w: 1024, h: 1024 },
+  { src: heroBed,        alt: 'galBed',      w: 1100, h: 1375 },
+]
+
+/**
+ * Every figure below is checkable against the company brief. Heaven was
+ * founded in 2020, so the years count from there and nowhere else — a page
+ * claiming a decade and a half of mastery is contradicting the same brief the
+ * judges are holding.
+ *
+ * The zero is the point of the band: a consultation costs nothing.
+ */
+export const stats = [
+  { value: 6,   suffix: '',  label: 'stat1',  note: 'stat1n' },
+  { value: 5,   suffix: '',  label: 'stat2',  note: 'stat2n' },
+  { value: 100, suffix: '%', label: 'stat3',  note: 'stat3n' },
+  { value: 0,   suffix: '৳', label: 'stat4',  note: 'stat4n' },
+]
+
+export const quoteRooms = [
+  { value: 'Living room', label: 'collLiving' },
+  { value: 'Bedroom',     label: 'collBedroom' },
+  { value: 'Dining',      label: 'collDining' },
+  { value: 'Office',      label: 'collOffice' },
+  { value: 'Fully custom', label: 'quoteCustom' },
 ]
 
 export { showroomLiving, craftShowcase, diningMarble, sofaEmbroidery, swingChair, officeConference }

@@ -5,7 +5,7 @@ import { useLang } from '../i18n/LanguageContext'
 import HeroShowcase from './HeroShowcase'
 import MeasureOverlay from './MeasureOverlay'
 import { ArrowIcon, MessengerIcon, WhatsAppIcon } from './ui'
-import { DustMotes, EASE, Magnetic, SplitText, useMotionPrefs } from '../fx'
+import { DustMotes, EASE, EASE_INOUT, Magnetic, SplitText, useMotionPrefs } from '../fx'
 
 const HEADLINE = [
   { key: 'heroLine1' },
@@ -77,7 +77,20 @@ export default function Hero() {
             {t('heroEyebrow')}
           </motion.p>
 
-          <h1 className="mt-6 font-display text-[length:var(--text-hero)] leading-[0.92] text-ink">
+          {/* One pass of low gold light across the type as it settles. Once,
+              not on a loop — a headline that keeps shimmering is a headline
+              nobody finishes reading. */}
+          <div className="relative mt-6 overflow-hidden">
+            {!still && (
+              <motion.span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 -left-1/2 z-10 w-1/2 skew-x-[-12deg] bg-gradient-to-r from-transparent via-gold/25 to-transparent"
+                initial={{ x: '0%', opacity: 0 }}
+                animate={ready ? { x: '340%', opacity: [0, 1, 0] } : {}}
+                transition={{ duration: 1.9, delay: 1.05, ease: EASE_INOUT }}
+              />
+            )}
+            <h1 className="font-display text-[length:var(--text-hero)] leading-[0.92] text-ink">
             {HEADLINE.map((row, r) => (
               <SplitText
                 key={row.key}
@@ -91,8 +104,9 @@ export default function Hero() {
                 className="block"
                 wordClassName={row.italic ? 'italic text-forest' : ''}
               />
-            ))}
-          </h1>
+              ))}
+            </h1>
+          </div>
 
           <motion.p
             {...line(0.62)}
@@ -151,8 +165,47 @@ export default function Hero() {
             <motion.div
               aria-hidden="true"
               style={{ y: outlineY }}
-              className="arch pointer-events-none absolute inset-0 hidden translate-x-5 -translate-y-6 border border-gold/40 lg:block"
-            />
+              className="pointer-events-none absolute top-0 left-0 hidden aspect-[9/10] w-full translate-x-5 -translate-y-6 lg:block"
+            >
+              {/*
+                The same arch as before, drawn rather than declared. A CSS
+                border cannot be stroked on progressively; an SVG path can, so
+                the outline traces itself up one side, over the crown and down
+                the other in a single continuous stroke — the same gesture as
+                the dimension line under the photograph, which is the point.
+
+                `preserveAspectRatio="none"` lets the path fill whatever box it
+                is given, exactly as the border-radius version did, and
+                `vectorEffect="non-scaling-stroke"` keeps the hairline even
+                after that stretch. Both match MeasureOverlay.
+
+                The box is the alcove's own 9/10, not `inset-0`. Spanning the
+                whole column made the stroke close straight across the caption
+                underneath — invisible as a faint CSS border, obvious once the
+                line draws itself.
+              */}
+              <svg
+                viewBox="0 0 90 100"
+                preserveAspectRatio="none"
+                className="h-full w-full"
+                fill="none"
+                stroke="var(--color-gold)"
+                strokeOpacity="0.45"
+                strokeWidth="1"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              >
+                <motion.path
+                  d="M0.5 99.5 L0.5 45 A44.5 44.5 0 0 1 89.5 45 L89.5 99.5 Z"
+                  initial={still ? false : { pathLength: 0, opacity: 0 }}
+                  animate={ready ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{
+                    pathLength: { duration: 2.1, delay: 0.55, ease: EASE },
+                    opacity: { duration: 0.4, delay: 0.55 },
+                  }}
+                />
+              </svg>
+            </motion.div>
 
             <motion.div style={{ y: frameY }} className="relative">
               <motion.div

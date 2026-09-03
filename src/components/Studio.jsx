@@ -4,8 +4,9 @@ import { Reveal, SplitText, Stagger, StaggerItem } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
 
+// The founding year lives in the stats band immediately below this section;
+// stating it twice in two hundred pixels reads as a page repeating itself.
 const facts = [
-  { big: '2020', small: 'fact1' },
   { big: 'fact2Big', small: 'fact2' },
   { big: 'fact3Big', small: 'fact3' },
 ]

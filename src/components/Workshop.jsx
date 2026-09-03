@@ -7,8 +7,20 @@ import diningMarble from '../assets/dining-marble.webp'
 import storageCabinet from '../assets/storage-cabinet.webp'
 import { useLang } from '../i18n/LanguageContext'
 import { Marker } from './ui'
-import { Reveal, SCROLL_SPRING, SplitText, useMotionPrefs } from '../fx'
+import { Reveal, SCROLL_SPRING, SplitText, Video, useMotionPrefs } from '../fx'
 
+/**
+ * Each stage may carry a `video`. Drop an .mp4 into `src/assets/`, import it,
+ * add it to the entry, and that panel plays the clip with the photograph as
+ * its poster — on capable devices only. Leave it off and the panel stays a
+ * photograph, which is what ships today.
+ *
+ *   import carving from '../assets/carving.mp4'
+ *   { image: craftShowcase, video: carving, w: 1024, h: 1024, ... }
+ *
+ * Keep clips short, silent and under about 3 MB. Heaven's own YouTube and
+ * Facebook carry workshop footage; the brief says to go and take it.
+ */
 const PANELS = [
   { image: craftShowcase, w: 1024, h: 1024, title: 'shop1', body: 'shop1b', step: 'shop1s' },
   { image: classicArmchairs, w: 1000, h: 1333, title: 'shop2', body: 'shop2b', step: 'shop2s' },
@@ -149,14 +161,13 @@ function Panel({ panel, index, progress, count }) {
       className="w-[62vw] shrink-0 sm:w-[46vw] lg:w-[clamp(17rem,31vw,44vh)]"
     >
       <div className="arch-soft relative aspect-[4/5] w-full overflow-hidden bg-forest-soft">
-        <img
-          src={panel.image}
+        <Video
+          src={panel.video}
+          poster={panel.image}
           alt={t(panel.title)}
-          width={panel.w}
-          height={panel.h}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover"
+          w={panel.w}
+          h={panel.h}
+          className="h-full w-full"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-deep/70 via-transparent to-transparent" />
         <span className="absolute bottom-5 left-6 font-display text-sm tracking-[0.14em] text-gold">
@@ -173,38 +184,73 @@ function Panel({ panel, index, progress, count }) {
 
 /* ---------------------------------------------------------------- mobile */
 
+/**
+ * The mobile rail. Flat is not the same as dead.
+ *
+ * Pinning still has no place on a touchscreen — it fights the address bar and
+ * wins nothing on a surface that already scrolls sideways. But the desktop
+ * rail's actual *idea* is that one stage holds your attention at a time, and
+ * that idea survives the change of input perfectly well. Each panel lifts and
+ * brightens as it reaches the middle of the rail and settles back as it
+ * leaves, exactly as on desktop — driven here by the rail's own horizontal
+ * scroll rather than by the page's vertical scroll.
+ */
 function SwipeRail({ panels }) {
-  const { t } = useLang()
+  const rail = useRef(null)
   return (
     <div
+      ref={rail}
       className="no-scrollbar mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-2 sm:px-8"
-      data-cursor="drag"
     >
       {panels.map((panel) => (
-        <figure key={panel.title} className="w-[76vw] shrink-0 snap-start sm:w-[44vw]">
-          <div className="arch-soft relative aspect-[4/5] w-full overflow-hidden bg-forest-soft">
-            <img
-              src={panel.image}
-              alt={t(panel.title)}
-              width={panel.w}
-              height={panel.h}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-deep/70 via-transparent to-transparent" />
-            <span className="absolute bottom-5 left-6 font-display text-sm tracking-[0.14em] text-gold">
-              {t(panel.step)}
-            </span>
-          </div>
-          <figcaption className="mt-5">
-            <h3 className="font-display text-xl text-ivory">{t(panel.title)}</h3>
-            <p className="pretty mt-2 text-[0.9rem] leading-relaxed text-ivory/65">
-              {t(panel.body)}
-            </p>
-          </figcaption>
-        </figure>
+        <SwipePanel key={panel.title} panel={panel} container={rail} />
       ))}
     </div>
+  )
+}
+
+function SwipePanel({ panel, container }) {
+  const { t } = useLang()
+  const { still } = useMotionPrefs()
+  const ref = useRef(null)
+
+  // Tracked against the rail, not the window: `container` is what makes the
+  // progress follow a sideways swipe instead of the page scrolling past.
+  const { scrollXProgress } = useScroll({
+    target: ref,
+    container,
+    axis: 'x',
+    offset: ['start end', 'end start'],
+  })
+  const eased = useSpring(scrollXProgress, SCROLL_SPRING)
+
+  const y = useTransform(eased, [0, 0.5, 1], [26, 0, 26])
+  const opacity = useTransform(eased, [0, 0.5, 1], [0.45, 1, 0.45])
+
+  return (
+    <motion.figure
+      ref={ref}
+      style={still ? undefined : { y, opacity }}
+      className="w-[76vw] shrink-0 snap-start sm:w-[44vw]"
+    >
+      <div className="arch-soft relative aspect-[4/5] w-full overflow-hidden bg-forest-soft">
+        <Video
+          src={panel.video}
+          poster={panel.image}
+          alt={t(panel.title)}
+          w={panel.w}
+          h={panel.h}
+          className="h-full w-full"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-deep/70 via-transparent to-transparent" />
+        <span className="absolute bottom-5 left-6 font-display text-sm tracking-[0.14em] text-gold">
+          {t(panel.step)}
+        </span>
+      </div>
+      <figcaption className="mt-5">
+        <h3 className="font-display text-xl text-ivory">{t(panel.title)}</h3>
+        <p className="pretty mt-2 text-[0.9rem] leading-relaxed text-ivory/65">{t(panel.body)}</p>
+      </figcaption>
+    </motion.figure>
   )
 }

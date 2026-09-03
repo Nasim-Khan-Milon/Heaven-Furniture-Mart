@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { LanguageProvider } from './i18n/LanguageContext'
-import { AmbientLight, Cursor, Grain, MotionProvider, Preloader, ScrollRail } from './fx'
+import { AmbientLight, Grain, MotionProvider, Preloader, ScrollRail } from './fx'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Reassure from './components/Reassure'
 import Studio from './components/Studio'
 import WhyHeaven from './components/WhyHeaven'
+import Stats from './components/Stats'
 import Collections from './components/Collections'
 import Bespoke from './components/Bespoke'
 import Range from './components/Range'
@@ -16,8 +17,9 @@ import Styling from './components/Styling'
 import Marquee from './components/Marquee'
 import Process from './components/Process'
 import Story from './components/Story'
-import Gallery from './components/Gallery'
+import Showroom3D from './components/Showroom3D'
 import Faq from './components/Faq'
+import Quote from './components/Quote'
 import Visit from './components/Visit'
 import MobileBar from './components/MobileBar'
 
@@ -62,7 +64,6 @@ export default function App() {
       <MotionProvider>
         <SmoothScroll />
         <Preloader />
-        {/* <Cursor /> */}
         <Grain />
         <AmbientLight />
         <ScrollRail />
@@ -72,6 +73,7 @@ export default function App() {
           <Hero />
           <Reassure />
           <Studio />
+          <Stats />
           <WhyHeaven />
           <Collections />
           <Bespoke />
@@ -82,8 +84,9 @@ export default function App() {
           <Marquee />
           <Process />
           <Story />
-          <Gallery />
+          <Showroom3D />
           <Faq />
+          <Quote />
         </main>
         <Visit />
         <MobileBar />

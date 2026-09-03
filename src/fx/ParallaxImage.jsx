@@ -20,7 +20,15 @@ const SHAPES = {
  *
  * The drift is the part that does the real work. A photo pinned to its frame
  * reads as a sticker; a photo that lags behind its frame reads as something
- * seen through an opening. That is the whole illusion the page is built on.
+ * seen through an opening.
+ *
+ * POSITIONING — the drift is applied to a wrapper that is *scaled up* and
+ * pinned to `inset-0`, never to an image offset by a negative percentage top.
+ * A percentage `top` resolves against the containing block's height, but a
+ * percentage `margin` resolves against its *width*; mixing the two is what
+ * makes a frame render at the right size with the photograph sitting off its
+ * centre. Overscan is `1 + drift/50`, so the travel can never expose an edge
+ * however far the frame is driven.
  *
  * The intersection observer deliberately sits on the *outer* wrapper. Chromium
  * folds an element's own clip-path into its intersection ratio, so observing
@@ -34,12 +42,15 @@ export default function ParallaxImage({
   shape = 'soft',
   className = '',
   imgClassName = '',
+  frameClassName = '',
   priority = false,
-  /** Drift distance as a percentage of the image's own height. */
+  /** Drift distance as a percentage of the frame's own height. */
   drift = 7,
   zoom = 1.13,
   delay = 0,
   sheen = true,
+  /** Which part of the photograph to keep when the crop is tight. */
+  focus = 'center',
 }) {
   const outer = useRef(null)
   const { still } = useMotionPrefs()
@@ -52,6 +63,9 @@ export default function ParallaxImage({
   })
   const y = useTransform(scrollYProgress, [0, 1], [`-${drift}%`, `${drift}%`])
 
+  // Enough overscan that the drift never pulls an edge into frame.
+  const overscan = 1 + drift / 50
+
   return (
     <div ref={outer} className={className}>
       <div
@@ -62,20 +76,35 @@ export default function ParallaxImage({
         }}
       >
         <div className={`relative h-full w-full overflow-hidden bg-sand ${SHAPES[shape]}`}>
-          <motion.img
-            src={src}
-            alt={alt}
-            width={w}
-            height={h}
-            loading={priority ? 'eager' : 'lazy'}
-            fetchPriority={priority ? 'high' : 'auto'}
-            decoding="async"
-            className={`absolute -top-[10%] left-0 h-[120%] w-full object-cover will-change-transform ${imgClassName}`}
-            style={still ? undefined : { y }}
-            initial={still ? false : { scale: zoom }}
-            animate={open ? { scale: 1 } : { scale: zoom }}
-            transition={{ duration: 1.5, delay: delay + 0.1, ease: EASE }}
-          />
+          <motion.div
+            className="absolute inset-0 will-change-transform"
+            style={still ? undefined : { y, scale: overscan }}
+          >
+            {/*
+              `frameClassName` lands on this plain div rather than on the image.
+              Framer writes an inline `transform` onto anything it animates, and
+              an inline transform beats a Tailwind utility class — so a
+              `group-hover:scale-*` applied to the image itself silently does
+              nothing. Giving the hover its own untouched layer is what makes it
+              work at all.
+            */}
+            <div className={`h-full w-full ${frameClassName}`}>
+              <motion.img
+                src={src}
+                alt={alt}
+                width={w}
+                height={h}
+                loading={priority ? 'eager' : 'lazy'}
+                fetchPriority={priority ? 'high' : 'auto'}
+                decoding="async"
+                className={`h-full w-full object-cover ${imgClassName}`}
+                style={{ objectPosition: focus }}
+                initial={still ? false : { scale: zoom }}
+                animate={open ? { scale: 1 } : { scale: zoom }}
+                transition={{ duration: 1.5, delay: delay + 0.1, ease: EASE }}
+              />
+            </div>
+          </motion.div>
 
           {sheen && !still && (
             <motion.div

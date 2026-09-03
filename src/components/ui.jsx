@@ -121,6 +121,30 @@ export function Tilt({ children, className = '', max = 9, lift = 14, glare = tru
   )
 }
 
+/**
+ * A child of `Tilt` that sits forward of, or behind, the card's own surface.
+ *
+ * A tilt on its own is a flat rectangle being rotated — convincing for about
+ * half a second. What sells it as depth is *parallax between its parts*: when
+ * the number and the heading sit 30–50px in front of the panel they slide
+ * across it as the card turns, which is the cue the eye actually reads as
+ * three-dimensional.
+ *
+ * Harmless outside a perspective context — `translateZ` with no perspective
+ * ancestor resolves to no visual change — so it is safe on touch, where `Tilt`
+ * renders a plain div.
+ */
+export function Layer({ z = 0, children, className = '' }) {
+  return (
+    <div
+      className={className}
+      style={{ transform: `translateZ(${z}px)`, transformStyle: 'preserve-3d' }}
+    >
+      {children}
+    </div>
+  )
+}
+
 /* ------------------------------------------------------------ arch frames */
 
 /**
@@ -136,6 +160,7 @@ export function ArchImage({
   shape = 'soft',
   className = '',
   imgClassName = '',
+  frameClassName = '',
   priority = false,
   drift = 7,
   delay = 0,
@@ -149,6 +174,7 @@ export function ArchImage({
       shape={shape}
       className={className}
       imgClassName={imgClassName}
+      frameClassName={frameClassName}
       priority={priority}
       drift={drift}
       delay={delay}

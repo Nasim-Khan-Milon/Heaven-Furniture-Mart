@@ -19,6 +19,7 @@ export const strings = {
   navRange: { en: 'Range', bn: 'ডিজাইন' },
   navProcess: { en: 'How we work', bn: 'কীভাবে কাজ হয়' },
   navFaq: { en: 'FAQ', bn: 'সাধারণ প্রশ্ন' },
+  navQuote: { en: 'Get a quote', bn: 'দরদাম' },
   navVisit: { en: 'Visit us', bn: 'শোরুম' },
 
   ctaBook: { en: 'Book a consultation', bn: 'ফ্রি পরামর্শ নিন' },
@@ -57,6 +58,9 @@ export const strings = {
   pieceBeigeAlt: { en: 'Beige classic sofa set', bn: 'বেইজ রঙের ক্লাসিক সোফা সেট' },
   pieceVanity: { en: 'Matte black vanity with lit mirror', bn: 'কালো ড্রেসিং টেবিল ও লাইট মিরর' },
   pieceVanityAlt: { en: 'Black vanity dresser with round lit mirror', bn: 'গোল লাইট মিররসহ কালো ড্রেসিং টেবিল' },
+
+  piecePink: { en: 'Blush velvet sofa on a carved gilt frame', bn: 'সোনালি কারুকাজের ফ্রেমে হালকা গোলাপি ভেলভেট সোফা' },
+  piecePinkAlt: { en: 'Pink velvet sofa with carved gilded wooden frame', bn: 'কারুকাজ করা সোনালি কাঠের ফ্রেমে গোলাপি ভেলভেট সোফা' },
 
   // -------------------------------------------------------------- reassure
   reassureTitle: {
@@ -342,6 +346,11 @@ export const strings = {
   galCabinet: { en: 'Carved and glazed display cabinet', bn: 'কারুকাজ ও কাঁচের শোকেস' },
   galBed: { en: 'Carved bed with upholstered headboard', bn: 'কারুকাজের খাট ও গদির হেডবোর্ড' },
   galSet: { en: 'Cream dining set with carved chairs', bn: 'ক্রিম রঙের ডাইনিং সেট' },
+  galOffice: { en: 'Executive desk and seating in solid wood', bn: 'শক্ত কাঠের অফিস ডেস্ক ও চেয়ার' },
+  walkNote: {
+    en: 'Scroll to walk the room. Every piece here was built for a real Chattogram home.',
+    bn: 'স্ক্রল করে ঘরটা ঘুরে দেখুন। এখানকার প্রতিটি আসবাব চট্টগ্রামের সত্যিকারের কোনো বাসার জন্য বানানো।',
+  },
 
   // ------------------------------------------------------------------ faq
   faqMarker: { en: 'Before you ask', bn: 'জিজ্ঞাসার আগে' },
@@ -460,6 +469,56 @@ export const strings = {
     en: 'Finished pieces go onto the Agrabad floor, where you can sit on them before anything is delivered.',
     bn: 'তৈরি আসবাব আগ্রাবাদের শোরুমে ওঠে — ডেলিভারির আগে এসে বসে দেখে নিতে পারবেন।',
   },
+
+  // ---------------------------------------------------------------- stats
+  stat1: { en: 'Years in Chattogram', bn: 'বছর চট্টগ্রামে' },
+  stat1n: { en: 'Founded in 2020 by Abul Kalam Bhuiyan.', bn: '২০২০ সালে আবুল কালাম ভূঁইয়ার হাতে শুরু।' },
+
+  stat2: { en: 'Rooms we build for', bn: 'যে ঘরগুলোর জন্য বানাই' },
+  stat2n: {
+    en: 'Living, bedroom, dining, office — and anything custom.',
+    bn: 'বসার ঘর, শোবার ঘর, ডাইনিং, অফিস — আর যেকোনো কাস্টম কাজ।',
+  },
+
+  stat3: { en: 'Made to order', bn: 'অর্ডারে তৈরি' },
+  stat3n: {
+    en: 'Nothing is pulled off a shelf. Every piece is built to your space.',
+    bn: 'তাক থেকে কিছু নামিয়ে দেওয়া হয় না। প্রতিটি আসবাব আপনার জায়গা মেপে বানানো।',
+  },
+
+  stat4: { en: 'For a design consultation', bn: 'ডিজাইন পরামর্শের খরচ' },
+  stat4n: {
+    en: 'Come in, talk it through, take the drawing home. No obligation.',
+    bn: 'আসুন, কথা বলুন, ডিজাইন নিয়ে যান। কেনার কোনো বাধ্যবাধকতা নেই।',
+  },
+
+  statsFootnote: {
+    en: 'Every figure here comes from Heaven Furniture Mart’s own company brief — nothing on this page is rounded up.',
+    bn: 'এখানকার প্রতিটি সংখ্যা হেভেন ফার্নিচার মার্টের নিজস্ব তথ্য থেকে নেওয়া — কিছুই বাড়িয়ে বলা হয়নি।',
+  },
+
+  // ---------------------------------------------------------------- quote
+  quoteMarker: { en: 'Request a quote', bn: 'দরদাম জানুন' },
+  quoteTitle: { en: 'Tell us the room. We’ll tell you what’s possible.', bn: 'ঘরটার কথা বলুন। কী করা যায় আমরা জানাব।' },
+  quoteBody: {
+    en: 'Fill this in and it opens WhatsApp with your details already written. Nothing is stored on this page and nobody will call you out of the blue — you send the first message, so you decide when the conversation starts.',
+    bn: 'এটা পূরণ করলে আপনার তথ্যসহ হোয়াটসঅ্যাপ মেসেজ লেখা হয়ে খুলে যাবে। এই পেজে কিছু জমা থাকে না, হুট করে কেউ ফোনও দেবে না — প্রথম মেসেজটা আপনি পাঠাবেন, তাই কথা কখন শুরু হবে সেটা আপনার সিদ্ধান্ত।',
+  },
+  quoteImageAlt: { en: 'Hanging cane swing chair made by Heaven Furniture Mart', bn: 'হেভেন ফার্নিচার মার্টের তৈরি ঝুলন্ত বেতের দোলনা চেয়ার' },
+  quoteName: { en: 'Your name', bn: 'আপনার নাম' },
+  quoteNamePlaceholder: { en: 'Full name', bn: 'পুরো নাম' },
+  quotePhone: { en: 'Phone or WhatsApp number', bn: 'ফোন বা হোয়াটসঅ্যাপ নম্বর' },
+  quoteRoom: { en: 'What are you furnishing?', bn: 'কোন ঘরের জন্য?' },
+  quoteCustom: { en: 'Fully custom', bn: 'পুরোটাই কাস্টম' },
+  quoteDetail: { en: 'Anything else we should know? (optional)', bn: 'আর কিছু জানানোর আছে? (ইচ্ছা হলে)' },
+  quoteDetailPlaceholder: {
+    en: 'Room size, wood you like, a colour, a deadline — whatever you already know.',
+    bn: 'ঘরের মাপ, পছন্দের কাঠ, রঙ, কবে দরকার — যা যা জানেন লিখে দিন।',
+  },
+  quoteSend: { en: 'Send this on WhatsApp', bn: 'হোয়াটসঅ্যাপে পাঠান' },
+  quoteNote: { en: 'Prefer not to use WhatsApp?', bn: 'হোয়াটসঅ্যাপ ব্যবহার করতে চান না?' },
+  quoteEmailInstead: { en: 'Send it by email instead.', bn: 'ইমেইলে পাঠিয়ে দিন।' },
+  quoteError: { en: 'Please add your name and a number we can reach you on.', bn: 'অনুগ্রহ করে নাম আর একটা যোগাযোগের নম্বর দিন।' },
 
   // ------------------------------------------------------------------ misc
   cursorView: { en: 'View', bn: 'দেখুন' },

@@ -14,8 +14,7 @@
   --color-walnut: #4a3728;
   --color-ink: #241c15;
 
-  /* --font-display: 'Bodoni Moda', 'Noto Serif Bengali', 'Times New Roman', serif; */
-  --font-display: 'Libre Bodoni', 'Noto Serif Bengali', 'Times New Roman', serif;
+  --font-display: 'Bodoni Moda', 'Noto Serif Bengali', 'Times New Roman', serif;
   --font-sans: 'Jost', 'Hind Siliguri', ui-sans-serif, system-ui, sans-serif;
   --font-bangla: 'Hind Siliguri', ui-sans-serif, sans-serif;
 
@@ -38,7 +37,7 @@
     overflow-x: clip;
   }
 
-  /* h1,
+  h1,
   h2,
   h3,
   blockquote {
@@ -46,18 +45,6 @@
     color: var(--color-ink);
     font-weight: 400;
     letter-spacing: -0.015em;
-  } */
-
-  h1,
-  h2,
-  h3,
-  blockquote {
-    font-family: var(--font-display);
-    color: var(--color-ink);
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    /* font-optical-sizing: none;
-    font-variation-settings: 'opsz' 24; */
   }
 
   /* Bangla glyphs sit taller than Latin, so the display sizes come down a

@@ -46,7 +46,6 @@ export default function Collections() {
                 )}
                 target="_blank"
                 rel="noreferrer"
-                data-cursor={t('cursorView')}
                 className={`group block ${i % 2 === 1 ? 'lg:mt-16' : ''}`}
               >
                 <Tilt max={8} lift={18}>
@@ -58,7 +57,7 @@ export default function Collections() {
                     shape="full"
                     drift={6}
                     className="aspect-[3/4] w-full"
-                    imgClassName="transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]"
+                    frameClassName="transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]"
                   />
                 </Tilt>
 

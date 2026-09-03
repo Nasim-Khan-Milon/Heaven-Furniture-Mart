@@ -8,9 +8,18 @@ import { useReducedMotion } from 'framer-motion'
  *   still — did they ask for reduced motion? Then almost everything stops.
  *   fine  — do they have a real pointer? Gates the cursor, magnets and tilt,
  *           so a tap on a phone never leaves a card stuck at an angle.
- *   lite  — is this a modest device or a metered connection? Drops the
- *           per-frame work (dust, grain, velocity tracking) but keeps every
- *           scroll and entrance animation.
+ *   lite  — is this a modest device? Drops the per-frame work (dust, grain,
+ *           velocity tracking) but keeps every scroll and entrance animation.
+ *   frugal — is the *connection* metered or slow? Gates payload, not frames.
+ *
+ * `lite` and `frugal` are separate on purpose. `lite` asks "will this device
+ * drop frames running JavaScript every frame", and answers it with core and
+ * memory counts. That is the wrong question to ask about a video: H.264 decode
+ * is hardware-accelerated on essentially every phone of the last decade, so a
+ * handset that stutters on a particle canvas still plays a clip perfectly.
+ * Gating video on `lite` would have hidden it from most mobile visitors for no
+ * reason. What actually matters for a video is whether the visitor is paying
+ * for the bytes — which is `frugal`.
  *
  * A mid-range Android on 4G in Chattogram is the realistic visitor here, so
  * `lite` is the case the page is actually tuned for — not the desktop.
@@ -18,11 +27,11 @@ import { useReducedMotion } from 'framer-motion'
 
 const MotionContext = createContext(null)
 
-const DEFAULTS = { still: false, fine: false, lite: true, ready: false, intro: true }
+const DEFAULTS = { still: false, fine: false, lite: true, frugal: true, ready: false, intro: true }
 
 export function MotionProvider({ children }) {
   const reduced = useReducedMotion()
-  const [caps, setCaps] = useState({ fine: false, lite: true })
+  const [caps, setCaps] = useState({ fine: false, lite: true, frugal: true })
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -34,7 +43,11 @@ export function MotionProvider({ children }) {
     const saveData = navigator.connection?.saveData === true
     const slowLink = /2g/.test(navigator.connection?.effectiveType ?? '')
 
-    setCaps({ fine, lite: saveData || slowLink || cores <= 4 || memory <= 4 })
+    setCaps({
+      fine,
+      lite: saveData || slowLink || cores <= 4 || memory <= 4,
+      frugal: saveData || /(^|\W)(slow-2g|2g|3g)($|\W)/.test(navigator.connection?.effectiveType ?? ''),
+    })
   }, [])
 
   // Reduced motion skips the intro entirely — the page is simply there.
@@ -50,13 +63,15 @@ export function MotionProvider({ children }) {
       still,
       fine: caps.fine && !still,
       lite: caps.lite,
+      /** Metered or slow connection — suppress anything that costs bytes. */
+      frugal: caps.frugal,
       /** True once the intro curtain has opened and the page may animate in. */
       ready: ready || still,
       /** Whether the intro sequence should run at all. */
       intro: !still,
       done,
     }),
-    [still, caps.fine, caps.lite, ready, done],
+    [still, caps.fine, caps.lite, caps.frugal, ready, done],
   )
 
   return <MotionContext.Provider value={value}>{children}</MotionContext.Provider>
