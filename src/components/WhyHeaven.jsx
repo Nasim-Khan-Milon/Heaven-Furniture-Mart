@@ -2,11 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { reasons } from '../data/site'
 import { Layer, Marker, Tilt } from './ui'
-<<<<<<< HEAD
-import { Reveal, SplitText, Stagger, StaggerItem } from '../fx'
-=======
 import { EASE, EASE_INOUT, Reveal, SCROLL_SPRING, SplitText, useMotionPrefs } from '../fx'
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 import { useLang } from '../i18n/LanguageContext'
 
 export default function WhyHeaven() {
@@ -75,31 +71,7 @@ export default function WhyHeaven() {
 
         <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((reason, i) => (
-<<<<<<< HEAD
-            <StaggerItem key={t(reason.title)} as="li">
-              <Tilt max={9} lift={18} className="h-full">
-                <div className="flex h-full flex-col rounded-2xl border border-walnut/15 bg-linen/45 p-6 transition-colors duration-300 hover:border-gold/60">
-                  <Layer z={44}>
-                    <span className="font-display text-2xl text-gold-deep">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                  </Layer>
-                  <Layer z={28}>
-                    <h3 className="mt-4 font-display text-xl leading-snug text-ink">
-                      {t(reason.title)}
-                    </h3>
-                  </Layer>
-                  <Layer z={12}>
-                    <p className="pretty mt-2.5 text-[0.9rem] leading-relaxed text-walnut/75">
-                      {t(reason.body)}
-                    </p>
-                  </Layer>
-                </div>
-              </Tilt>
-            </StaggerItem>
-=======
             <ReasonCard key={reason.title} reason={reason} index={i} pulse={pulse} />
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
           ))}
         </ul>
       </div>

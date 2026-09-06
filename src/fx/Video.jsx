@@ -1,40 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMotionPrefs } from './MotionProvider'
 
-<<<<<<< HEAD
-/**
- * A muted background clip that behaves itself.
- *
- * Video is the one thing on a page that can genuinely ruin the experience it
- * was added to improve, so every branch here is about *not* playing it:
- *
- *   - No `src` at all → the poster renders and nothing else happens. The page
- *     works today, with photographs, and gains video the moment a file exists.
- *   - `still` (reduced motion) → poster only. The clip is never requested.
- *   - `frugal` (save-data, or a 2g/3g connection) → poster only, and the file
- *     is never fetched. Someone paying by the megabyte should not be charged
- *     for decoration.
- *
- *     Note this gates on the *connection*, not on `lite`. `lite` counts cores
- *     and memory to decide whether a device will drop frames running
- *     JavaScript — a different question entirely. Video decode is hardware
- *     accelerated; a phone that stutters on a particle canvas plays a clip
- *     fine. Gating on `lite` would have hidden video from most phones, which
- *     is exactly the audience the clip is for.
- *   - Off screen → paused. A clip playing three sections above where someone
- *     is reading burns battery for nobody.
- *   - Autoplay refused by the browser → the poster simply stays. Nothing
- *     breaks, nothing is blank.
- *
- * The poster sits *underneath* the video rather than only in the `poster`
- * attribute, so the crossfade to first frame is ours to time and a failed load
- * degrades to a photograph instead of a black rectangle.
- *
- * `playsInline` is not optional: without it iOS Safari takes any autoplaying
- * video fullscreen, which on a landing page reads as a hijack.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export default function Video({
   src,
   poster,
@@ -60,10 +26,6 @@ export default function Video({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-<<<<<<< HEAD
-          // A rejected play() is a normal outcome, not an error to surface.
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
           node.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
         } else {
           node.pause()

@@ -9,18 +9,6 @@ import { useLang } from '../i18n/LanguageContext'
 import { Marker } from './ui'
 import { Reveal, SCROLL_SPRING, SplitText, Video, useMotionPrefs } from '../fx'
 
-/**
- * Each stage may carry a `video`. Drop an .mp4 into `src/assets/`, import it,
- * add it to the entry, and that panel plays the clip with the photograph as
- * its poster — on capable devices only. Leave it off and the panel stays a
- * photograph, which is what ships today.
- *
- *   import carving from '../assets/carving.mp4'
- *   { image: craftShowcase, video: carving, w: 1024, h: 1024, ... }
- *
- * Keep clips short, silent and under about 3 MB. Heaven's own YouTube and
- * Facebook carry workshop footage; the brief says to go and take it.
- */
 const PANELS = [
   {
     image: stageMeasure,
@@ -194,22 +182,6 @@ function Panel({ panel, index, progress, count }) {
   )
 }
 
-<<<<<<< HEAD
-/* ---------------------------------------------------------------- mobile */
-
-/**
- * The mobile rail. Flat is not the same as dead.
- *
- * Pinning still has no place on a touchscreen — it fights the address bar and
- * wins nothing on a surface that already scrolls sideways. But the desktop
- * rail's actual *idea* is that one stage holds your attention at a time, and
- * that idea survives the change of input perfectly well. Each panel lifts and
- * brightens as it reaches the middle of the rail and settles back as it
- * leaves, exactly as on desktop — driven here by the rail's own horizontal
- * scroll rather than by the page's vertical scroll.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 function SwipeRail({ panels }) {
   const rail = useRef(null)
   return (
@@ -229,11 +201,6 @@ function SwipePanel({ panel, container }) {
   const { still } = useMotionPrefs()
   const ref = useRef(null)
 
-<<<<<<< HEAD
-  // Tracked against the rail, not the window: `container` is what makes the
-  // progress follow a sideways swipe instead of the page scrolling past.
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const { scrollXProgress } = useScroll({
     target: ref,
     container,
@@ -267,11 +234,7 @@ function SwipePanel({ panel, container }) {
       </div>
       <figcaption className="mt-5">
         <h3 className="font-display text-xl text-ivory">{t(panel.title)}</h3>
-<<<<<<< HEAD
-        <p className="pretty mt-2 text-[0.9rem] leading-relaxed text-ivory/65">{t(panel.body)}</p>
-=======
         <p className="pretty mt-2 text-[0.96rem] leading-relaxed text-ivory/78">{t(panel.body)}</p>
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
       </figcaption>
     </motion.figure>
   )

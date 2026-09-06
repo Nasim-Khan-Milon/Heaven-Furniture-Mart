@@ -10,33 +10,6 @@ const SHAPES = {
   square: 'rounded-2xl',
 }
 
-<<<<<<< HEAD
-/**
- * Every photograph on the page arrives the same way, in four overlapping moves:
- *
- *   1. a curtain lifts the frame open from the bottom edge,
- *   2. the photograph inside settles back from a slight over-zoom,
- *   3. a low sweep of light crosses it once, and
- *   4. from then on it drifts against the scroll, slower than its own frame.
- *
- * The drift is the part that does the real work. A photo pinned to its frame
- * reads as a sticker; a photo that lags behind its frame reads as something
- * seen through an opening.
- *
- * POSITIONING — the drift is applied to a wrapper that is *scaled up* and
- * pinned to `inset-0`, never to an image offset by a negative percentage top.
- * A percentage `top` resolves against the containing block's height, but a
- * percentage `margin` resolves against its *width*; mixing the two is what
- * makes a frame render at the right size with the photograph sitting off its
- * centre. Overscan is `1 + drift/50`, so the travel can never expose an edge
- * however far the frame is driven.
- *
- * The intersection observer deliberately sits on the *outer* wrapper. Chromium
- * folds an element's own clip-path into its intersection ratio, so observing
- * the clipped node directly would leave it hidden at 0% forever.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export default function ParallaxImage({
   src,
   alt,
@@ -47,20 +20,12 @@ export default function ParallaxImage({
   imgClassName = '',
   frameClassName = '',
   priority = false,
-<<<<<<< HEAD
-  /** Drift distance as a percentage of the frame's own height. */
-=======
 
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   drift = 7,
   zoom = 1.13,
   delay = 0,
   sheen = true,
-<<<<<<< HEAD
-  /** Which part of the photograph to keep when the crop is tight. */
-=======
 
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   focus = 'center',
 }) {
   const outer = useRef(null)
@@ -74,10 +39,6 @@ export default function ParallaxImage({
   })
   const y = useTransform(scrollYProgress, [0, 1], [`-${drift}%`, `${drift}%`])
 
-<<<<<<< HEAD
-  // Enough overscan that the drift never pulls an edge into frame.
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const overscan = 1 + drift / 50
 
   return (
@@ -94,17 +55,6 @@ export default function ParallaxImage({
             className="absolute inset-0 will-change-transform"
             style={still ? undefined : { y, scale: overscan }}
           >
-<<<<<<< HEAD
-            {/*
-              `frameClassName` lands on this plain div rather than on the image.
-              Framer writes an inline `transform` onto anything it animates, and
-              an inline transform beats a Tailwind utility class — so a
-              `group-hover:scale-*` applied to the image itself silently does
-              nothing. Giving the hover its own untouched layer is what makes it
-              work at all.
-            */}
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
             <div className={`h-full w-full ${frameClassName}`}>
               <motion.img
                 src={src}

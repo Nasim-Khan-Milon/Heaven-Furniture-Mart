@@ -2,20 +2,6 @@ import { stats } from '../data/site'
 import { useLang } from '../i18n/LanguageContext'
 import { Counter, Reveal, Stagger, StaggerItem } from '../fx'
 
-<<<<<<< HEAD
-/**
- * Four figures, and every one of them is checkable against the company brief.
- *
- * This is deliberately not the usual "15 years / 250+ projects" band. Heaven
- * was founded in 2020 — a page claiming fifteen years of mastery is claiming
- * something the client's own brief contradicts, and the judges are reading
- * that brief. Six years counted honestly is worth more than a decade invented.
- *
- * The zero is the one that does real work: a consultation costs nothing, and
- * putting that number beside the others says so faster than a sentence can.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export default function Stats() {
   const { t } = useLang()
 
@@ -34,17 +20,10 @@ export default function Stats() {
                   <Counter to={stat.value} suffix={stat.suffix ?? ''} />
                 </dt>
                 <dd className="mt-3 border-t border-walnut/15 pt-3">
-<<<<<<< HEAD
-                  <span className="block text-[0.95rem] font-medium text-ink">
-                    {t(stat.label)}
-                  </span>
-                  <span className="mt-1 block text-[0.85rem] leading-relaxed text-walnut/65">
-=======
                   <span className="block text-[1.02rem] font-medium text-ink">
                     {t(stat.label)}
                   </span>
                   <span className="mt-1 block text-[0.92rem] leading-relaxed text-walnut/80">
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                     {t(stat.note)}
                   </span>
                 </dd>
@@ -54,11 +33,7 @@ export default function Stats() {
         </Stagger>
 
         <Reveal delay={0.2}>
-<<<<<<< HEAD
-          <p className="mt-10 max-w-2xl text-[0.85rem] leading-relaxed text-walnut/55">
-=======
           <p className="mt-10 max-w-2xl text-[0.92rem] leading-relaxed text-walnut/70">
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
             {t('statsFootnote')}
           </p>
         </Reveal>

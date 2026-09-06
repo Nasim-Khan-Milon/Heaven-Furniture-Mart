@@ -12,11 +12,6 @@ import modernVanity from '../assets/modern-vanity.webp'
 import modernSofa from '../assets/modern-sofa.webp'
 import swingChair from '../assets/swing-chair.webp'
 import craftShowcase from '../assets/craft-showcase.webp'
-<<<<<<< HEAD
-import cutSofaPink from '../assets/cut-sofa-pink.webp'
-import heroBed from '../assets/hero-bed.webp'
-import officeDirector from '../assets/office-director.webp'
-=======
 import heroBed from '../assets/hero-bed.webp'
 import heroArmchairs from '../assets/hero-armchairs.webp'
 import heroSofaGreen from '../assets/hero-sofa-green.webp'
@@ -25,7 +20,6 @@ import heroDiningClassic from '../assets/hero-dining-classic.webp'
 import heroOutdoorTeak from '../assets/hero-outdoor-teak.webp'
 import officeDirector from '../assets/office-director.webp'
 import founderPortrait from '../assets/founder.webp'
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 
 export const messenger = 'https://m.me/HeavenFurnitureMart'
 
@@ -47,14 +41,6 @@ export const wa = (message) =>
 // Hero carousel. Every image is a transparent-background cut-out so the piece
 // sits directly on the gold wave with nothing boxed around it.
 export const heroPieces = [
-<<<<<<< HEAD
-  { id: 'royal',  image: cutSofaRoyal,   w: 935, h: 667, caption: 'pieceRoyal',  alt: 'pieceRoyalAlt' },
-  { id: 'bed',    image: cutBedWhite,    w: 861, h: 421, caption: 'pieceBed',    alt: 'pieceBedAlt' },
-  { id: 'dining', image: cutDiningCream, w: 950, h: 581, caption: 'pieceDining', alt: 'pieceDiningAlt' },
-  { id: 'beige',  image: cutSofaBeige,   w: 950, h: 597, caption: 'pieceBeige',  alt: 'pieceBeigeAlt' },
-  { id: 'vanity', image: cutVanity,      w: 557, h: 642, caption: 'pieceVanity', alt: 'pieceVanityAlt' },
-  { id: 'pink',   image: cutSofaPink,    w: 950, h: 516, caption: 'piecePink',   alt: 'piecePinkAlt' },
-=======
   {
     id: 'armchairs',
     image: heroArmchairs,
@@ -110,7 +96,6 @@ export const heroPieces = [
     caption: 'pieceOutdoorTeakC',
     alt: 'pieceOutdoorTeakAlt',
   },
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 ]
 
 export const nav = [
@@ -265,15 +250,6 @@ export const faqs = [
   { q: 'faq6q', a: 'faq6a' },
 ]
 
-<<<<<<< HEAD
-/**
- * The five photographs hung down the 3D corridor. Five, not six: the corridor
- * costs roughly three quarters of a screen of scroll per panel, and a sixth
- * frame buys one more photograph at the price of a section that outstays its
- * welcome.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export const work = [
   { src: sofaEmbroidery, alt: 'galSofa',     w: 1024, h: 1024 },
   { src: officeDirector, alt: 'galOffice',   w: 1080, h: 930 },
@@ -282,17 +258,6 @@ export const work = [
   { src: heroBed,        alt: 'galBed',      w: 1100, h: 1375 },
 ]
 
-<<<<<<< HEAD
-/**
- * Every figure below is checkable against the company brief. Heaven was
- * founded in 2020, so the years count from there and nowhere else — a page
- * claiming a decade and a half of mastery is contradicting the same brief the
- * judges are holding.
- *
- * The zero is the point of the band: a consultation costs nothing.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export const stats = [
   { value: 6,   suffix: '',  label: 'stat1',  note: 'stat1n' },
   { value: 5,   suffix: '',  label: 'stat2',  note: 'stat2n' },
@@ -300,8 +265,6 @@ export const stats = [
   { value: 0,   suffix: '৳', label: 'stat4',  note: 'stat4n' },
 ]
 
-<<<<<<< HEAD
-=======
 export const founder = {
   image: founderPortrait,
   w: 900,
@@ -341,7 +304,6 @@ export const testimonials = [
   },
 ]
 
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export const quoteRooms = [
   { value: 'Living room', label: 'collLiving' },
   { value: 'Bedroom',     label: 'collBedroom' },

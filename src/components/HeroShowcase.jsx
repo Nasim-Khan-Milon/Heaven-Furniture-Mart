@@ -1,41 +1,38 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { useCallback, useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { heroPieces } from '../data/site'
-import { useLang } from '../i18n/LanguageContext'
-import { EASE, SPRING_SOFT, useMotionPrefs } from '../fx'
+import { localiseNumber, useLang } from '../i18n/LanguageContext'
+import { EASE, useMotionPrefs } from '../fx'
 
-const HOLD = 4200
+const HOLD = 5000
+const COUNT = heroPieces.length
+const pad = (n) => String(n + 1).padStart(2, '0')
 
-/**
- * The arch is a lit alcove and the pieces are standing in it.
- *
- * FLOOR ANCHORING — the five cut-outs have nothing in common dimensionally: a
- * bed is 861×421, a vanity is 557×642. Sizing each one by width and clamping
- * it with a max-height leaves every piece resting at a different level, which
- * is what makes a cut-out read as a sticker pasted on top rather than an
- * object standing in a room. Instead each piece gets the *same* box — pinned
- * from the alcove's top inset down to the floor line — and sits in it with
- * `object-contain object-bottom`. Whatever its proportions, its feet land on
- * the floor and its shadow is underneath it.
- *
- * DEPTH — the alcove is a real 3D space. Moving the pointer across it yaws the
- * whole box a few degrees, and the piece inside sits forward of the backdrop on
- * its own Z plane, so it swings further than the wall behind it. Each piece
- * arrives rotated away from the viewer and turns to face front, the way
- * something is set down rather than the way a slide changes.
- *
- * Rotation pauses on hover and focus, and the dots are real buttons.
- */
+function Chevron({ back = false }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-4 w-4">
+      <path
+        d={back ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export default function HeroShowcase({ play = true }) {
   const { t, lang } = useLang()
-  const { still, fine } = useMotionPrefs()
+  const { still } = useMotionPrefs()
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [dir, setDir] = useState(1)
 
-  const px = useMotionValue(0)
-  const py = useMotionValue(0)
-  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-9, 9]), SPRING_SOFT)
-  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [7, -7]), SPRING_SOFT)
+  const go = useCallback((step) => {
+    setDir(step)
+    setIndex((i) => (i + step + COUNT) % COUNT)
+  }, [])
 
   useEffect(() => {
     if (still || paused || !play) return
@@ -47,102 +44,49 @@ export default function HeroShowcase({ play = true }) {
   }, [still, paused, play])
 
   const piece = heroPieces[index]
-
-  const track = (event) => {
-    if (!fine) return
-    const box = event.currentTarget.getBoundingClientRect()
-    px.set((event.clientX - box.left) / box.width - 0.5)
-    py.set((event.clientY - box.top) / box.height - 0.5)
-  }
-
-  const release = () => {
-    px.set(0)
-    py.set(0)
-    setPaused(false)
-  }
+  const shift = still ? 0 : 34 * dir
 
   return (
     <div
-      className="relative"
-      style={{ perspective: 1200 }}
-      onPointerMove={track}
+      className="relative flex h-full flex-col justify-end"
+      aria-roledescription="carousel"
+      aria-label={t('heroCarousel')}
       onPointerEnter={() => setPaused(true)}
-      onPointerLeave={release}
+      onPointerLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <motion.div
-        style={fine && !still ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : undefined}
-        className="arch relative aspect-[9/10] w-full overflow-hidden bg-gradient-to-b from-linen via-linen to-sand"
-      >
-        {/*
-          The alcove is a stack of planes at real depths, not a flat backdrop
-          with a photograph on it. Yawing the box moves each plane by a
-          different amount — the light furthest back barely shifts, the piece
-          swings, the sill in front leads. That difference *is* the depth cue;
-          a single plane rotating is just a picture leaning over.
-        */}
-
-        {/* the light, deepest of all, breathing very slowly */}
-        <motion.div
-          aria-hidden="true"
-          className="absolute top-[8%] left-1/2 h-[62%] w-[78%] -translate-x-1/2 rounded-full bg-ivory/70 blur-3xl"
-          style={{ transform: 'translate(-50%,0) translateZ(-110px)' }}
-          animate={still ? {} : { opacity: [0.75, 1, 0.75], scale: [1, 1.05, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        />
-
-        {/* the back wall of the alcove */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-[18%] left-[11%] h-px w-[78%] bg-walnut/15"
-          style={{ transform: 'translateZ(-40px)' }}
-        />
-
-        {/* contact shadow, keyed to the piece and a beat behind it */}
-        <AnimatePresence mode="wait">
-          <motion.div
+      <div className="relative h-[13.5rem] w-full sm:h-[17rem] lg:h-[20.5rem] xl:h-[22.5rem]">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
             key={`shadow-${piece.id}`}
             aria-hidden="true"
-            className="absolute bottom-[16.5%] left-1/2 h-[3.5%] w-[52%] -translate-x-1/2 rounded-[50%] bg-walnut/25 blur-md"
-            initial={still ? false : { opacity: 0, scaleX: 0.5 }}
+            className="absolute bottom-[-0.35rem] left-1/2 h-[1.15rem] w-[62%] -translate-x-1/2 rounded-[50%] bg-[var(--color-deep-brown)]/25 blur-lg"
+            initial={still ? false : { opacity: 0, scaleX: 0.55 }}
             animate={{ opacity: 1, scaleX: 1 }}
             exit={still ? {} : { opacity: 0, scaleX: 0.7 }}
             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
           />
         </AnimatePresence>
 
-        {/* Every piece gets this same box, so every piece stands on the floor. */}
-        <div
-          className="absolute top-[13%] right-[4%] bottom-[18%] left-[4%]"
-          style={{ transform: 'translateZ(55px)', transformStyle: 'preserve-3d' }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={piece.id}
-              src={piece.image}
-              alt={t(piece.alt)}
-              width={piece.w}
-              height={piece.h}
-              fetchPriority={index === 0 ? 'high' : 'auto'}
-              decoding="async"
-              className="h-full w-full object-contain object-bottom drop-shadow-[0_28px_28px_rgba(36,28,21,0.18)]"
-              initial={still ? false : { opacity: 0, y: 40, scale: 0.92, rotateY: -22 }}
-              animate={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
-              exit={still ? {} : { opacity: 0, y: -22, scale: 0.96, rotateY: 18 }}
-              transition={{ duration: 0.95, ease: EASE }}
-              style={{ transformPerspective: 1000 }}
-            />
-          </AnimatePresence>
-        </div>
-        {/* the sill, nearest the viewer, so there is something in front of
-            the piece for it to move against */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-[13%] bg-gradient-to-t from-sand/80 to-transparent"
-          style={{ transform: 'translateZ(95px)' }}
-        />
-      </motion.div>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.img
+            key={piece.id}
+            src={piece.image}
+            alt={t(piece.alt)}
+            width={piece.w}
+            height={piece.h}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
+            decoding="async"
+            draggable="false"
+            className="h-full w-full object-contain object-bottom drop-shadow-[0_22px_26px_rgba(20,15,10,0.35)]"
+            initial={still ? false : { opacity: 0, x: shift, scale: 0.94 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={still ? {} : { opacity: 0, x: -shift, scale: 0.97 }}
+            transition={{ duration: 0.7, ease: EASE }}
+          />
+        </AnimatePresence>
+      </div>
 
       {/* Caption bar — set against the charcoal-teal panel now, so text goes light with a wood-tan accent */}
       <div className="mt-5 flex items-end justify-between gap-5 lg:mt-7">

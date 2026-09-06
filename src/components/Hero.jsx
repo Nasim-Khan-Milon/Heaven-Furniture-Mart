@@ -4,7 +4,7 @@ import { messenger, wa } from '../data/site'
 import { useLang } from '../i18n/LanguageContext'
 import HeroShowcase from './HeroShowcase'
 import { ArrowIcon, MessengerIcon, WhatsAppIcon } from './ui'
-import { DustMotes, EASE, EASE_INOUT, Magnetic, SplitText, useMotionPrefs } from '../fx'
+import { EASE, Magnetic, SplitText, useMotionPrefs } from '../fx'
 
 // Two rows, so the headline stacks like a block rather than trailing a short line.
 const HEADLINE = [
@@ -90,36 +90,23 @@ export default function Hero() {
               {t('heroBadge')}
             </motion.p>
 
-          {/* One pass of low gold light across the type as it settles. Once,
-              not on a loop — a headline that keeps shimmering is a headline
-              nobody finishes reading. */}
-          <div className="relative mt-6 overflow-hidden">
-            {!still && (
-              <motion.span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 -left-1/2 z-10 w-1/2 skew-x-[-12deg] bg-gradient-to-r from-transparent via-gold/25 to-transparent"
-                initial={{ x: '0%', opacity: 0 }}
-                animate={ready ? { x: '340%', opacity: [0, 1, 0] } : {}}
-                transition={{ duration: 1.9, delay: 1.05, ease: EASE_INOUT }}
-              />
-            )}
-            <h1 className="font-display text-[length:var(--text-hero)] leading-[0.92] text-ink">
-            {HEADLINE.map((row, r) => (
-              <SplitText
-                key={row.key}
-                as="span"
-                text={t(row.key)}
-                trigger="now"
-                play={ready}
-                delay={0.18 + r * 0.14}
-                stagger={0.06}
-                duration={1}
-                className="block"
-                wordClassName={row.italic ? 'italic text-forest' : ''}
-              />
+            <h1 className={`mt-5 font-display text-[length:var(--text-hero)] font-extrabold text-ink ${
+                lang === 'bn' ? 'leading-[1.32]' : 'leading-[0.94] tracking-[-0.035em] uppercase'
+              }`}>
+              {HEADLINE.map((row, r) => (
+                <SplitText
+                  key={row.join('-')}
+                  as="span"
+                  text={row.map((k) => t(k)).join(' ')}
+                  trigger="now"
+                  play={ready}
+                  delay={0.16 + r * 0.13}
+                  stagger={0.055}
+                  duration={0.95}
+                  className="block"
+                />
               ))}
             </h1>
-          </div>
 
             <motion.p
               {...rise(0.5)}
@@ -147,89 +134,13 @@ export default function Hero() {
                 </a>
               </Magnetic>
 
-            <a
-              href="#collections"
-              className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-walnut/30 px-8 py-4 font-medium text-walnut transition-colors duration-300 hover:border-ink hover:text-ink"
-            >
-              {t('ctaSee')}
-              <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-          </motion.div>
-        </motion.div>
-
-        <ul className="order-3 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-walnut/15 pt-7 sm:grid-cols-4 sm:gap-x-4 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:mt-2 xl:col-span-6">
-          {assurances.map((item, i) => (
-            <motion.li
-              key={item}
-              className="text-[0.9rem] leading-snug text-walnut/75"
-              initial={still ? false : { opacity: 0, y: 14 }}
-              animate={ready ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.95 + i * 0.08, ease: EASE }}
-            >
-              {t(item)}
-            </motion.li>
-          ))}
-        </ul>
-
-        <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 xl:col-span-5">
-          <div className="relative mx-auto max-w-[26rem] lg:mr-0 lg:ml-auto lg:max-w-[30rem] lg:pt-6 lg:pr-5">
-            {/* The outline drifts the opposite way to the photo, so the gap
-                between them opens as you scroll and the arch gains depth. */}
-            <motion.div
-              aria-hidden="true"
-              style={{ y: outlineY }}
-              className="pointer-events-none absolute top-0 left-0 hidden aspect-[9/10] w-full translate-x-5 -translate-y-6 lg:block"
-            >
-              {/*
-                The same arch as before, drawn rather than declared. A CSS
-                border cannot be stroked on progressively; an SVG path can, so
-                the outline traces itself up one side, over the crown and down
-                the other in a single continuous stroke — the same gesture as
-                the dimension line under the photograph, which is the point.
-
-                `preserveAspectRatio="none"` lets the path fill whatever box it
-                is given, exactly as the border-radius version did, and
-                `vectorEffect="non-scaling-stroke"` keeps the hairline even
-                after that stretch. Both match MeasureOverlay.
-
-                The box is the alcove's own 9/10, not `inset-0`. Spanning the
-                whole column made the stroke close straight across the caption
-                underneath — invisible as a faint CSS border, obvious once the
-                line draws itself.
-              */}
-              <svg
-                viewBox="0 0 90 100"
-                preserveAspectRatio="none"
-                className="h-full w-full"
-                fill="none"
-                stroke="var(--color-gold)"
-                strokeOpacity="0.45"
-                strokeWidth="1"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
+              <a
+                href="#collections"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-walnut/30 px-7 py-3.5 font-medium text-walnut transition-colors duration-300 hover:border-ink hover:text-ink"
               >
-                <motion.path
-                  d="M0.5 99.5 L0.5 45 A44.5 44.5 0 0 1 89.5 45 L89.5 99.5 Z"
-                  initial={still ? false : { pathLength: 0, opacity: 0 }}
-                  animate={ready ? { pathLength: 1, opacity: 1 } : {}}
-                  transition={{
-                    pathLength: { duration: 2.1, delay: 0.55, ease: EASE },
-                    opacity: { duration: 0.4, delay: 0.55 },
-                  }}
-                />
-              </svg>
-            </motion.div>
-
-            <motion.div style={{ y: frameY }} className="relative">
-              <motion.div
-                className="relative"
-                initial={still ? false : { opacity: 0, scale: 0.95, y: 30 }}
-                animate={ready ? { opacity: 1, scale: 1, y: 0 } : {}}
-                transition={{ duration: 1.3, delay: 0.25, ease: EASE }}
-              >
-                <HeroShowcase play={ready} />
-                <MeasureOverlay start={1.35} play={ready} />
-              </motion.div>
+                {t('ctaSee')}
+                <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
             </motion.div>
 
             <motion.a

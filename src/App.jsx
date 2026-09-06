@@ -18,11 +18,8 @@ import Marquee from './components/Marquee'
 import Process from './components/Process'
 import Story from './components/Story'
 import Showroom3D from './components/Showroom3D'
-<<<<<<< HEAD
-=======
 import ShowroomTour from './components/ShowroomTour'
 import Testimonials from './components/Testimonials'
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 import Faq from './components/Faq'
 import Quote from './components/Quote'
 import Visit from './components/Visit'
@@ -87,11 +84,8 @@ export default function App() {
           <Process />
           <Story />
           <Showroom3D />
-<<<<<<< HEAD
-=======
           <ShowroomTour />
           <Testimonials />
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
           <Faq />
           <Quote />
         </main>

@@ -3,12 +3,6 @@ import { ArchImage, Marker } from './ui'
 import { Reveal, SplitText, Stagger, StaggerItem } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
-<<<<<<< HEAD
-
-// The founding year lives in the stats band immediately below this section;
-// stating it twice in two hundred pixels reads as a page repeating itself.
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 const facts = [
   { big: 'fact2Big', small: 'fact2' },
   { big: 'fact3Big', small: 'fact3' },

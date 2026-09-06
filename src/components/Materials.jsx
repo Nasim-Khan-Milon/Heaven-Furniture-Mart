@@ -68,7 +68,7 @@ export default function Materials() {
                       </Layer>
                       <Layer z={18}>
                         <span className="mt-3 block font-display text-lg text-ink">{t(material.name)}</span>
-                        <span className="mt-0.5 block text-[0.8rem] leading-snug text-walnut/65">
+                        <span className="mt-0.5 block text-[0.86rem] leading-snug text-walnut/80">
                           {t(material.note)}
                         </span>
                       </Layer>

@@ -6,25 +6,6 @@ import { ArchImage, Marker, WhatsAppIcon } from './ui'
 import { Magnetic, Reveal, SplitText } from '../fx'
 import { swingChair } from '../data/site'
 
-<<<<<<< HEAD
-/**
- * The one form on the page — and it does not post anywhere.
- *
- * There is no backend here and there should not be one: a landing page that
- * swallows a lead into a database nobody at Heaven checks is worse than no
- * form at all. Instead the fields compose a message and hand it to WhatsApp or
- * the mail client already written, so the enquiry lands in the same inbox the
- * showroom already answers on their phone.
- *
- * That also means nothing can be lost. The visitor sees exactly what is about
- * to be sent, in their own messaging app, and can edit it before it goes.
- *
- * Only name and phone are required. Every extra field a first-time buyer has
- * to fill in is a reason to close the tab, and Heaven can ask the rest in the
- * conversation this form is only trying to start.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export default function Quote() {
   const { t } = useLang()
   const [form, setForm] = useState({ name: '', phone: '', room: '', detail: '' })
@@ -56,11 +37,7 @@ export default function Quote() {
   }
 
   const field =
-<<<<<<< HEAD
-    'w-full rounded-xl border bg-ivory/60 px-4 py-3.5 text-[0.95rem] text-ink transition-colors duration-300 placeholder:text-walnut/45 focus:border-gold focus:outline-none'
-=======
     'w-full rounded-xl border bg-ivory/60 px-4 py-3.5 text-[1.02rem] text-ink transition-colors duration-300 placeholder:text-walnut/65 focus:border-gold focus:outline-none'
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 
   const invalid = (value, min) => touched && value.trim().length <= min
 
@@ -78,11 +55,7 @@ export default function Quote() {
               className="balance mt-6 block font-display text-[length:var(--text-display)] leading-[1.02]"
             />
             <Reveal delay={0.1}>
-<<<<<<< HEAD
-              <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-walnut/85">
-=======
               <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-walnut/92">
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                 {t('quoteBody')}
               </p>
             </Reveal>
@@ -110,11 +83,7 @@ export default function Quote() {
               >
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <div>
-<<<<<<< HEAD
-                    <label htmlFor="q-name" className="text-[0.9rem] text-walnut/75">
-=======
                     <label htmlFor="q-name" className="text-[0.96rem] text-walnut/88">
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                       {t('quoteName')}
                     </label>
                     <input
@@ -131,11 +100,7 @@ export default function Quote() {
                   </div>
 
                   <div>
-<<<<<<< HEAD
-                    <label htmlFor="q-phone" className="text-[0.9rem] text-walnut/75">
-=======
                     <label htmlFor="q-phone" className="text-[0.96rem] text-walnut/88">
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                       {t('quotePhone')}
                     </label>
                     <input
@@ -155,11 +120,7 @@ export default function Quote() {
                 </div>
 
                 <fieldset className="mt-6">
-<<<<<<< HEAD
-                  <legend className="text-[0.9rem] text-walnut/75">{t('quoteRoom')}</legend>
-=======
                   <legend className="text-[0.96rem] text-walnut/88">{t('quoteRoom')}</legend>
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                   <div className="mt-3 flex flex-wrap gap-2.5">
                     {quoteRooms.map((room) => {
                       const active = form.room === room.value
@@ -177,11 +138,7 @@ export default function Quote() {
                           whileTap={{ scale: 0.94 }}
                           whileHover={{ y: -2 }}
                           transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-<<<<<<< HEAD
-                          className={`rounded-full border px-4 py-2 text-[0.9rem] transition-colors duration-300 ${
-=======
                           className={`rounded-full border px-4 py-2 text-[0.96rem] transition-colors duration-300 ${
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                             active
                               ? 'border-forest bg-forest text-ivory'
                               : 'border-walnut/25 text-walnut hover:border-gold-deep hover:text-ink'
@@ -195,11 +152,7 @@ export default function Quote() {
                 </fieldset>
 
                 <div className="mt-6">
-<<<<<<< HEAD
-                  <label htmlFor="q-detail" className="text-[0.9rem] text-walnut/75">
-=======
                   <label htmlFor="q-detail" className="text-[0.96rem] text-walnut/88">
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                     {t('quoteDetail')}
                   </label>
                   <textarea
@@ -229,11 +182,7 @@ export default function Quote() {
                     </button>
                   </Magnetic>
 
-<<<<<<< HEAD
-                  <p className="text-[0.85rem] leading-relaxed text-walnut/60">
-=======
                   <p className="text-[0.92rem] leading-relaxed text-walnut/75">
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                     {t('quoteNote')}{' '}
                     <a
                       href={mailto}
@@ -247,11 +196,7 @@ export default function Quote() {
                     <motion.p
                       initial={{ opacity: 0, y: -4 }}
                       animate={{ opacity: 1, y: 0 }}
-<<<<<<< HEAD
-                      className="text-[0.85rem] text-red-800"
-=======
                       className="text-[0.92rem] text-red-800"
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
                     >
                       {t('quoteError')}
                     </motion.p>

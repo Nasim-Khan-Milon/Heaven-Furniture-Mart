@@ -3,18 +3,6 @@ import { Marker } from './ui'
 import { useLang } from '../i18n/LanguageContext'
 import { Corridor, Reveal, SplitText } from '../fx'
 
-<<<<<<< HEAD
-/**
- * Recent work, hung down a corridor you walk rather than a grid you scan.
- *
- * This replaces the drag rail that used to sit here. The rail and the workshop
- * section were doing the same thing — pull sideways, look at photographs — and
- * a page only needs one of those. Walking past the work is the version that
- * matches what the brief actually asks for: it should feel like entering a
- * studio, not browsing a catalogue.
- */
-=======
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export default function Showroom3D() {
   const { t } = useLang()
 
@@ -33,11 +21,7 @@ export default function Showroom3D() {
             />
           </div>
           <Reveal delay={0.12}>
-<<<<<<< HEAD
-            <p className="max-w-xs text-[0.95rem] leading-relaxed text-ivory/60">{t('walkNote')}</p>
-=======
             <p className="max-w-xs text-[1.02rem] leading-relaxed text-ivory/74">{t('walkNote')}</p>
->>>>>>> 9df94b3 (Fixed all issues and improve the ui)
           </Reveal>
         </div>
       </div>
