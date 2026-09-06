@@ -3,7 +3,6 @@ import { ArchImage, ArrowIcon, Marker } from './ui'
 import { Reveal, SplitText, Stagger, StaggerItem } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
-
 export default function Styling() {
   const { t } = useLang()
 
@@ -22,7 +21,7 @@ export default function Styling() {
             />
 
             <Reveal delay={0.1}>
-              <p className="pretty mt-7 max-w-xl text-lg leading-relaxed text-walnut/85">{t('styBody')}</p>
+              <p className="pretty mt-7 max-w-xl text-lg leading-relaxed text-walnut/92">{t('styBody')}</p>
             </Reveal>
 
             <Stagger as="ul" className="mt-10 divide-y divide-walnut/15 border-y border-walnut/15">
@@ -30,7 +29,7 @@ export default function Styling() {
                 <StaggerItem key={item.title} as="li">
                   <div className="py-5">
                     <h3 className="font-display text-xl text-ink">{t(item.title)}</h3>
-                    <p className="pretty mt-1.5 text-[0.95rem] leading-relaxed text-walnut/75">
+                    <p className="pretty mt-1.5 text-[1.02rem] leading-relaxed text-walnut/88">
                       {t(item.body)}
                     </p>
                   </div>

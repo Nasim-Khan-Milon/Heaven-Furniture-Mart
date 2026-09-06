@@ -5,7 +5,6 @@ import { Marker, WhatsAppIcon } from './ui'
 import { Reveal, SplitText } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
-
 export default function Faq() {
   const { t } = useLang()
   const [open, setOpen] = useState(0)
@@ -24,7 +23,7 @@ export default function Faq() {
               className={`balance mt-6 block font-display text-[length:var(--text-display)] leading-[1.02]`}
             />
             <Reveal delay={0.18}>
-              <p className="pretty mt-6 max-w-sm text-[0.95rem] leading-relaxed text-walnut/75">{t('faqNote')}</p>
+              <p className="pretty mt-6 max-w-sm text-[1.02rem] leading-relaxed text-walnut/88">{t('faqNote')}</p>
               <a
                 href={wa('Hello Heaven Furniture Mart, I have a question about your work.')}
                 target="_blank"
@@ -76,7 +75,7 @@ export default function Faq() {
                             transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
                             className="overflow-hidden"
                           >
-                            <p className="pretty max-w-2xl pb-7 text-[1rem] leading-relaxed text-walnut/80">
+                            <p className="pretty max-w-2xl pb-7 text-[1rem] leading-relaxed text-walnut/90">
                               {t(faq.a)}
                             </p>
                           </motion.dd>

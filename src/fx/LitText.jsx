@@ -2,17 +2,6 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useMotionPrefs } from './MotionProvider'
 
-/**
- * Words light up one at a time as the passage crosses the screen, so reading
- * pace and scroll pace are the same thing. Reserved for the managing director's
- * quote — it is the one piece of copy on the page worth slowing a visitor down
- * for, and it earns the effect precisely because nothing else uses it.
- *
- * Each word is its own component so it can own a hook. Mapping hooks over an
- * array inside the parent would break the moment the language toggle changed
- * the word count mid-session; a component per word remounts cleanly instead.
- */
-
 function LitWord({ progress, start, end, children }) {
   const opacity = useTransform(progress, [start, end], [0.16, 1])
   const color = useTransform(progress, [start, end], ['#8a7a67', '#241c15'])

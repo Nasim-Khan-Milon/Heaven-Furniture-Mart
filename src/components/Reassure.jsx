@@ -9,11 +9,6 @@ const STEPS = [
   { title: 'reassure3Title', body: 'reassure3Body' },
 ]
 
-/**
- * Sits directly under the hero. Many of Heaven's customers will be buying
- * something this expensive online for the first time — this says plainly that
- * the page is not a shop and nothing here takes their money.
- */
 export default function Reassure() {
   const { t } = useLang()
 
@@ -27,7 +22,7 @@ export default function Reassure() {
             className="balance block font-display text-[length:var(--text-section)] leading-[1.08]"
           />
           <Reveal delay={0.15}>
-            <p className="pretty mt-5 max-w-2xl text-lg leading-relaxed text-walnut/85">
+            <p className="pretty mt-5 max-w-2xl text-lg leading-relaxed text-walnut/92">
               {t('reassureBody')}
             </p>
           </Reveal>
@@ -43,7 +38,7 @@ export default function Reassure() {
                 <h3 className="mt-4 font-display text-xl leading-snug text-ink">
                   {t(step.title)}
                 </h3>
-                <p className="pretty mt-2.5 text-[0.95rem] leading-relaxed text-walnut/80">
+                <p className="pretty mt-2.5 text-[1.02rem] leading-relaxed text-walnut/90">
                   {t(step.body)}
                 </p>
               </div>
@@ -51,7 +46,6 @@ export default function Reassure() {
           ))}
         </Stagger>
 
-        {/* the strongest reassurance of all: a real address you can walk into */}
         <div className="mt-12 grid grid-cols-1 gap-8 rounded-2xl border border-walnut/15 bg-ivory/70 p-6 sm:p-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-4">
             <ArchImage
@@ -70,7 +64,7 @@ export default function Reassure() {
               <h3 className="font-display text-2xl leading-snug text-ink sm:text-3xl">
                 {t('reassureShowroom')}
               </h3>
-              <p className="pretty mt-3 max-w-xl text-[1rem] leading-relaxed text-walnut/80">
+              <p className="pretty mt-3 max-w-xl text-[1rem] leading-relaxed text-walnut/90">
                 {t('reassureShowroomBody')}
               </p>
 
@@ -107,7 +101,7 @@ export default function Reassure() {
                   href={contact.mapUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 border-b border-walnut/30 pb-0.5 text-[0.95rem] text-walnut transition-colors hover:border-gold-deep hover:text-gold-deep"
+                  className="inline-flex items-center gap-2 border-b border-walnut/30 pb-0.5 text-[1.02rem] text-walnut transition-colors hover:border-gold-deep hover:text-gold-deep"
                 >
                   {t('reassureDirections')}
                 </a>

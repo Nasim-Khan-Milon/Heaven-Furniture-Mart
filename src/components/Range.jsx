@@ -5,7 +5,6 @@ import { ArrowIcon, Marker } from './ui'
 import { Reveal, SplitText, Stagger, StaggerItem, useMotionPrefs } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
-
 const MODES = [
   { id: 'classic', label: 'rangeClassic' },
   { id: 'modern', label: 'rangeModern' },
@@ -30,13 +29,12 @@ export default function Range() {
               className={`balance mt-6 block font-display text-[length:var(--text-display)] leading-[1.02]`}
             />
             <Reveal delay={0.18}>
-              <p className="pretty mt-6 max-w-lg text-lg leading-relaxed text-walnut/85">
+              <p className="pretty mt-6 max-w-lg text-lg leading-relaxed text-walnut/92">
                 {t('rangeBody')}
               </p>
             </Reveal>
           </div>
 
-          {/* segmented control */}
           <Reveal delay={0.1}>
             <div
               role="group"
@@ -51,7 +49,7 @@ export default function Range() {
                     type="button"
                     onClick={() => setMode(option.id)}
                     aria-pressed={active}
-                    className="relative rounded-full px-7 py-3 text-[0.95rem] font-medium transition-colors duration-300"
+                    className="relative rounded-full px-7 py-3 text-[1.02rem] font-medium transition-colors duration-300"
                   >
                     {active && (
                       <motion.span
@@ -93,7 +91,7 @@ export default function Range() {
                 </div>
 
                 <h3 className="mt-5 font-display text-xl text-ink">{t(pair.room)}</h3>
-                <p className="mt-1 text-[0.85rem] leading-relaxed text-walnut/65">
+                <p className="mt-1 text-[0.92rem] leading-relaxed text-walnut/80">
                   {t(flipped ? pair.modern.label : pair.classic.label)}
                 </p>
               </StaggerItem>

@@ -5,36 +5,23 @@ import { useLang } from '../i18n/LanguageContext'
 import { CURTAIN, EASE } from './config'
 import { useMotionPrefs } from './MotionProvider'
 
-/**
- * The one orchestrated moment on the page.
- *
- * Heaven's pitch is that a piece is measured before it is made, so the page
- * opens the same way: a dimension line draws itself across the brand, a set of
- * plans counts up to complete, and then two panels part like the doors of the
- * Agrabad showroom. Everything after this is triggered by the visitor.
- *
- * It is skippable on any input, it never runs for reduced-motion visitors, and
- * scroll is held for its 1.8s so the hero is not half-read behind the panels.
- */
-
-const DRAW = 1.75 // curtains start parting here
-const CLEAR = 2.85 // component unmounts here
+const DRAW = 1.75
+const CLEAR = 2.85
 
 export default function Preloader() {
   const { t } = useLang()
   const { intro, ready, done } = useMotionPrefs()
-  const [phase, setPhase] = useState('draw') // draw → part → gone
+  const [phase, setPhase] = useState('draw')
   const [count, setCount] = useState(0)
   const skipped = useRef(false)
 
-  // ------------------------------------------------------------- the counter
   useEffect(() => {
     if (!intro) return
     let frame
     const started = performance.now()
     const tick = (now) => {
       const p = Math.min((now - started) / (DRAW * 1000 - 250), 1)
-      // Eased so the number slows as it approaches 100 instead of running out.
+
       setCount(Math.round((1 - Math.pow(1 - p, 3)) * 100))
       if (p < 1) frame = requestAnimationFrame(tick)
     }
@@ -42,7 +29,6 @@ export default function Preloader() {
     return () => cancelAnimationFrame(frame)
   }, [intro])
 
-  // -------------------------------------------------------------- the timing
   useEffect(() => {
     if (!intro) return
 
@@ -53,7 +39,7 @@ export default function Preloader() {
       if (skipped.current) return
       skipped.current = true
       setPhase('part')
-      done() // hero begins its entrance behind the opening panels
+      done()
     }
 
     const skip = () => {
@@ -77,7 +63,6 @@ export default function Preloader() {
     }
   }, [intro, done])
 
-  // Hold the page still while the panels are closed.
   useEffect(() => {
     if (!intro || phase === 'gone') return
     const prev = document.body.style.overflow
@@ -95,7 +80,6 @@ export default function Preloader() {
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[100]" aria-hidden="true">
-        {/* ---------------------------------------------------- the two panels */}
         <motion.div
           className="absolute inset-y-0 left-0 w-[50.5%] bg-forest-deep"
           animate={parting ? { x: '-101%' } : { x: 0 }}
@@ -107,7 +91,6 @@ export default function Preloader() {
           transition={panel}
         />
 
-        {/* light spilling through the opening gap */}
         <motion.div
           className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-gold"
           initial={{ opacity: 0, scaleY: 0 }}
@@ -115,7 +98,6 @@ export default function Preloader() {
           transition={{ duration: parting ? 0.7 : 1, ease: EASE }}
         />
 
-        {/* ------------------------------------------------------- the content */}
         <motion.div
           className="absolute inset-0 flex flex-col items-center justify-center px-6"
           animate={parting ? { opacity: 0, scale: 1.07 } : { opacity: 1, scale: 1 }}
@@ -133,7 +115,6 @@ export default function Preloader() {
               transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
             />
 
-            {/* the dimension line, drawn under the brand like a plan */}
             <svg
               viewBox="0 0 320 40"
               className="absolute -bottom-9 left-1/2 h-10 w-[19rem] -translate-x-1/2 sm:w-[22rem]"
@@ -163,7 +144,7 @@ export default function Preloader() {
           </div>
 
           <motion.p
-            className="mt-16 text-[0.8rem] tracking-[0.24em] text-ivory/55"
+            className="mt-16 text-[0.86rem] tracking-[0.24em] text-ivory/70"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.3 }}
@@ -172,7 +153,6 @@ export default function Preloader() {
           </motion.p>
         </motion.div>
 
-        {/* ------------------------------------------------------- the counter */}
         <motion.div
           className="absolute right-6 bottom-6 flex items-end gap-3 sm:right-10 sm:bottom-10"
           animate={parting ? { opacity: 0, y: 10 } : { opacity: 1, y: 0 }}
@@ -181,12 +161,11 @@ export default function Preloader() {
           <span className="font-display text-4xl leading-none text-ivory/85 tabular-nums sm:text-5xl">
             {String(count).padStart(2, '0')}
           </span>
-          <span className="pb-1 text-[0.7rem] tracking-[0.18em] text-ivory/40">
+          <span className="pb-1 text-[0.78rem] tracking-[0.18em] text-ivory/40">
             {t('introLoading')}
           </span>
         </motion.div>
 
-        {/* thin progress rule along the very bottom */}
         <motion.div
           className="absolute bottom-0 left-0 h-px origin-left bg-gold"
           style={{ width: '100%' }}

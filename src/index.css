@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Palette — drawn from the brand logo (gold), the brief (charcoal-teal),
-     and the warm interiors in Heaven's own photography. */
   --color-ivory: #f7f2e8;
   --color-linen: #efe7d7;
   --color-sand: #e3d8c2;
@@ -14,13 +12,20 @@
   --color-walnut: #4a3728;
   --color-ink: #241c15;
 
-  --font-display: 'Bodoni Moda', 'Noto Serif Bengali', 'Times New Roman', serif;
+  --color-charcoal-teal: #16302c;
+  --color-charcoal-teal-deep: #0d1f1c;
+  --color-brass: #b8924a;
+  --color-brass-soft: #d8b876;
+  --color-wood-tan: #c9a06c;
+  --color-deep-brown: #3a2a1f;
+
+  --font-display: 'Archivo', 'Anek Bangla', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Jost', 'Hind Siliguri', ui-sans-serif, system-ui, sans-serif;
   --font-bangla: 'Hind Siliguri', ui-sans-serif, sans-serif;
 
-  --text-hero: clamp(2.6rem, 6.4vw, 5.75rem);
-  --text-display: clamp(2.1rem, 5.2vw, 4.25rem);
-  --text-section: clamp(1.8rem, 3.6vw, 3rem);
+  --text-hero: clamp(2.05rem, 3.5vw, 3.5rem);
+  --text-display: clamp(1.8rem, 3.2vw, 3.1rem);
+  --text-section: clamp(1.55rem, 2.5vw, 2.35rem);
 }
 
 @layer base {
@@ -33,22 +38,34 @@
     color: var(--color-walnut);
     font-family: var(--font-sans);
     font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.62;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
 
+  html[data-lang='bn'] body {
+    font-size: 1.09rem;
+    line-height: 1.78;
+  }
+
   h1,
   h2,
-  h3,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    font-weight: 700;
+    letter-spacing: -0.028em;
+    line-height: 1.04;
+  }
+
   blockquote {
     font-family: var(--font-display);
     color: var(--color-ink);
-    font-weight: 400;
-    letter-spacing: -0.015em;
+    font-weight: 500;
+    letter-spacing: -0.018em;
   }
 
-  /* Bangla glyphs sit taller than Latin, so the display sizes come down a
-     step and everything gets a little more room to breathe. */
   html[data-lang='bn'] body {
     font-family: var(--font-bangla);
   }
@@ -57,15 +74,16 @@
   html[data-lang='bn'] h2,
   html[data-lang='bn'] h3,
   html[data-lang='bn'] blockquote {
-    font-family: 'Noto Serif Bengali', serif;
-    line-height: 1.35;
+    font-family: 'Anek Bangla', 'Hind Siliguri', sans-serif;
+    font-weight: 700;
+    line-height: 1.42;
     letter-spacing: 0;
   }
 
   html[data-lang='bn'] {
-    --text-hero: clamp(2rem, 4.4vw, 3.9rem);
-    --text-display: clamp(1.6rem, 3.4vw, 2.9rem);
-    --text-section: clamp(1.4rem, 2.6vw, 2.1rem);
+    --text-hero: clamp(1.7rem, 2.9vw, 2.95rem);
+    --text-display: clamp(1.5rem, 2.7vw, 2.6rem);
+    --text-section: clamp(1.35rem, 2.2vw, 2rem);
   }
 
   html[data-lang='bn'] .italic,
@@ -79,9 +97,23 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 3px solid var(--color-gold);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+
+  /* Comfortable hit areas — helps every visitor, matters most on phones. */
+  a,
+  button,
+  summary,
+  [role='button'] {
+    touch-action: manipulation;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 1.0625rem;
   }
 
   img {
@@ -94,8 +126,6 @@
     font-family: var(--font-bangla);
   }
 
-  /* The arch — taken from the crowns of Heaven's showcase cabinets and the
-     curved headboards on their beds. Used instead of generic card corners. */
   .arch {
     border-radius: 999px 999px 4px 4px;
   }
@@ -109,13 +139,11 @@
   }
 
   .rule-gold {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--color-gold-deep) 18%,
-      var(--color-gold-deep) 82%,
-      transparent
-    );
+    background: linear-gradient(90deg,
+        transparent,
+        var(--color-gold-deep) 18%,
+        var(--color-gold-deep) 82%,
+        transparent);
   }
 
   .balance {
@@ -136,6 +164,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -156,16 +185,26 @@
   }
 }
 
-/* The grain jumps between four positions rather than sliding, which is how
-   film grain actually behaves — a slide reads as a moving texture, a jump
-   reads as a new frame. The layer is oversized so the jumps never expose an
-   edge. */
 @keyframes grain-shift {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-3%, 2%); }
-  50% { transform: translate(2%, -3%); }
-  75% { transform: translate(-2%, -2%); }
-  100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-3%, 2%);
+  }
+
+  50% {
+    transform: translate(2%, -3%);
+  }
+
+  75% {
+    transform: translate(-2%, -2%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 .grain-layer {
@@ -186,6 +225,7 @@
   from {
     transform: translate3d(0, 0, 0);
   }
+
   to {
     transform: translate3d(-50%, 0, 0);
   }
@@ -201,10 +241,33 @@
   }
 }
 
-/* Unlayered on purpose: Tailwind's utility layer would otherwise win over the
-   base-layer rule, and Noto Serif Bengali has no true italic — the browser
-   fakes one by slanting, which looks wrong in Bangla script. */
 html[data-lang='bn'] .italic {
   font-style: normal;
   color: var(--color-forest);
+}
+
+.nav-roll-bottom>span {
+  transform: translateY(115%);
+}
+
+.group:hover .nav-roll-top>span,
+.group:focus-visible .nav-roll-top>span {
+  transform: translateY(-115%);
+}
+
+.group:hover .nav-roll-bottom>span,
+.group:focus-visible .nav-roll-bottom>span {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-roll-bottom {
+    display: none;
+  }
+
+  .nav-roll-top>span,
+  .nav-roll-bottom>span {
+    transform: none !important;
+    transition: none !important;
+  }
 }

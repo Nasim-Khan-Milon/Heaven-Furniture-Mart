@@ -1,10 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
-import craftShowcase from '../assets/craft-showcase.webp'
-import classicArmchairs from '../assets/classic-armchairs.webp'
-import showroomReal from '../assets/showroom-real.webp'
-import diningMarble from '../assets/dining-marble.webp'
-import storageCabinet from '../assets/storage-cabinet.webp'
+import stageMeasure from '../assets/stage-measure.webp'
+import stageCutting from '../assets/stage-cutting.webp'
+import stageFinishing from '../assets/stage-finishing.webp'
+import stageFoam from '../assets/stage-foam.webp'
+import stageDelivery from '../assets/stage-delivery.webp'
 import { useLang } from '../i18n/LanguageContext'
 import { Marker } from './ui'
 import { Reveal, SCROLL_SPRING, SplitText, Video, useMotionPrefs } from '../fx'
@@ -22,30 +22,50 @@ import { Reveal, SCROLL_SPRING, SplitText, Video, useMotionPrefs } from '../fx'
  * Facebook carry workshop footage; the brief says to go and take it.
  */
 const PANELS = [
-  { image: craftShowcase, w: 1024, h: 1024, title: 'shop1', body: 'shop1b', step: 'shop1s' },
-  { image: classicArmchairs, w: 1000, h: 1333, title: 'shop2', body: 'shop2b', step: 'shop2s' },
-  { image: storageCabinet, w: 1024, h: 1024, title: 'shop3', body: 'shop3b', step: 'shop3s' },
-  { image: diningMarble, w: 1087, h: 1447, title: 'shop4', body: 'shop4b', step: 'shop4s' },
-  { image: showroomReal, w: 1200, h: 1600, title: 'shop5', body: 'shop5b', step: 'shop5s' },
+  {
+    image: stageMeasure,
+    w: 1200,
+    h: 1500,
+    title: 'shop1',
+    body: 'shop1b',
+    step: 'shop1s',
+  },
+  {
+    image: stageCutting,
+    video: '/media/stage-cutting.mp4',
+    w: 800,
+    h: 1000,
+    title: 'shop2',
+    body: 'shop2b',
+    step: 'shop2s',
+  },
+  {
+    image: stageFinishing,
+    video: '/media/stage-finishing.mp4',
+    w: 800,
+    h: 1000,
+    title: 'shop3',
+    body: 'shop3b',
+    step: 'shop3s',
+  },
+  {
+    image: stageFoam,
+    w: 1000,
+    h: 1250,
+    title: 'shop4',
+    body: 'shop4b',
+    step: 'shop4s',
+  },
+  {
+    image: stageDelivery,
+    w: 1000,
+    h: 1250,
+    title: 'shop5',
+    body: 'shop5b',
+    step: 'shop5s',
+  },
 ]
 
-/**
- * The workshop, told sideways.
- *
- * Vertical scroll is converted into horizontal travel while the section holds
- * the screen. It is the heaviest thing on the page and it is here on purpose:
- * making a piece is a sequence of stages, and a sequence reads better along a
- * line than stacked down a column. The page earns one moment like this, and
- * this is it.
- *
- * The outer element's height is the travel distance plus one screen, so the
- * scroll maps 1:1 — a visitor never feels they have scrolled further than the
- * rail actually moved, which is what makes most pinned sections feel broken.
- *
- * Below `lg`, and for reduced motion, this becomes an ordinary snap rail you
- * swipe. Pinning fights the address bar on mobile and there is nothing to gain
- * from it on a touchscreen that already scrolls sideways.
- */
 export default function Workshop() {
   const { t } = useLang()
   const { still } = useMotionPrefs()
@@ -75,7 +95,7 @@ export default function Workshop() {
           />
         </div>
         <Reveal delay={0.12}>
-          <p className="max-w-xs text-[0.95rem] leading-relaxed text-ivory/60">
+          <p className="max-w-xs text-[1.02rem] leading-relaxed text-ivory/74">
             {t(swipes ? 'shopNoteSwipe' : 'shopNote')}
           </p>
         </Reveal>
@@ -91,8 +111,6 @@ export default function Workshop() {
   )
 }
 
-/* --------------------------------------------------------------- desktop */
-
 function PinnedRail({ panels }) {
   const wrap = useRef(null)
   const track = useRef(null)
@@ -106,7 +124,7 @@ function PinnedRail({ panels }) {
     }
     measure()
     window.addEventListener('resize', measure)
-    // Fonts land after first paint and change the caption widths under them.
+
     document.fonts?.ready?.then(measure)
     return () => window.removeEventListener('resize', measure)
   }, [])
@@ -125,7 +143,6 @@ function PinnedRail({ panels }) {
           ))}
         </motion.div>
 
-        {/* travel indicator, sitting where a drawer rail would */}
         <div className="mx-12 mt-12 h-px bg-ivory/15">
           <motion.div style={{ width: rule }} className="h-px bg-gold" />
         </div>
@@ -134,11 +151,6 @@ function PinnedRail({ panels }) {
   )
 }
 
-/**
- * Each panel lifts and brightens as it reaches the middle of the screen and
- * settles back as it leaves, so attention lands on one stage at a time rather
- * than on the whole row at once.
- */
 function Panel({ panel, index, progress, count }) {
   const { t } = useLang()
   const centre = index / Math.max(count - 1, 1)
@@ -176,12 +188,13 @@ function Panel({ panel, index, progress, count }) {
       </div>
       <figcaption className="mt-6 max-w-sm">
         <h3 className="font-display text-2xl text-ivory">{t(panel.title)}</h3>
-        <p className="pretty mt-2 text-[0.95rem] leading-relaxed text-ivory/65">{t(panel.body)}</p>
+        <p className="pretty mt-2 text-[1.02rem] leading-relaxed text-ivory/78">{t(panel.body)}</p>
       </figcaption>
     </motion.figure>
   )
 }
 
+<<<<<<< HEAD
 /* ---------------------------------------------------------------- mobile */
 
 /**
@@ -195,6 +208,8 @@ function Panel({ panel, index, progress, count }) {
  * leaves, exactly as on desktop — driven here by the rail's own horizontal
  * scroll rather than by the page's vertical scroll.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 function SwipeRail({ panels }) {
   const rail = useRef(null)
   return (
@@ -214,8 +229,11 @@ function SwipePanel({ panel, container }) {
   const { still } = useMotionPrefs()
   const ref = useRef(null)
 
+<<<<<<< HEAD
   // Tracked against the rail, not the window: `container` is what makes the
   // progress follow a sideways swipe instead of the page scrolling past.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const { scrollXProgress } = useScroll({
     target: ref,
     container,
@@ -249,7 +267,11 @@ function SwipePanel({ panel, container }) {
       </div>
       <figcaption className="mt-5">
         <h3 className="font-display text-xl text-ivory">{t(panel.title)}</h3>
+<<<<<<< HEAD
         <p className="pretty mt-2 text-[0.9rem] leading-relaxed text-ivory/65">{t(panel.body)}</p>
+=======
+        <p className="pretty mt-2 text-[0.96rem] leading-relaxed text-ivory/78">{t(panel.body)}</p>
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
       </figcaption>
     </motion.figure>
   )

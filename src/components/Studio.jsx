@@ -3,9 +3,12 @@ import { ArchImage, Marker } from './ui'
 import { Reveal, SplitText, Stagger, StaggerItem } from '../fx'
 import { useLang } from '../i18n/LanguageContext'
 
+<<<<<<< HEAD
 
 // The founding year lives in the stats band immediately below this section;
 // stating it twice in two hundred pixels reads as a page repeating itself.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 const facts = [
   { big: 'fact2Big', small: 'fact2' },
   { big: 'fact3Big', small: 'fact3' },
@@ -29,19 +32,19 @@ export default function Studio() {
             />
 
             <Reveal delay={0.1}>
-              <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-walnut/85">
+              <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-walnut/92">
                 {t('studioBody')}
               </p>
             </Reveal>
 
             <Stagger as="dl" className="mt-12 divide-y divide-walnut/15 border-y border-walnut/15">
               {facts.map((fact) => (
-                <StaggerItem key={t(fact.big)}>
+                <StaggerItem key={fact.big}>
                   <div className="flex items-baseline gap-6 py-5">
                     <dt className="w-32 shrink-0 font-display text-2xl text-forest sm:text-3xl">
                       {t(fact.big)}
                     </dt>
-                    <dd className="text-[0.95rem] leading-relaxed text-walnut/75">{t(fact.small)}</dd>
+                    <dd className="text-[1.02rem] leading-relaxed text-walnut/88">{t(fact.small)}</dd>
                   </div>
                 </StaggerItem>
               ))}
@@ -59,7 +62,7 @@ export default function Studio() {
               className="aspect-[4/3] w-full"
             />
             <Reveal delay={0.12}>
-              <p className="mt-4 max-w-md text-[0.85rem] leading-relaxed text-walnut/60">
+              <p className="mt-4 max-w-md text-[0.92rem] leading-relaxed text-walnut/75">
                 {t('studioCaption')}
               </p>
             </Reveal>

@@ -3,15 +3,6 @@ import { ArrowIcon, Marker, Tilt } from './ui'
 import { useLang } from '../i18n/LanguageContext'
 import { ParallaxImage, Reveal, SplitText, Stagger, StaggerItem } from '../fx'
 
-/**
- * Four rooms, staggered off each other's baseline so the row reads as a set of
- * pieces placed in a space rather than a product grid.
- *
- * Every card is a WhatsApp link with the room already written into the opening
- * message, so a visitor who taps "Dining" arrives in a conversation that has
- * already started. The whole page funnels to one action; this is that action,
- * pre-filled four different ways.
- */
 export default function Collections() {
   const { t } = useLang()
 
@@ -30,7 +21,7 @@ export default function Collections() {
             />
           </div>
           <Reveal delay={0.12}>
-            <p className="max-w-sm text-[0.95rem] leading-relaxed text-walnut/70">{t('collNote')}</p>
+            <p className="max-w-sm text-[1.02rem] leading-relaxed text-walnut/85">{t('collNote')}</p>
           </Reveal>
         </div>
 
@@ -65,10 +56,10 @@ export default function Collections() {
                   {t(item.name)}
                   <ArrowIcon className="h-4 w-4 -translate-x-1 text-gold-deep opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                 </h3>
-                <p className="mt-1.5 text-[0.85rem] leading-relaxed text-walnut/65">
+                <p className="mt-1.5 text-[0.92rem] leading-relaxed text-walnut/80">
                   {t(item.pieces)}
                 </p>
-                <p className="mt-3 border-l border-gold/50 pl-3 text-[0.85rem] leading-relaxed text-walnut/80">
+                <p className="mt-3 border-l border-gold/50 pl-3 text-[0.92rem] leading-relaxed text-walnut/90">
                   {t(item.note)}
                 </p>
               </a>

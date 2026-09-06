@@ -3,14 +3,6 @@ import { VelocityMarquee } from '../fx'
 
 const WORDS = ['marqueeDesigned', 'marqueeCrafted', 'marqueeCustomized']
 
-/**
- * Heaven's own three-word pitch, running as a band across the page.
- *
- * It drifts on its own but scrolling pushes it — scroll hard and it runs ahead,
- * scroll back up and it reverses. It is the one element that visibly answers to
- * the visitor's own movement, which is worth more here than a fourth entrance
- * animation would be.
- */
 export default function Marquee() {
   const { t } = useLang()
 

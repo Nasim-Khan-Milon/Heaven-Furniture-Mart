@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 
+<<<<<<< HEAD
 /**
  * Decides once, at the top of the tree, how much motion this visitor gets.
  *
@@ -25,6 +26,8 @@ import { useReducedMotion } from 'framer-motion'
  * `lite` is the case the page is actually tuned for — not the desktop.
  */
 
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 const MotionContext = createContext(null)
 
 const DEFAULTS = { still: false, fine: false, lite: true, frugal: true, ready: false, intro: true }
@@ -37,7 +40,6 @@ export function MotionProvider({ children }) {
   useEffect(() => {
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
-    // Cheap proxies for "this device will drop frames if I run a canvas".
     const cores = navigator.hardwareConcurrency ?? 4
     const memory = navigator.deviceMemory ?? 4
     const saveData = navigator.connection?.saveData === true
@@ -50,7 +52,6 @@ export function MotionProvider({ children }) {
     })
   }, [])
 
-  // Reduced motion skips the intro entirely — the page is simply there.
   const still = reduced === true
   useEffect(() => {
     if (still) setReady(true)
@@ -63,11 +64,17 @@ export function MotionProvider({ children }) {
       still,
       fine: caps.fine && !still,
       lite: caps.lite,
+<<<<<<< HEAD
       /** Metered or slow connection — suppress anything that costs bytes. */
       frugal: caps.frugal,
       /** True once the intro curtain has opened and the page may animate in. */
+=======
+
+      frugal: caps.frugal,
+
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
       ready: ready || still,
-      /** Whether the intro sequence should run at all. */
+
       intro: !still,
       done,
     }),

@@ -27,7 +27,7 @@ export default function Visit() {
               className={`balance mt-6 block text-ivory font-display text-[length:var(--text-display)] leading-[1.02]`}
             />
             <Reveal delay={0.18}>
-              <p className="pretty mt-6 max-w-md text-lg leading-relaxed text-ivory/70">{t('visitBody')}</p>
+              <p className="pretty mt-6 max-w-md text-lg leading-relaxed text-ivory/82">{t('visitBody')}</p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Magnetic>
@@ -65,7 +65,7 @@ export default function Visit() {
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 lg:col-span-6 lg:pt-4">
             <Reveal delay={0.05}>
               <h3 className="font-display text-lg text-gold">{t('visitShowroom')}</h3>
-              <p className="mt-3 text-[0.95rem] leading-relaxed text-ivory/70">
+              <p className="mt-3 text-[1.02rem] leading-relaxed text-ivory/82">
                 Heaven Furniture Mart
                 <br />
                 Agrabad Access Road
@@ -76,7 +76,7 @@ export default function Visit() {
                 href={contact.mapUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 inline-block border-b border-ivory/30 pb-0.5 text-[0.9rem] text-ivory/85 transition-colors hover:border-gold hover:text-gold"
+                className="mt-3 inline-block border-b border-ivory/30 pb-0.5 text-[0.96rem] text-ivory/85 transition-colors hover:border-gold hover:text-gold"
               >
                 {t('visitMaps')}
               </a>
@@ -84,7 +84,7 @@ export default function Visit() {
 
             <Reveal delay={0.1}>
               <h3 className="font-display text-lg text-gold">{t('visitTalk')}</h3>
-              <p className="mt-3 flex flex-col gap-2 text-[0.95rem] text-ivory/70">
+              <p className="mt-3 flex flex-col gap-2 text-[1.02rem] text-ivory/82">
                 <a href={`tel:${contact.phoneRaw}`} className="transition-colors hover:text-gold">
                   {contact.phoneDisplay}
                 </a>
@@ -99,7 +99,7 @@ export default function Visit() {
 
             <Reveal delay={0.15}>
               <h3 className="font-display text-lg text-gold">{t('visitFollow')}</h3>
-              <ul className="mt-3 flex flex-col gap-2 text-[0.95rem] text-ivory/70">
+              <ul className="mt-3 flex flex-col gap-2 text-[1.02rem] text-ivory/82">
                 {socials.map((s) => (
                   <li key={s.label}>
                     <a
@@ -120,14 +120,14 @@ export default function Visit() {
         <Reveal delay={0.1}>
           <div className="mt-16 overflow-hidden rounded-[1.75rem] border border-ivory/15">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ivory/12 bg-forest/50 px-6 py-4">
-              <p className="text-[0.9rem] text-ivory/75">
+              <p className="text-[0.96rem] text-ivory/85">
                 {t('visitAddress')}
               </p>
               <a
                 href={contact.mapUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-[0.9rem] text-gold transition-colors hover:text-ivory"
+                className="text-[0.96rem] text-gold transition-colors hover:text-ivory"
               >
                 {t('visitDirections')}
               </a>
@@ -152,7 +152,7 @@ export default function Visit() {
             loading="lazy"
             className="h-9 w-auto"
           />
-          <p className="text-[0.85rem] text-ivory/45">
+          <p className="text-[0.92rem] text-ivory/62">
             {t('footerNote')}
           </p>
         </div>

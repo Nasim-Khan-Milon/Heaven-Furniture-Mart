@@ -1,81 +1,94 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { assurances, messenger, wa } from '../data/site'
+import { messenger, wa } from '../data/site'
 import { useLang } from '../i18n/LanguageContext'
 import HeroShowcase from './HeroShowcase'
-import MeasureOverlay from './MeasureOverlay'
 import { ArrowIcon, MessengerIcon, WhatsAppIcon } from './ui'
 import { DustMotes, EASE, EASE_INOUT, Magnetic, SplitText, useMotionPrefs } from '../fx'
 
+// Two rows, so the headline stacks like a block rather than trailing a short line.
 const HEADLINE = [
-  { key: 'heroLine1' },
-  { key: 'heroLine2', italic: true },
-  { key: 'heroLine3' },
+  ['heroLine1', 'heroLine2'],
+  ['heroLine3'],
 ]
 
-/**
- * The first three seconds decide whether this reads as a luxury studio or a
- * furniture listing, so the hero is built around one idea and nothing else:
- * the headline promises furniture made to the measure of a room, and the arch
- * beside it is a room, with a real piece standing in it and dust in the light.
- *
- * Everything here waits for the intro curtain to open before it moves, so the
- * page arrives as a single continuous sequence rather than two competing ones.
- */
+function Star() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-[0.95rem] w-[0.95rem]">
+      <path
+        fill="currentColor"
+        d="M12 2.4l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.2l6.5-.9z"
+      />
+    </svg>
+  )
+}
+
 export default function Hero() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const { still, ready } = useMotionPrefs()
   const sectionRef = useRef(null)
 
-  // Three layers leaving at three speeds as you scroll away: the type goes
-  // first and fades, the photo follows, the gold outline lags behind both.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   })
-  const typeY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : -120])
-  const typeFade = useTransform(scrollYProgress, [0, 0.75], [1, still ? 1 : 0])
-  const frameY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : -56])
-  const outlineY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : 40])
-  const cueFade = useTransform(scrollYProgress, [0, 0.12], [1, 0])
+  const cardY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : -60])
 
-  // Entrances are expressed relative to the curtain opening, not page load.
-  const line = (delay) => ({
-    initial: still ? false : { opacity: 0, y: 26, filter: 'blur(6px)' },
-    animate: ready ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {},
-    transition: { duration: 0.9, delay, ease: EASE },
+  const rise = (delay) => ({
+    initial: still ? false : { opacity: 0, y: 22 },
+    animate: ready ? { opacity: 1, y: 0 } : {},
+    transition: { duration: 0.8, delay, ease: EASE },
   })
 
   return (
     <section
       id="top"
       ref={sectionRef}
-      className="relative overflow-hidden pt-28 pb-14 sm:pt-32 lg:pt-40 lg:pb-24"
+      className="relative bg-ivory px-3 pt-[5.25rem] pb-6 sm:px-5 sm:pb-7 lg:px-7 lg:pb-9"
     >
-      {/* warmth behind the type, so the ivory is a lit room and not a blank */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 -left-40 h-[36rem] w-[36rem] rounded-full bg-sand/50 blur-3xl"
+        className="absolute inset-x-0 top-[5.25rem] bottom-0 bg-gold"
       />
-      <DustMotes />
-
-      <div className="relative mx-auto flex max-w-[1400px] flex-col gap-10 px-5 sm:px-8 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-10 lg:gap-y-12 lg:px-12">
-        <motion.div
-          style={{ y: typeY, opacity: typeFade }}
-          className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 xl:col-span-6"
+      <motion.div
+        style={{ y: cardY }}
+        className="relative mx-auto mt-4 max-w-[1400px] overflow-hidden rounded-[1.75rem] bg-ivory sm:mt-5 sm:rounded-[2.25rem] lg:mt-6"
+      >
+        {/* The wave the pieces stand on — flat on phones, a diagonal sweep from
+            large screens up, where the piece sits off to the right. */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[21.5rem] w-full sm:h-[24.5rem] lg:hidden"
         >
-          <motion.p
-            {...line(0.1)}
-            className="flex items-center gap-3 text-[0.82rem] tracking-[0.14em] text-gold-deep"
-          >
-            <motion.span
-              className="h-px bg-gold-deep"
-              initial={still ? false : { width: 0 }}
-              animate={ready ? { width: 36 } : {}}
-              transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-            />
-            {t('heroEyebrow')}
-          </motion.p>
+          <path
+            fill="var(--color-gold)"
+            d="M0 52 C 260 14 520 46 760 40 C 1010 34 1250 62 1440 44 L1440 120 L0 120 Z"
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1440 420"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[58%] w-full lg:block"
+        >
+          <path
+            fill="var(--color-gold)"
+            d="M0 396 C 170 376 320 404 452 394 C 618 382 660 214 852 146 C 1052 76 1298 40 1440 28 L1440 420 L0 420 Z"
+          />
+        </svg>
+
+        <div className="relative grid gap-6 px-6 pt-8 pb-8 sm:px-9 sm:pt-9 lg:grid-cols-12 lg:grid-rows-[auto_auto] lg:gap-x-8 lg:gap-y-0 lg:px-11 lg:pt-11 lg:pb-10">
+          {/* Left — the pitch */}
+          <div className="order-1 lg:col-span-6 lg:col-start-1 lg:row-start-1 ">
+            <motion.p
+              {...rise(0.05)}
+              className="inline-flex items-center gap-2.5 rounded-full border border-gold-deep/30 bg-ivory px-4 py-2 text-[0.82rem] font-medium text-walnut"
+            >
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-gold-deep" />
+              {t('heroBadge')}
+            </motion.p>
 
           {/* One pass of low gold light across the type as it settles. Once,
               not on a loop — a headline that keeps shimmering is a headline
@@ -108,31 +121,31 @@ export default function Hero() {
             </h1>
           </div>
 
-          <motion.p
-            {...line(0.62)}
-            className="pretty mt-8 max-w-xl text-lg leading-relaxed text-walnut/85 sm:text-xl"
-          >
-            {t('heroBody')}
-          </motion.p>
+            <motion.p
+              {...rise(0.5)}
+              className="pretty mt-5 max-w-[44ch] text-[1.02rem] leading-relaxed text-walnut/90 sm:text-[1.08rem]"
+            >
+              {t('heroBody')}
+            </motion.p>
 
-          <motion.div {...line(0.75)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Magnetic>
-              <a
-                href={wa("Hello Heaven Furniture Mart, I'd like to book a free design consultation.")}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-forest px-8 py-4 font-medium text-ivory transition-colors duration-500 hover:text-forest-deep"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 origin-bottom scale-y-0 rounded-full bg-gold transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100"
-                />
-                <span className="relative flex items-center gap-2.5">
-                  <WhatsAppIcon />
-                  {t('ctaBookLong')}
-                </span>
-              </a>
-            </Magnetic>
+            <motion.div {...rise(0.62)} className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Magnetic>
+                <a
+                  href={wa("Hello Heaven Furniture Mart, I'd like to book a free design consultation.")}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-forest px-7 py-3.5 font-medium text-ivory transition-colors duration-500 hover:text-forest-deep"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 origin-bottom scale-y-0 rounded-full bg-gold transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100"
+                  />
+                  <span className="relative flex items-center gap-2.5">
+                    <WhatsAppIcon />
+                    {t('ctaBook')}
+                  </span>
+                </a>
+              </Magnetic>
 
             <a
               href="#collections"
@@ -220,42 +233,50 @@ export default function Hero() {
             </motion.div>
 
             <motion.a
-              {...line(1.15)}
+              {...rise(0.72)}
               href={messenger}
               target="_blank"
               rel="noreferrer"
-              className="mt-5 inline-flex items-center gap-2 text-[0.9rem] text-walnut/70 underline-offset-4 transition-colors hover:text-ink hover:underline"
+              className="mt-5 flex w-fit items-center gap-2 text-[0.92rem] text-walnut/85 underline-offset-4 transition-colors hover:text-ink hover:underline"
             >
               <MessengerIcon className="h-4 w-4" />
               {t('ctaMessenger')}
             </motion.a>
           </div>
-        </div>
-      </div>
 
-      {/* scroll cue — a line that keeps falling until you take the hint */}
-      <motion.div
-        aria-hidden="true"
-        style={{ opacity: cueFade }}
-        className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
-      >
-        <motion.span
-          className="text-[0.7rem] tracking-[0.2em] text-walnut/45"
-          initial={still ? false : { opacity: 0 }}
-          animate={ready ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 1.5 }}
-        >
-          {t('heroScroll')}
-        </motion.span>
-        <span className="relative block h-10 w-px overflow-hidden bg-walnut/15">
-          {!still && (
-            <motion.span
-              className="absolute inset-x-0 top-0 block h-4 bg-gold-deep"
-              animate={{ y: ['-100%', '250%'] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: [0.65, 0, 0.35, 1] }}
-            />
-          )}
-        </span>
+          {/* Right — the piece standing on the wave */}
+          <motion.div
+            className="order-2 lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1"
+            initial={still ? false : { opacity: 0, y: 26 }}
+            animate={ready ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, delay: 0.32, ease: EASE }}
+          >
+            <HeroShowcase play={ready} />
+          </motion.div>
+
+          {/* Rating — bottom left, level with the piece caption opposite */}
+          <motion.a
+            {...rise(0.88)}
+            href="#reviews"
+            className="order-3 block w-fit self-end rounded-xl transition-opacity hover:opacity-80 lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:mt-7"
+          >
+            <span className="flex items-center gap-2.5">
+              <span className="flex gap-0.5 text-gold-deep" aria-hidden="true">
+                <Star />
+                <Star />
+                <Star />
+                <Star />
+                <Star />
+              </span>
+              <span className="font-display text-[1.15rem] font-extrabold text-ink">
+                {t('heroRatingValue')}
+              </span>
+            </span>
+            <span className="mt-1 block max-w-[24ch] text-[0.86rem] leading-snug text-walnut/85">
+              {t('heroRatingNote')}
+            </span>
+          </motion.a>
+        </div>
       </motion.div>
     </section>
   )

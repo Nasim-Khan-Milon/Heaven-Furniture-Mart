@@ -10,80 +10,85 @@ const QUESTIONS = [
     key: 'piece',
     label: 'qPiece',
     options: [
-      { label: 'Sofa set', phrase: 'a sofa set' },
-      { label: 'Bed', phrase: 'a bed' },
-      { label: 'Dining table', phrase: 'a dining table' },
-      { label: 'Wardrobe', phrase: 'a wardrobe' },
-      { label: 'Display cabinet', phrase: 'a display cabinet' },
-      { label: 'Office desk', phrase: 'an office desk' },
-      { label: 'Something else', phrase: 'a custom piece' },
+      { id: 'sofa', label: 'optSofa', phrase: 'phSofa' },
+      { id: 'bed', label: 'optBed', phrase: 'phBed' },
+      { id: 'dining', label: 'optDining', phrase: 'phDining' },
+      { id: 'wardrobe', label: 'optWardrobe', phrase: 'phWardrobe' },
+      { id: 'cabinet', label: 'optCabinet', phrase: 'phCabinet' },
+      { id: 'desk', label: 'optDesk', phrase: 'phDesk' },
+      { id: 'other', label: 'optOther', phrase: 'phOther' },
     ],
   },
   {
     key: 'style',
     label: 'qStyle',
     options: [
-      { label: 'Classic & carved', phrase: 'classic and carved' },
-      { label: 'Modern & clean', phrase: 'modern and clean' },
-      { label: 'A mix of both', phrase: 'somewhere between classic and modern' },
+      { id: 'classic', label: 'optClassic', phrase: 'phClassic' },
+      { id: 'modern', label: 'optModern', phrase: 'phModern' },
+      { id: 'mix', label: 'optMix', phrase: 'phMix' },
     ],
   },
   {
     key: 'material',
     label: 'qMaterial',
     options: [
-      { label: 'Solid wood', phrase: 'in solid wood' },
-      { label: 'Velvet upholstery', phrase: 'in velvet upholstery' },
-      { label: 'Marble top', phrase: 'with a marble top' },
-      { label: 'Glass & metal', phrase: 'in glass and metal' },
-      { label: 'Not sure yet', phrase: 'with the material still open' },
+      { id: 'wood', label: 'optWood', phrase: 'phWood' },
+      { id: 'velvet', label: 'optVelvet', phrase: 'phVelvet' },
+      { id: 'marble', label: 'optMarble', phrase: 'phMarble' },
+      { id: 'glass', label: 'optGlass', phrase: 'phGlass' },
+      { id: 'unsure', label: 'optUnsure', phrase: 'phUnsure' },
     ],
   },
   {
     key: 'timing',
     label: 'qTiming',
     options: [
-      { label: 'Within a month', phrase: 'I need it within a month.' },
-      { label: 'In 2–3 months', phrase: 'I am planning for two to three months from now.' },
-      { label: 'Just exploring', phrase: 'I am still exploring, so there is no rush.' },
+      { id: 'soon', label: 'optSoon', phrase: 'phSoon' },
+      { id: 'later', label: 'optLater', phrase: 'phLater' },
+      { id: 'browsing', label: 'optBrowsing', phrase: 'phBrowsing' },
     ],
   },
 ]
 
-const OPENING = 'Hello Heaven Furniture Mart.'
-const CLOSING = 'Could you tell me what is possible for my room, and roughly what it would cost?'
+function join(parts) {
+  return parts.filter(Boolean).join(' ')
+}
 
-function compose(picks) {
+function compose(picks, t) {
   const { piece, style, material, timing } = picks
+  const opening = t('msgOpening')
+  const closing = t('msgClosing')
+
   if (!piece && !style && !material && !timing) {
-    return `${OPENING}\n\nI would like to talk about a custom piece for my home. ${CLOSING}`
+    return `${opening}\n\n${t('msgEmpty')}\n\n${closing}`
   }
-  let body = `I am looking for ${piece ? piece.phrase : 'a custom piece'}`
-  if (style) body += `, ${style.phrase} in style`
-  if (material) body += `, ${material.phrase}`
-  body += '.'
-  if (timing) body += ` ${timing.phrase}`
-  return `${OPENING}\n\n${body}\n\n${CLOSING}`
+
+  let body = join([t('msgLead'), t(piece ? piece.phrase : 'phOther'), t('msgLeadEnd')])
+  if (style) body += `, ${join([t('msgStyleLead'), t(style.phrase), t('msgStyleEnd')])}`
+  if (material) body += `, ${t(material.phrase)}`
+  body += t('msgStop')
+  if (timing) body += ` ${t(timing.phrase)}`
+
+  return `${opening}\n\n${body}\n\n${closing}`
 }
 
 export default function Bespoke() {
-  const { t } = useLang()
+  const { t, n } = useLang()
   const [picks, setPicks] = useState({})
 
-  const message = useMemo(() => compose(picks), [picks])
+  const message = useMemo(() => compose(picks, t), [picks, t])
   const chosen = Object.keys(picks).length
 
   const select = (key, option) =>
     setPicks((prev) => ({
       ...prev,
-      [key]: prev[key]?.label === option.label ? undefined : option,
+      [key]: prev[key]?.id === option.id ? undefined : option,
     }))
 
   return (
     <section id="bespoke" className="bg-forest text-ivory">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-32">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
-          {/* ------------------------------------------------ left: the pitch */}
           <div className="lg:col-span-5">
             <Reveal>
               <Marker dark>{t('bespokeMarker')}</Marker>
@@ -95,7 +100,7 @@ export default function Bespoke() {
             />
 
             <Reveal delay={0.1}>
-              <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-ivory/75">{t('bespokeBody')}</p>
+              <p className="pretty mt-7 max-w-lg text-lg leading-relaxed text-ivory/85">{t('bespokeBody')}</p>
             </Reveal>
 
             <div className="mt-10 hidden max-w-sm lg:block">
@@ -112,40 +117,40 @@ export default function Bespoke() {
             </div>
           </div>
 
-          {/* -------------------------------------------- right: brief builder */}
           <div className="lg:col-span-7">
             <Reveal>
               <div className="rounded-[2rem] border border-ivory/15 bg-forest-soft/50 p-6 sm:p-9">
                 <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ivory/12 pb-5">
                   <h3 className="font-display text-2xl text-ivory sm:text-3xl">{t('briefTitle')}</h3>
-                  <p className="text-[0.85rem] text-ivory/55">
-                    {chosen} {t('briefOf')} {QUESTIONS.length} {t('briefCount')}
+                  <p className="text-[0.92rem] text-ivory/70">
+                    {n(chosen)} {t('briefOf')}{' '}
+                    {n(QUESTIONS.length)} {t('briefCount')}
                   </p>
                 </div>
 
                 <div className="mt-7 space-y-7">
                   {QUESTIONS.map((q) => (
                     <fieldset key={q.key}>
-                      <legend className="text-[0.9rem] text-ivory/70">{t(q.label)}</legend>
+                      <legend className="text-[0.96rem] text-ivory/82">{t(q.label)}</legend>
                       <div className="mt-3 flex flex-wrap gap-2.5">
                         {q.options.map((option) => {
-                          const active = picks[q.key]?.label === option.label
+                          const active = picks[q.key]?.id === option.id
                           return (
                             <motion.button
-                              key={option.label}
+                              key={option.id}
                               type="button"
                               onClick={() => select(q.key, option)}
                               aria-pressed={active}
                               whileTap={{ scale: 0.94 }}
                               whileHover={{ y: -2 }}
                               transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-                              className={`rounded-full border px-4 py-2 text-[0.9rem] transition-colors duration-250 ${
+                              className={`rounded-full border px-4 py-2 text-[0.96rem] transition-colors duration-250 ${
                                 active
                                   ? 'border-gold bg-gold text-forest-deep'
-                                  : 'border-ivory/25 text-ivory/80 hover:border-gold/70 hover:text-ivory'
+                                  : 'border-ivory/25 text-ivory/88 hover:border-gold/70 hover:text-ivory'
                               }`}
                             >
-                              {option.label}
+                              {t(option.label)}
                             </motion.button>
                           )
                         })}
@@ -155,7 +160,7 @@ export default function Bespoke() {
                 </div>
 
                 <div className="mt-9 border-t border-ivory/12 pt-7">
-                  <p className="text-[0.85rem] text-ivory/55">
+                  <p className="text-[0.92rem] text-ivory/70">
                     {t('briefPreface')}
                   </p>
 
@@ -167,7 +172,7 @@ export default function Bespoke() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.28 }}
-                        className="pretty whitespace-pre-line text-[0.95rem] leading-relaxed text-ivory/90"
+                        className="pretty whitespace-pre-line text-[1.02rem] leading-relaxed text-ivory/90"
                       >
                         {message}
                       </motion.p>
@@ -186,7 +191,7 @@ export default function Bespoke() {
                     </a>
                   </Magnetic>
 
-                  <p className="mt-4 text-[0.82rem] leading-relaxed text-ivory/50">
+                  <p className="mt-4 text-[0.88rem] leading-relaxed text-ivory/66">
                     {t('briefFree')}
                   </p>
                 </div>

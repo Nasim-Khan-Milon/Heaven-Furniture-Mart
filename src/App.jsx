@@ -18,6 +18,11 @@ import Marquee from './components/Marquee'
 import Process from './components/Process'
 import Story from './components/Story'
 import Showroom3D from './components/Showroom3D'
+<<<<<<< HEAD
+=======
+import ShowroomTour from './components/ShowroomTour'
+import Testimonials from './components/Testimonials'
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 import Faq from './components/Faq'
 import Quote from './components/Quote'
 import Visit from './components/Visit'
@@ -25,9 +30,6 @@ import MobileBar from './components/MobileBar'
 
 function SmoothScroll() {
   useEffect(() => {
-    // Skipped entirely for anyone who asks for reduced motion — hijacking the
-    // scroll of someone who has said they get motion sick is the one thing a
-    // page like this must never do.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true })
@@ -85,6 +87,11 @@ export default function App() {
           <Process />
           <Story />
           <Showroom3D />
+<<<<<<< HEAD
+=======
+          <ShowroomTour />
+          <Testimonials />
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
           <Faq />
           <Quote />
         </main>

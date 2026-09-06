@@ -1,40 +1,40 @@
-# Heaven Furniture Mart — Landing Page
+# Heaven Furniture Mart
 
-A conversion-focused landing page for Heaven Furniture Mart, a bespoke furniture
-studio on Agrabad Access Road, Chattogram.
+Marketing site for Heaven Furniture Mart, a bespoke furniture studio on Agrabad
+Access Road, Chattogram. The site is a single scrolling page in English and
+Bangla, built to turn a visitor into a WhatsApp or Messenger conversation
+rather than an online order — there is no cart and no checkout.
 
-Built for the RacDox Hackathon with React, Vite, Tailwind CSS v4 and Framer Motion.
+Built with React 19, Vite 7, Tailwind CSS v4 and Framer Motion.
 
 ---
 
-## Run it locally
+## Quick start
+
+Requires Node.js 20.19+ or 22.12+ (Vite 7's minimum).
 
 ```bash
 npm install
-npm run dev
+npm run dev        # dev server, usually http://localhost:5173
 ```
 
-Open the printed URL (usually http://localhost:5173).
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server with hot reload |
+| `npm run build` | Type-free production build into `dist/` |
+| `npm run preview` | Serve the built `dist/` locally to check the real output |
 
-```bash
-npm run build     # production build into dist/
-npm run preview   # serve the production build locally
-```
+## Deploying
 
-Node 18 or newer is required.
-
-## Deploy
-
-**Vercel** — push the folder to GitHub, then import the repo at vercel.com.
-Framework preset is detected as Vite; `vercel.json` is already included, so no
-configuration is needed.
-
-**Netlify** — build command `npm run build`, publish directory `dist`.
+`vercel.json` pins the framework to Vite, the build command to `npm run build`
+and the output directory to `dist/`. Any static host works — build and upload
+`dist/`.
 
 ---
 
-## Design decisions
+## Project layout
 
+<<<<<<< HEAD
 **The logo is the real one.** It was extracted from the assets embedded in
 Heaven's own brochure PDF rather than redrawn, so the wordmark on the page is
 the brand's actual mark. `logo-light.png` is a recoloured variant for the dark
@@ -174,47 +174,53 @@ src/
     Quote.jsx             consultation form — composes, never posts
     Visit.jsx             closing call to action, contact, footer
     MobileBar.jsx         sticky mobile call to action
+=======
+```text
+index.html            Meta tags, Google Fonts link, FurnitureStore JSON-LD
+src/
+  main.jsx            Entry point
+  App.jsx             Section order, Lenis smooth scroll, providers
+  index.css           Tailwind v4 @theme tokens: colour, type, motion
+  components/         One file per page section (25 files)
+  fx/                 Reusable motion primitives (16 files)
+  data/site.js        Contact details, nav, and all section content lists
+  i18n/
+    strings.js        Every string on the page, keyed, en + bn
+    LanguageContext.jsx  Language state, t(), Bangla numeral helper
+  assets/             Images, all .webp except the two logos
+public/media/         Workshop and showroom video (.mp4)
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 ```
 
-To change any wording or contact detail, start in `src/data/site.js`.
+Sections render in the order set by `App.jsx`. To reorder the page, move the
+components there; nothing else depends on their sequence.
 
 ---
 
-## Language
+## Content and copy
 
-The whole page is bilingual. `src/i18n/strings.js` holds every visible string
-in English and Bangla; components read them through `useLang()`. The toggle
-lives in the header, the choice is remembered in `localStorage`, and browsers
-reporting a Bangla locale get Bangla on first visit.
+**All user-facing text lives in `src/i18n/strings.js`.** Nothing is hardcoded in
+a component. Each entry carries both languages:
 
-The Bangla is **not a literal translation**. Most of Heaven's customers are in
-Chattogram and many will be buying something this expensive online for the
-first time, so the Bangla copy uses shorter sentences and everyday words where
-the English is more figurative.
+```js
+heroBadge: { en: 'Free design consultation', bn: 'ফ্রি ডিজাইন পরামর্শ' },
+```
 
-Two type details worth keeping if you edit the CSS: Bangla glyphs are taller
-than Latin, so `html[data-lang='bn']` drops the display sizes a step and adds
-line-height. And the `.italic` override is deliberately **unlayered** — Noto
-Serif Bengali has no true italic, so the browser fakes one by slanting, which
-looks wrong in Bangla. Tailwind's utility layer would beat a layered rule.
+Components read it through the `t()` helper:
 
-## Built for a first-time online buyer
+```jsx
+const { t, lang } = useLang()
+<p>{t('heroBadge')}</p>
+```
 
-Heaven's customers are not all confident online shoppers, so:
+If you add a key, add both `en` and `bn` — a missing `bn` value falls through to
+the English string, which looks like a bug to a Bangla reader.
 
-- There is no cart, no card field and no account anywhere. The page's only job
-  is to start a conversation.
-- `Reassure.jsx` sits directly under the hero and says so plainly, then walks
-  through what actually happens after you send a message.
-- Three ways to reach a human — WhatsApp, Facebook Messenger and a `tel:` link
-  that just opens the dialer — in the header, the hero, the reassurance
-  section, the footer and the sticky mobile bar.
-- The showroom address and map are repeated near the top, not just in the
-  footer. For someone who doesn't trust the internet, a real address they can
-  walk into is the strongest proof there is.
-- A `<noscript>` block carries the name, address and phone, so the page is
-  still useful if the JavaScript fails on a slow connection.
+Structured content (nav items, collections, FAQs, testimonials, hero pieces)
+lives in `src/data/site.js` as arrays of objects whose fields are *string keys*,
+not strings. That keeps the data bilingual by construction.
 
+<<<<<<< HEAD
 ## Flat is not the same as dead
 
 Two sections swap technique below `lg`, and both got that wrong at first.
@@ -287,56 +293,143 @@ invented. This matters more than it looks — a furniture page claiming a decade
 and a half of mastery is contradicting the brief its reader is holding.
 
 ## Before you hand this to the client
+=======
+Phone number, WhatsApp number, email, address and social links are all in the
+`contact` object in `src/data/site.js`. Change them once there and every button
+on the page follows. The `wa()` helper builds a pre-filled WhatsApp link:
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 
-Two FAQ answers contain figures the brief never supplied. Both are marked with
-`TODO` comments in `src/data/site.js` — confirm them with Heaven Furniture Mart
-and correct them:
+```js
+wa("Hello Heaven Furniture Mart, I'd like to book a consultation.")
+```
 
-- **Lead time.** Currently says most pieces take around three to five weeks.
-- **Delivery area.** Currently says delivery and installation are included in
-  and around Chattogram, with anything further to be discussed.
+### Language switching
 
-Both appear twice — once in English and once in Bangla (`faq2a`, `faq4a`).
+`LanguageProvider` reads a saved choice from `localStorage`, otherwise falls
+back to the browser locale, and writes `lang` and `data-lang` onto `<html>`.
+CSS keys off `html[data-lang='bn']` to swap the font stack, loosen line-height
+and drop Latin-only typographic tricks such as letter-spacing and uppercasing.
 
-Worth asking the client about two things that would help first-time buyers more
-than anything else on the page, but which the brief never mentioned: whether
-they accept **cash on delivery**, and a **starting price** for a basic sofa or
-bed. Neither is invented here because neither should be guessed.
+`localiseNumber(value, lang)` converts Western digits to Bangla numerals for
+stats and counters.
 
-The Messenger link points at `m.me/HeavenFurnitureMart`. Confirm that handle
-resolves — Facebook page usernames and numeric IDs are not interchangeable.
+---
 
-Everything else on the page comes from the company brief, the brochure or the
-company deck. There are deliberately **no invented customer testimonials** — the
-social proof is the Managing Director's real quote plus the "hundreds of happy
-homeowners" figure from the deck.
+## Design tokens
 
-The showroom map is a keyless Google Maps embed pointing at the business name
-and street. If the pin lands imprecisely, replace the `src` in `Visit.jsx` with
-a share link taken straight from Google Maps.
+Defined once in `src/index.css` under Tailwind v4's `@theme`, so they are
+available as both CSS variables and utility classes (`bg-gold`, `text-ink`).
+
+### Colour
+
+| Token | Hex | Used for |
+| --- | --- | --- |
+| `--color-ivory` | `#f7f2e8` | Page background |
+| `--color-linen` | `#efe7d7` | Raised surfaces |
+| `--color-sand` | `#e3d8c2` | Section washes |
+| `--color-gold` | `#d9a227` | Hero field and wave, accents |
+| `--color-gold-deep` | `#a87b1c` | Small print and rules on light ground |
+| `--color-forest` | `#14332b` | Primary buttons |
+| `--color-forest-deep` | `#0c1f1a` | Text on gold |
+| `--color-walnut` | `#4a3728` | Body copy |
+| `--color-ink` | `#241c15` | Headings |
+
+Contrast on the gold field: ink 7.3:1, forest 6.0:1, walnut 4.9:1 — all pass
+WCAG AA for body text.
+
+### Type
+
+| Role | Latin | Bangla |
+| --- | --- | --- |
+| Headings | Archivo 600–900 | Anek Bangla 600–800 |
+| Body | Jost 300–600 | Hind Siliguri 300–600 |
+
+Fonts load from Google Fonts via the `<link>` in `index.html`. **If you change a
+family or weight there, change `--font-display` / `--font-sans` in
+`index.css` too** — they are two separate places and drifting apart is the
+easiest way to get a silent fallback to system sans.
+
+Sizes are fluid `clamp()` values: `--text-hero`, `--text-display`,
+`--text-section`. Bangla overrides them smaller inside `html[data-lang='bn']`,
+because the script needs more vertical room per line.
+
+---
+
+## The hero
+
+`src/components/Hero.jsx` and `src/components/HeroShowcase.jsx`.
+
+A white rounded card floats on a full-bleed gold field, with a gold wave sweeping
+across the bottom of the card. Furniture stands directly on that wave.
+
+- **Two waves, not one.** A near-flat curve below `lg`, where the piece is
+  centred, and a diagonal sweep from `lg` up, where the piece sits right of the
+  copy. One path cannot do both without cutting through the furniture's legs.
+- **The gold field starts below the fixed header** (`top-[5.25rem]`) so the
+  logo keeps its ivory backdrop — its `A` is gold and disappears on gold.
+- `HeroShowcase` owns the carousel: 5s auto-advance, pause on hover and on
+  focus, previous/next buttons, an `aria-live` announcement of the current
+  piece, and no motion at all under `prefers-reduced-motion`.
+
+### Swapping hero images
+
+Hero images **must have a transparent background** — the piece stands on the
+wave with nothing boxed around it, so a white rectangle is immediately obvious.
+
+1. Cut the background out to real alpha and export `.webp`, roughly 1400px wide.
+2. Drop it in `src/assets/`.
+3. Import it in `src/data/site.js` and add an entry to `heroPieces`:
+
+   ```js
+   {
+     id: 'sofa-green',
+     image: heroSofaGreen,
+     w: 1400, h: 739,          // intrinsic size, prevents layout shift
+     ref: 'HFM-SF2',           // shown next to the room label
+     name: 'pieceSofaGreen',   // ↓ all four are keys into strings.js
+     room: 'collLiving',
+     caption: 'pieceSofaGreenC',
+     alt: 'pieceSofaGreenAlt',
+   }
+   ```
+
+4. Add the four strings to `src/i18n/strings.js` in both languages.
+
+The carousel counts entries itself, so the `01 / 05` counter and the arrows need
+no updating. Shoot or crop pieces so they sit on a flat baseline — they are
+bottom-aligned (`object-bottom`) and a floating piece looks like it is hovering.
 
 ---
 
 ## Motion
 
-All motion lives in `src/fx/`. Nothing in `components/` implements an animation
-directly — it composes these.
+`src/fx/` holds the shared primitives — `SplitText`, `Reveal`, `Magnetic`,
+`Counter`, `ParallaxImage`, `Preloader` and others. `src/fx/config.js` holds the
+shared easing curves and spring configs; use those rather than inventing new
+ones per component, or the page starts to feel like several sites.
 
-### The gate: `MotionProvider`
+`MotionProvider` exposes `useMotionPrefs()`:
 
-Decides once, at the top of the tree, how much motion a visitor gets. Three
-independent questions with three different answers:
+```jsx
+const { still, ready, fine } = useMotionPrefs()
+```
 
+<<<<<<< HEAD
 | Flag | Question | What it turns off |
 | --- | --- | --- |
 | `still` | `prefers-reduced-motion` | Almost everything. The intro never runs, masks render open, scroll-linked values freeze. |
 | `fine` | `(hover: hover) and (pointer: fine)` | Magnetic buttons, 3D tilt, hero alcove yaw. A tap can never strand a card at an angle. |
 | `lite` | `≤4 cores`, `≤4GB`, `saveData`, or `2g` | Per-frame work only: dust canvas, grain, scroll-velocity tracking. Every entrance and scroll animation still plays. |
 | `frugal` | `saveData`, or a 2g/3g connection | Anything that costs bytes — currently video, which is never even requested. |
+=======
+- `still` — the visitor asked for reduced motion. Skip animation entirely.
+- `ready` — the preloader has finished; entrance animations wait on this.
+- `fine` — a precise pointer, so hover-tilt and cursor effects are worth running.
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 
-A mid-range Android on 4G in Chattogram is the visitor this is tuned for, not
-the desktop it was built on.
+Every animated component checks `still`. If you add one, check it too.
 
+<<<<<<< HEAD
 ### The one orchestrated moment
 
 `Preloader.jsx` — gold dimension lines draw around the brand, a counter runs to
@@ -429,21 +522,43 @@ The whole motion system, the 3D corridor included, costs **+4 KB gzipped** over
 the build before it (146.8 KB vs 142.4 KB). No new dependencies were added — no
 three.js, no GSAP, no Locomotive. Everything animates `transform`, `opacity`,
 `clip-path` or `filter`; nothing animates layout.
+=======
+Lenis provides smooth scrolling in `App.jsx` and is disabled outright under
+`prefers-reduced-motion`.
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 
 ---
 
-## A note on the photography
+## Accessibility
 
-Several images came from Heaven's Facebook page as marketing graphics with
-logo bands, promotional text and contact bars baked in. Those overlays have
-been cropped out so the page carries its own typography rather than competing
-with someone else's. If you re-export any of these, crop the same way — a
-landing page with a second logo and phone number burned into the photos reads
-as a screenshot, not a website.
+Keep these working when editing:
 
-The team and sponsored-sports photos in that set were left out deliberately;
-they are good social content but they do not support a luxury furniture page.
+- Skip link to `#main` as the first focusable element.
+- Visible gold focus ring on everything focusable (`:focus-visible` in
+  `index.css`); never remove the outline without replacing it.
+- Carousel pauses on focus, not just hover, and announces the current piece.
+- Decorative SVG and imagery carry `aria-hidden="true"`; real images carry a
+  translated `alt`.
+- All motion respects `prefers-reduced-motion`.
 
 ---
 
-Photography, brand assets and company information belong to Heaven Furniture Mart.
+## Image licensing
+
+Some product renders in `src/assets/` came from stock libraries. Before this
+goes to production, confirm every image is either licensed or shot in the
+showroom. In particular, `hero-outdoor-teak.webp` derives from a watermarked
+Vecteezy preview and is **not cleared for commercial use** as it stands.
+
+---
+
+## Conventions
+
+- Two-space indent, no semicolons, single quotes — match the existing files.
+- One section per component file; components stay presentational and read their
+  content from `data/site.js` and `i18n/strings.js`.
+- Images as `.webp` with explicit `width` and `height` so nothing reflows on
+  load.
+- Tailwind utilities only. There is no separate stylesheet beyond `index.css`,
+  which holds tokens, base styles and a handful of `@layer utilities` helpers
+  (`.arch`, `.rule-gold`, `.balance`, `.pretty`, `.no-scrollbar`).

@@ -4,14 +4,6 @@ import { ArchImage, Layer, Marker, Tilt } from './ui'
 import { useLang } from '../i18n/LanguageContext'
 import { Reveal, SplitText, Stagger, StaggerItem, useMotionPrefs } from '../fx'
 
-/**
- * The materials board.
- *
- * Each swatch tilts under the pointer and carries a sheen that crosses it as it
- * moves — the same thing polished teak or velvet actually does under a lamp.
- * It is the closest a screen gets to letting someone feel a finish, which is
- * the entire reason a customer walks into a showroom in the first place.
- */
 export default function Materials() {
   const { t } = useLang()
   const { still } = useMotionPrefs()
@@ -43,13 +35,13 @@ export default function Materials() {
             />
 
             <Reveal delay={0.16}>
-              <p className="pretty mt-7 max-w-xl text-lg leading-relaxed text-walnut/85">
+              <p className="pretty mt-7 max-w-xl text-lg leading-relaxed text-walnut/92">
                 {t('matBody')}
               </p>
             </Reveal>
 
             <Reveal delay={0.22}>
-              <p className="mt-10 text-[0.9rem] text-walnut/60">{t('matNote')}</p>
+              <p className="mt-10 text-[0.96rem] text-walnut/75">{t('matNote')}</p>
             </Reveal>
 
             <Stagger as="ul" stagger={0.06} className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">

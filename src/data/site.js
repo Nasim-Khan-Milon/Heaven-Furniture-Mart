@@ -11,15 +11,21 @@ import modernBedroom from '../assets/modern-bedroom.webp'
 import modernVanity from '../assets/modern-vanity.webp'
 import modernSofa from '../assets/modern-sofa.webp'
 import swingChair from '../assets/swing-chair.webp'
-import cutSofaRoyal from '../assets/cut-sofa-royal.webp'
-import cutBedWhite from '../assets/cut-bed-white.webp'
-import cutDiningCream from '../assets/cut-dining-cream.webp'
-import cutSofaBeige from '../assets/cut-sofa-beige.webp'
-import cutVanity from '../assets/cut-vanity.webp'
 import craftShowcase from '../assets/craft-showcase.webp'
+<<<<<<< HEAD
 import cutSofaPink from '../assets/cut-sofa-pink.webp'
 import heroBed from '../assets/hero-bed.webp'
 import officeDirector from '../assets/office-director.webp'
+=======
+import heroBed from '../assets/hero-bed.webp'
+import heroArmchairs from '../assets/hero-armchairs.webp'
+import heroSofaGreen from '../assets/hero-sofa-green.webp'
+import heroBedGrey from '../assets/hero-bed-grey.webp'
+import heroDiningClassic from '../assets/hero-dining-classic.webp'
+import heroOutdoorTeak from '../assets/hero-outdoor-teak.webp'
+import officeDirector from '../assets/office-director.webp'
+import founderPortrait from '../assets/founder.webp'
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 
 export const messenger = 'https://m.me/HeavenFurnitureMart'
 
@@ -35,17 +41,76 @@ export const contact = {
   youtube: 'https://www.youtube.com/@HeavenFurnitureMart',
 }
 
-/** Builds a wa.me link with a pre-written first message. */
 export const wa = (message) =>
   `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(message)}`
 
+// Hero carousel. Every image is a transparent-background cut-out so the piece
+// sits directly on the gold wave with nothing boxed around it.
 export const heroPieces = [
+<<<<<<< HEAD
   { id: 'royal',  image: cutSofaRoyal,   w: 935, h: 667, caption: 'pieceRoyal',  alt: 'pieceRoyalAlt' },
   { id: 'bed',    image: cutBedWhite,    w: 861, h: 421, caption: 'pieceBed',    alt: 'pieceBedAlt' },
   { id: 'dining', image: cutDiningCream, w: 950, h: 581, caption: 'pieceDining', alt: 'pieceDiningAlt' },
   { id: 'beige',  image: cutSofaBeige,   w: 950, h: 597, caption: 'pieceBeige',  alt: 'pieceBeigeAlt' },
   { id: 'vanity', image: cutVanity,      w: 557, h: 642, caption: 'pieceVanity', alt: 'pieceVanityAlt' },
   { id: 'pink',   image: cutSofaPink,    w: 950, h: 516, caption: 'piecePink',   alt: 'piecePinkAlt' },
+=======
+  {
+    id: 'armchairs',
+    image: heroArmchairs,
+    w: 1400,
+    h: 620,
+    ref: 'HFM-AC2',
+    name: 'pieceArmchairs',
+    room: 'collLiving',
+    caption: 'pieceArmchairsC',
+    alt: 'pieceArmchairsAlt',
+  },
+  {
+    id: 'sofa-green',
+    image: heroSofaGreen,
+    w: 1400,
+    h: 739,
+    ref: 'HFM-SF2',
+    name: 'pieceSofaGreen',
+    room: 'collLiving',
+    caption: 'pieceSofaGreenC',
+    alt: 'pieceSofaGreenAlt',
+  },
+  {
+    id: 'bed-grey',
+    image: heroBedGrey,
+    w: 1400,
+    h: 723,
+    ref: 'HFM-BD1',
+    name: 'pieceBedGrey',
+    room: 'collBedroom',
+    caption: 'pieceBedGreyC',
+    alt: 'pieceBedGreyAlt',
+  },
+  {
+    id: 'dining-classic',
+    image: heroDiningClassic,
+    w: 1400,
+    h: 979,
+    ref: 'HFM-DN4',
+    name: 'pieceDiningClassic',
+    room: 'collDining',
+    caption: 'pieceDiningClassicC',
+    alt: 'pieceDiningClassicAlt',
+  },
+  {
+    id: 'outdoor-teak',
+    image: heroOutdoorTeak,
+    w: 1400,
+    h: 936,
+    ref: 'HFM-TK9',
+    name: 'pieceOutdoorTeak',
+    room: 'roomOutdoor',
+    caption: 'pieceOutdoorTeakC',
+    alt: 'pieceOutdoorTeakAlt',
+  },
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 ]
 
 export const nav = [
@@ -191,21 +256,24 @@ export const styling = [
 
 export const faqs = [
   { q: 'faq1q', a: 'faq1a' },
-  // TODO — confirm actual lead times with Heaven Furniture Mart before going live.
+
   { q: 'faq2q', a: 'faq2a' },
   { q: 'faq3q', a: 'faq3a' },
-  // TODO — confirm delivery coverage beyond Chattogram before going live.
+
   { q: 'faq4q', a: 'faq4a' },
   { q: 'faq5q', a: 'faq5a' },
   { q: 'faq6q', a: 'faq6a' },
 ]
 
+<<<<<<< HEAD
 /**
  * The five photographs hung down the 3D corridor. Five, not six: the corridor
  * costs roughly three quarters of a screen of scroll per panel, and a sixth
  * frame buys one more photograph at the price of a section that outstays its
  * welcome.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export const work = [
   { src: sofaEmbroidery, alt: 'galSofa',     w: 1024, h: 1024 },
   { src: officeDirector, alt: 'galOffice',   w: 1080, h: 930 },
@@ -214,6 +282,7 @@ export const work = [
   { src: heroBed,        alt: 'galBed',      w: 1100, h: 1375 },
 ]
 
+<<<<<<< HEAD
 /**
  * Every figure below is checkable against the company brief. Heaven was
  * founded in 2020, so the years count from there and nowhere else — a page
@@ -222,6 +291,8 @@ export const work = [
  *
  * The zero is the point of the band: a consultation costs nothing.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export const stats = [
   { value: 6,   suffix: '',  label: 'stat1',  note: 'stat1n' },
   { value: 5,   suffix: '',  label: 'stat2',  note: 'stat2n' },
@@ -229,6 +300,48 @@ export const stats = [
   { value: 0,   suffix: '৳', label: 'stat4',  note: 'stat4n' },
 ]
 
+<<<<<<< HEAD
+=======
+export const founder = {
+  image: founderPortrait,
+  w: 900,
+  h: 1125,
+  alt: 'storyPortraitAlt',
+  name: 'storyName',
+  role: 'storyRole',
+}
+
+export const testimonials = [
+  {
+    id: 'sharmin',
+    quote: 'testi1',
+    name: 'testi1Name',
+    place: 'testi1Place',
+    bought: 'testi1Bought',
+    initial: 'testi1Initial',
+    photo: null,
+  },
+  {
+    id: 'rifat',
+    quote: 'testi2',
+    name: 'testi2Name',
+    place: 'testi2Place',
+    bought: 'testi2Bought',
+    initial: 'testi2Initial',
+    photo: null,
+  },
+  {
+    id: 'tanvir',
+    quote: 'testi3',
+    name: 'testi3Name',
+    place: 'testi3Place',
+    bought: 'testi3Bought',
+    initial: 'testi3Initial',
+    photo: null,
+  },
+]
+
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export const quoteRooms = [
   { value: 'Living room', label: 'collLiving' },
   { value: 'Bedroom',     label: 'collBedroom' },

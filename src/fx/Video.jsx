@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMotionPrefs } from './MotionProvider'
 
+<<<<<<< HEAD
 /**
  * A muted background clip that behaves itself.
  *
@@ -32,6 +33,8 @@ import { useMotionPrefs } from './MotionProvider'
  * `playsInline` is not optional: without it iOS Safari takes any autoplaying
  * video fullscreen, which on a landing page reads as a hijack.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export default function Video({
   src,
   poster,
@@ -57,7 +60,10 @@ export default function Video({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+<<<<<<< HEAD
           // A rejected play() is a normal outcome, not an error to surface.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
           node.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
         } else {
           node.pause()

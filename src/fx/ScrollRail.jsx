@@ -2,13 +2,6 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 import { SCROLL_SPRING } from './config'
 import { useMotionPrefs } from './MotionProvider'
 
-/**
- * A brass hairline across the very top that fills as the page is read.
- *
- * This page is long and has one job at the end of it, so telling someone how
- * much is left is a courtesy, not decoration. Spring-smoothed, because the raw
- * scroll value judders against Lenis's own interpolation.
- */
 export default function ScrollRail() {
   const { still } = useMotionPrefs()
   const { scrollYProgress } = useScroll()

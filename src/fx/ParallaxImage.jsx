@@ -10,6 +10,7 @@ const SHAPES = {
   square: 'rounded-2xl',
 }
 
+<<<<<<< HEAD
 /**
  * Every photograph on the page arrives the same way, in four overlapping moves:
  *
@@ -34,6 +35,8 @@ const SHAPES = {
  * folds an element's own clip-path into its intersection ratio, so observing
  * the clipped node directly would leave it hidden at 0% forever.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export default function ParallaxImage({
   src,
   alt,
@@ -44,12 +47,20 @@ export default function ParallaxImage({
   imgClassName = '',
   frameClassName = '',
   priority = false,
+<<<<<<< HEAD
   /** Drift distance as a percentage of the frame's own height. */
+=======
+
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   drift = 7,
   zoom = 1.13,
   delay = 0,
   sheen = true,
+<<<<<<< HEAD
   /** Which part of the photograph to keep when the crop is tight. */
+=======
+
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   focus = 'center',
 }) {
   const outer = useRef(null)
@@ -63,7 +74,10 @@ export default function ParallaxImage({
   })
   const y = useTransform(scrollYProgress, [0, 1], [`-${drift}%`, `${drift}%`])
 
+<<<<<<< HEAD
   // Enough overscan that the drift never pulls an edge into frame.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const overscan = 1 + drift / 50
 
   return (
@@ -80,6 +94,7 @@ export default function ParallaxImage({
             className="absolute inset-0 will-change-transform"
             style={still ? undefined : { y, scale: overscan }}
           >
+<<<<<<< HEAD
             {/*
               `frameClassName` lands on this plain div rather than on the image.
               Framer writes an inline `transform` onto anything it animates, and
@@ -88,6 +103,8 @@ export default function ParallaxImage({
               nothing. Giving the hover its own untouched layer is what makes it
               work at all.
             */}
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
             <div className={`h-full w-full ${frameClassName}`}>
               <motion.img
                 src={src}

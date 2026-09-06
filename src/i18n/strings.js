@@ -1,12 +1,4 @@
-/**
- * Every visible string, in English and Bangla.
- *
- * Bangla is the first language of most customers in Chattogram, and many will
- * be buying online for the first time. The copy is deliberately plainer than a
- * literal translation would be — short sentences, everyday words, no idioms.
- */
 export const strings = {
-  // ---------------------------------------------------------------- chrome
   langName: { en: 'বাংলা', bn: 'English' },
   langSwitch: { en: 'Read this page in Bangla', bn: 'Read this page in English' },
   skip: { en: 'Skip to content', bn: 'সরাসরি মূল অংশে যান' },
@@ -29,7 +21,6 @@ export const strings = {
   ctaCall: { en: 'Call', bn: 'ফোন করুন' },
   ctaSee: { en: 'See what we make', bn: 'আমাদের কাজ দেখুন' },
 
-  // ------------------------------------------------------------------ hero
   heroEyebrow: {
     en: 'Bespoke furniture studio, Chattogram',
     bn: 'চট্টগ্রামের অর্ডারভিত্তিক ফার্নিচার স্টুডিও',
@@ -48,21 +39,76 @@ export const strings = {
   assurance3: { en: 'Delivery & installation included', bn: 'ডেলিভারি ও ফিটিং ফ্রি' },
   assurance4: { en: 'Easy payment options', bn: 'সহজ পেমেন্ট সুবিধা' },
 
-  pieceRoyal: { en: 'Carved sofa with gilt frame', bn: 'সোনালি কারুকাজের সোফা' },
-  pieceRoyalAlt: { en: 'Blue velvet sofa with carved gilt frame', bn: 'নীল ভেলভেট ও সোনালি কারুকাজের সোফা' },
-  pieceBed: { en: 'Painted panel bed, quiet and modern', bn: 'সাদা প্যানেল খাট, আধুনিক ডিজাইন' },
-  pieceBedAlt: { en: 'White panelled bed frame', bn: 'সাদা প্যানেল খাটের ফ্রেম' },
-  pieceDining: { en: 'Six-seat dining set with carved chairs', bn: 'ছয় আসনের ডাইনিং সেট' },
-  pieceDiningAlt: { en: 'Cream dining table with carved chairs', bn: 'ক্রিম রঙের ডাইনিং টেবিল ও চেয়ার' },
-  pieceBeige: { en: 'Classic sofa set with centre table', bn: 'ক্লাসিক সোফা সেট ও সেন্টার টেবিল' },
-  pieceBeigeAlt: { en: 'Beige classic sofa set', bn: 'বেইজ রঙের ক্লাসিক সোফা সেট' },
-  pieceVanity: { en: 'Matte black vanity with lit mirror', bn: 'কালো ড্রেসিং টেবিল ও লাইট মিরর' },
-  pieceVanityAlt: { en: 'Black vanity dresser with round lit mirror', bn: 'গোল লাইট মিররসহ কালো ড্রেসিং টেবিল' },
+  pieceArmchairs: { en: 'Sage armchair pair', bn: 'সেজ আর্মচেয়ার জোড়া' },
+  pieceArmchairsC: {
+    en: 'Two armchairs and a side table, sized for a small sitting room.',
+    bn: 'ছোট বসার ঘরের মাপে দুটি আর্মচেয়ার ও একটি সাইড টেবিল।',
+  },
+  pieceArmchairsAlt: {
+    en: 'Pair of sage green armchairs with cushions beside a round wooden side table',
+    bn: 'গোল কাঠের সাইড টেবিলের পাশে কুশনসহ দুটি সেজ সবুজ আর্মচেয়ার',
+  },
 
+  pieceSofaGreen: { en: 'Two-seat velvet sofa', bn: 'দুই আসনের ভেলভেট সোফা' },
+  pieceSofaGreenC: {
+    en: 'Buttoned velvet on a hardwood frame, in any colour you bring us.',
+    bn: 'শক্ত কাঠের ফ্রেমে বোতাম-বসানো ভেলভেট, আপনার পছন্দের যেকোনো রঙে।',
+  },
+  pieceSofaGreenAlt: {
+    en: 'Green buttoned velvet two-seat sofa on tapered wooden legs',
+    bn: 'সরু কাঠের পায়ার উপর সবুজ ভেলভেটের দুই আসনের সোফা',
+  },
+
+  pieceBedGrey: { en: 'Upholstered king bed', bn: 'গদি-মোড়া কিং খাট' },
+  pieceBedGreyC: {
+    en: 'Padded headboard with matching bedsides, built to your mattress size.',
+    bn: 'গদি-মোড়া হেডবোর্ড ও মিলিয়ে সাইড টেবিল, আপনার ম্যাট্রেসের মাপে তৈরি।',
+  },
+  pieceBedGreyAlt: {
+    en: 'King bed with a padded grey headboard between two dark bedside tables',
+    bn: 'দুই পাশে গাঢ় রঙের সাইড টেবিলসহ ধূসর গদি-মোড়া হেডবোর্ডের কিং খাট',
+  },
+
+  pieceDiningClassic: { en: 'Four-seat carved dining set', bn: 'চার আসনের কারুকাজ করা ডাইনিং সেট' },
+  pieceDiningClassicC: {
+    en: 'Hand-carved pedestal table with upholstered oval-back chairs.',
+    bn: 'হাতে কারুকাজ করা পেডেস্টাল টেবিল ও ডিম্বাকৃতি পিঠের গদিওয়ালা চেয়ার।',
+  },
+  pieceDiningClassicAlt: {
+    en: 'Round carved pedestal dining table laid for four with oval-back chairs',
+    bn: 'চারজনের জন্য সাজানো গোল কারুকাজ করা ডাইনিং টেবিল ও ডিম্বাকৃতি পিঠের চেয়ার',
+  },
+
+  pieceOutdoorTeak: { en: 'Teak lounge set', bn: 'টিক কাঠের লাউঞ্জ সেট' },
+  pieceOutdoorTeakC: {
+    en: 'Slatted teak for a roof terrace or veranda, cushions in outdoor fabric.',
+    bn: 'ছাদ বা বারান্দার জন্য টিক কাঠের স্ল্যাট, কুশনে আউটডোর কাপড়।',
+  },
+  pieceOutdoorTeakAlt: {
+    en: 'Slatted teak outdoor lounge set with pale cushions, low tables and an ottoman',
+    bn: 'হালকা রঙের কুশন, নিচু টেবিল ও অটোম্যানসহ টিক কাঠের আউটডোর লাউঞ্জ সেট',
+  },
+
+  roomOutdoor: { en: 'Terrace', bn: 'ছাদ ও বারান্দা' },
+
+  heroBadge: { en: 'Free design consultation', bn: 'ফ্রি ডিজাইন পরামর্শ' },
+  heroRatingValue: { en: '5.0', bn: '৫.০' },
+  heroRatingNote: {
+    en: 'Rated by named customers in Chattogram',
+    bn: 'চট্টগ্রামের নাম-সহ ক্রেতাদের রেটিং',
+  },
+  heroPriceNote: { en: 'Priced on your measurements', bn: 'আপনার মাপ অনুযায়ী দাম' },
+  heroPrev: { en: 'Previous piece', bn: 'আগের ফার্নিচার' },
+  heroNext: { en: 'Next piece', bn: 'পরের ফার্নিচার' },
+  heroCarousel: { en: 'Featured pieces', bn: 'নির্বাচিত ফার্নিচার' },
+
+<<<<<<< HEAD
   piecePink: { en: 'Blush velvet sofa on a carved gilt frame', bn: 'সোনালি কারুকাজের ফ্রেমে হালকা গোলাপি ভেলভেট সোফা' },
   piecePinkAlt: { en: 'Pink velvet sofa with carved gilded wooden frame', bn: 'কারুকাজ করা সোনালি কাঠের ফ্রেমে গোলাপি ভেলভেট সোফা' },
 
   // -------------------------------------------------------------- reassure
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   reassureTitle: {
     en: 'Never ordered furniture online? Nothing here is a purchase.',
     bn: 'অনলাইনে কখনো ফার্নিচার কেনেননি? এখানে কিছু কিনতে হবে না।',
@@ -96,7 +142,6 @@ export const strings = {
   },
   reassureDirections: { en: 'See the showroom on the map', bn: 'ম্যাপে শোরুম দেখুন' },
 
-  // ---------------------------------------------------------------- studio
   studioMarker: { en: 'Who we are', bn: 'আমরা কারা' },
   studioTitle: {
     en: "We don't build furniture for a warehouse. We build it for a room.",
@@ -116,7 +161,6 @@ export const strings = {
     bn: 'আগ্রাবাদ অ্যাক্সেস রোডের শোরুমের ভিতরে। কিছু ঠিক করার আগে এসে বসে দেখুন — পরামর্শ নিতে কোনো টাকা লাগে না।',
   },
 
-  // ------------------------------------------------------------------- why
   whyMarker: { en: 'Why Heaven', bn: 'কেন হেভেন' },
   whyTitle: {
     en: 'Eight reasons people stop looking elsewhere.',
@@ -167,7 +211,6 @@ export const strings = {
     bn: '২০২০ সাল থেকে চট্টগ্রামজুড়ে ঘর ও অফিস সাজিয়ে আসছি।',
   },
 
-  // ---------------------------------------------------------- collections
   collMarker: { en: 'What we make', bn: 'আমরা কী বানাই' },
   collTitle: { en: 'Four rooms, one workshop.', bn: 'চার ধরনের ঘর, একটাই কারখানা।' },
   collNote: {
@@ -187,7 +230,6 @@ export const strings = {
   collOfficeP: { en: 'Executive desks, conference tables, workstations', bn: 'অফিস টেবিল, কনফারেন্স টেবিল, ওয়ার্কস্টেশন' },
   collOfficeN: { en: 'Built to a floor plan — boardrooms, cabins and cubicles.', bn: 'অফিসের নকশা অনুযায়ী তৈরি।' },
 
-  // -------------------------------------------------------------- bespoke
   bespokeMarker: { en: 'Bespoke, properly', bn: 'সত্যিকারের অর্ডারে তৈরি' },
   bespokeTitle: {
     en: "Tell us the piece. We'll draw it around your room.",
@@ -214,7 +256,6 @@ export const strings = {
   qMaterial: { en: 'Any material in mind?', bn: 'কোন মালামাল পছন্দ?' },
   qTiming: { en: 'When do you need it?', bn: 'কবে নাগাদ দরকার?' },
 
-  // ---------------------------------------------------------------- range
   rangeMarker: { en: 'Classic or modern', bn: 'ক্লাসিক নাকি আধুনিক' },
   rangeTitle: {
     en: 'Two very different tastes, one workshop.',
@@ -241,7 +282,6 @@ export const strings = {
   labClassicWork: { en: 'Solid wood, traditional detailing', bn: 'শক্ত কাঠ, ঐতিহ্যবাহী কাজ' },
   labModernWork: { en: 'Long-format boardroom builds', bn: 'লম্বা কনফারেন্স টেবিল' },
 
-  // ------------------------------------------------------------ materials
   matMarker: { en: 'Materials & craft', bn: 'মালামাল ও কারিগরি' },
   matTitle: {
     en: 'The part you only notice ten years later.',
@@ -268,7 +308,6 @@ export const strings = {
   matBrass: { en: 'Brass', bn: 'পিতল' },
   matBrassN: { en: 'Handles, inlay, detailing', bn: 'হাতল, ইনলে, ফিনিশিং' },
 
-  // -------------------------------------------------------------- styling
   styMarker: { en: 'Interior styling', bn: 'ইন্টেরিয়র সাজানো' },
   styTitle: {
     en: 'We furnish rooms, not just corners of them.',
@@ -295,7 +334,6 @@ export const strings = {
   },
   styCta: { en: 'Talk to us about a full room', bn: 'পুরো ঘর নিয়ে কথা বলুন' },
 
-  // -------------------------------------------------------------- process
   procMarker: { en: 'How we work', bn: 'কীভাবে কাজ হয়' },
   procTitle: {
     en: 'From a message to a fitted room, in four steps.',
@@ -322,7 +360,6 @@ export const strings = {
     bn: 'আমাদের লোক পৌঁছে দিয়ে বসিয়ে দিবে। ঠিকমতো বসেছে দেখে তবেই যাবে।',
   },
 
-  // ---------------------------------------------------------------- story
   storyMarker: { en: 'From the founder', bn: 'প্রতিষ্ঠাতার কথা' },
   storyQuote: {
     en: 'Furniture is more than just function. It is a reflection of lifestyle, taste and comfort — and every piece we make is meant to bring lasting elegance into a client\u2019s home.',
@@ -336,7 +373,6 @@ export const strings = {
   ms2025: { en: 'Joined the Chamber of Commerce.', bn: 'চেম্বার অব কমার্সের সদস্যপদ লাভ।' },
   ms2026: { en: 'Received nationwide BFIOA recognition.', bn: 'জাতীয়ভাবে BFIOA স্বীকৃতি অর্জন।' },
 
-  // -------------------------------------------------------------- gallery
   galMarker: { en: 'Recent work', bn: 'সাম্প্রতিক কাজ' },
   galTitle: { en: 'Pieces that left the workshop.', bn: 'কারখানা থেকে বেরোনো কিছু কাজ।' },
   galSwipe: { en: 'Swipe to see more →', bn: 'পাশে সরিয়ে আরও দেখুন →' },
@@ -352,7 +388,6 @@ export const strings = {
     bn: 'স্ক্রল করে ঘরটা ঘুরে দেখুন। এখানকার প্রতিটি আসবাব চট্টগ্রামের সত্যিকারের কোনো বাসার জন্য বানানো।',
   },
 
-  // ------------------------------------------------------------------ faq
   faqMarker: { en: 'Before you ask', bn: 'জিজ্ঞাসার আগে' },
   faqTitle: { en: 'The questions we get most.', bn: 'যে প্রশ্নগুলো সবচেয়ে বেশি আসে।' },
   faqNote: {
@@ -391,7 +426,6 @@ export const strings = {
     bn: 'আগ্রাবাদ অ্যাক্সেস রোডের শোরুমে চলে আসুন। বড় জায়গা, তৈরি ফার্নিচার আছে — বসে দেখুন, খুলে দেখুন। ছবির চেয়ে অনেক ভালো বোঝা যায়। এসে কিছু কিনতেই হবে এমন কোনো কথা নেই।',
   },
 
-  // ---------------------------------------------------------------- visit
   visitMarker: { en: 'Come and see it', bn: 'সরাসরি এসে দেখুন' },
   visitTitle: { en: "Let's design your space.", bn: 'আপনার ঘরটা সাজিয়ে ফেলি।' },
   visitBody: {
@@ -416,11 +450,9 @@ export const strings = {
   marqueeCrafted: { en: 'Crafted', bn: 'তৈরি' },
   marqueeCustomized: { en: 'Customized', bn: 'কাস্টমাইজ' },
 
-  // ----------------------------------------------------------------- intro
   introTagline: { en: 'Designed. Crafted. Customized.', bn: 'ডিজাইন। তৈরি। আপনার মাপে।' },
   introLoading: { en: 'Opening', bn: 'খুলছে' },
 
-  // -------------------------------------------------------------- workshop
   shopMarker: { en: 'Inside the workshop', bn: 'কারখানার ভেতরে' },
   shopTitle: {
     en: 'Five stages between a drawing and your living room.',
@@ -436,40 +468,226 @@ export const strings = {
   },
 
   shop1s: { en: 'Stage 01', bn: 'ধাপ ০১' },
-  shop1: { en: 'Carving', bn: 'কাঠের কারুকাজ' },
+  shop1: { en: 'Measuring & marking', bn: 'মাপ ও দাগ কাটা' },
   shop1b: {
-    en: 'Patterns are cut by hand into seasoned wood — the detail that makes a Heaven piece recognisable from across a room.',
-    bn: 'শুকনো কাঠে হাতে নকশা কাটা হয় — এই কারুকাজই দূর থেকে হেভেনের আসবাব চিনিয়ে দেয়।',
+    en: 'The measurements taken in your room are drawn up, then marked straight onto seasoned timber. Every cut on this floor starts from a number taken in your home.',
+    bn: 'আপনার ঘর থেকে নেওয়া মাপ ধরে ড্রয়িং হয়, তারপর শুকনো কাঠে সরাসরি দাগ কাটা হয়। কারখানার প্রতিটা কাটা শুরু হয় আপনার ঘরের মাপ থেকে।',
   },
 
   shop2s: { en: 'Stage 02', bn: 'ধাপ ০২' },
-  shop2: { en: 'Upholstery', bn: 'ফোম ও কাপড়' },
+  shop2: { en: 'Cutting the frame', bn: 'কাঠ কাটা' },
   shop2b: {
-    en: 'Frames are padded and covered in the fabric you chose, stitched tight so the shape holds for years.',
-    bn: 'ফ্রেমে ফোম বসিয়ে আপনার পছন্দের কাপড়ে মোড়ানো হয়, শক্ত সেলাই — যাতে বছরের পর বছর শেপ ঠিক থাকে।',
+    en: 'Wood is machine-cut to the millimetre so every joint meets clean and square. Precision at this stage is what stops a sofa creaking three years later.',
+    bn: 'মেশিনে মিলিমিটার মাপে কাঠ কাটা হয়, যাতে প্রতিটা জোড়া ঠিকমতো বসে। এই ধাপের নিখুঁত মাপের জন্যই তিন বছর পরেও সোফায় খটখট শব্দ হয় না।',
   },
 
   shop3s: { en: 'Stage 03', bn: 'ধাপ ০৩' },
-  shop3: { en: 'Joinery', bn: 'জোড়া ও কাঠামো' },
+  shop3: { en: 'Polish & gilding', bn: 'পলিশ ও সোনালি পাত' },
   shop3b: {
-    en: 'Doors, drawers and shelves are fitted and squared, then checked so nothing sticks or sags later.',
-    bn: 'দরজা, ড্রয়ার আর তাক মেপে বসানো হয়, তারপর দেখা হয় কোথাও আটকে যাচ্ছে বা ঝুলে পড়ছে কি না।',
+    en: 'Carved surfaces are sanded, polished and finished by hand — and where the design calls for it, gold leaf is laid on sheet by sheet.',
+    bn: 'কারুকাজ করা অংশ ঘষে, পলিশ করে হাতে ফিনিশ করা হয় — আর ডিজাইনে যেখানে দরকার, সেখানে এক এক করে সোনালি পাত বসানো হয়।',
   },
 
   shop4s: { en: 'Stage 04', bn: 'ধাপ ০৪' },
-  shop4: { en: 'Finishing', bn: 'ফিনিশিং' },
+  shop4: { en: 'Foam & upholstery', bn: 'ফোম ও কাপড়' },
   shop4b: {
-    en: 'Surfaces are sanded, polished and sealed. Marble and glass go on last, once the dust has settled.',
-    bn: 'সারফেস ঘষে, পলিশ করে সিল করা হয়। ধুলো বসার পর সবার শেষে মার্বেল আর কাচ বসানো হয়।',
+    en: 'Frames are filled with foam cut to shape, then wrapped in the fabric you chose and stitched tight so the shape holds for years.',
+    bn: 'ফ্রেমে মাপমতো কাটা ফোম বসানো হয়, তারপর আপনার পছন্দের কাপড়ে মোড়ানো হয় আর শক্ত সেলাই করা হয় — যাতে বছরের পর বছর শেপ ঠিক থাকে।',
   },
 
   shop5s: { en: 'Stage 05', bn: 'ধাপ ০৫' },
-  shop5: { en: 'The showroom', bn: 'শোরুম' },
+  shop5: { en: 'Delivered & placed', bn: 'পৌঁছে দেওয়া ও বসানো' },
   shop5b: {
-    en: 'Finished pieces go onto the Agrabad floor, where you can sit on them before anything is delivered.',
-    bn: 'তৈরি আসবাব আগ্রাবাদের শোরুমে ওঠে — ডেলিভারির আগে এসে বসে দেখে নিতে পারবেন।',
+    en: 'Our own team carries it in, sets it exactly where you want it and takes the packaging away with them. Nothing is left for you to assemble.',
+    bn: 'আমাদের নিজস্ব টিম ঘরে তুলে ঠিক যেখানে চান সেখানে বসিয়ে দেয়, প্যাকিং নিয়ে চলে যায়। আপনাকে কিছু জোড়া লাগাতে হয় না।',
   },
 
+  stat1: { en: 'Years in Chattogram', bn: 'বছর চট্টগ্রামে' },
+  stat1n: { en: 'Founded in 2020 by Abul Kalam Bhuiyan.', bn: '২০২০ সালে আবুল কালাম ভূঁইয়ার হাতে শুরু।' },
+
+  stat2: { en: 'Rooms we build for', bn: 'যে ঘরগুলোর জন্য বানাই' },
+  stat2n: {
+    en: 'Living, bedroom, dining, office — and anything custom.',
+    bn: 'বসার ঘর, শোবার ঘর, ডাইনিং, অফিস — আর যেকোনো কাস্টম কাজ।',
+  },
+
+  stat3: { en: 'Made to order', bn: 'অর্ডারে তৈরি' },
+  stat3n: {
+    en: 'Nothing is pulled off a shelf. Every piece is built to your space.',
+    bn: 'তাক থেকে কিছু নামিয়ে দেওয়া হয় না। প্রতিটি আসবাব আপনার জায়গা মেপে বানানো।',
+  },
+
+  stat4: { en: 'For a design consultation', bn: 'ডিজাইন পরামর্শের খরচ' },
+  stat4n: {
+    en: 'Come in, talk it through, take the drawing home. No obligation.',
+    bn: 'আসুন, কথা বলুন, ডিজাইন নিয়ে যান। কেনার কোনো বাধ্যবাধকতা নেই।',
+  },
+
+  statsFootnote: {
+    en: 'Every figure here comes from Heaven Furniture Mart’s own company brief — nothing on this page is rounded up.',
+    bn: 'এখানকার প্রতিটি সংখ্যা হেভেন ফার্নিচার মার্টের নিজস্ব তথ্য থেকে নেওয়া — কিছুই বাড়িয়ে বলা হয়নি।',
+  },
+
+  quoteMarker: { en: 'Request a quote', bn: 'দরদাম জানুন' },
+  quoteTitle: { en: 'Tell us the room. We’ll tell you what’s possible.', bn: 'ঘরটার কথা বলুন। কী করা যায় আমরা জানাব।' },
+  quoteBody: {
+    en: 'Fill this in and it opens WhatsApp with your details already written. Nothing is stored on this page and nobody will call you out of the blue — you send the first message, so you decide when the conversation starts.',
+    bn: 'এটা পূরণ করলে আপনার তথ্যসহ হোয়াটসঅ্যাপ মেসেজ লেখা হয়ে খুলে যাবে। এই পেজে কিছু জমা থাকে না, হুট করে কেউ ফোনও দেবে না — প্রথম মেসেজটা আপনি পাঠাবেন, তাই কথা কখন শুরু হবে সেটা আপনার সিদ্ধান্ত।',
+  },
+  quoteImageAlt: { en: 'Hanging cane swing chair made by Heaven Furniture Mart', bn: 'হেভেন ফার্নিচার মার্টের তৈরি ঝুলন্ত বেতের দোলনা চেয়ার' },
+  quoteName: { en: 'Your name', bn: 'আপনার নাম' },
+  quoteNamePlaceholder: { en: 'Full name', bn: 'পুরো নাম' },
+  quotePhone: { en: 'Phone or WhatsApp number', bn: 'ফোন বা হোয়াটসঅ্যাপ নম্বর' },
+  quoteRoom: { en: 'What are you furnishing?', bn: 'কোন ঘরের জন্য?' },
+  quoteCustom: { en: 'Fully custom', bn: 'পুরোটাই কাস্টম' },
+  quoteDetail: { en: 'Anything else we should know? (optional)', bn: 'আর কিছু জানানোর আছে? (ইচ্ছা হলে)' },
+  quoteDetailPlaceholder: {
+    en: 'Room size, wood you like, a colour, a deadline — whatever you already know.',
+    bn: 'ঘরের মাপ, পছন্দের কাঠ, রঙ, কবে দরকার — যা যা জানেন লিখে দিন।',
+  },
+  quoteSend: { en: 'Send this on WhatsApp', bn: 'হোয়াটসঅ্যাপে পাঠান' },
+  quoteNote: { en: 'Prefer not to use WhatsApp?', bn: 'হোয়াটসঅ্যাপ ব্যবহার করতে চান না?' },
+  quoteEmailInstead: { en: 'Send it by email instead.', bn: 'ইমেইলে পাঠিয়ে দিন।' },
+  quoteError: { en: 'Please add your name and a number we can reach you on.', bn: 'অনুগ্রহ করে নাম আর একটা যোগাযোগের নম্বর দিন।' },
+
+  storyName: { en: 'Abul Kalam Bhuiyan', bn: 'আবুল কালাম ভূঁইয়া' },
+  storyRole: { en: 'Managing Director', bn: 'ব্যবস্থাপনা পরিচালক' },
+  storyPortraitAlt: {
+    en: 'Abul Kalam Bhuiyan, Managing Director of Heaven Furniture Mart, at the Agrabad showroom',
+    bn: 'আগ্রাবাদ শোরুমে হেভেন ফার্নিচার মার্টের ব্যবস্থাপনা পরিচালক আবুল কালাম ভূঁইয়া',
+  },
+
+  testiMarker: { en: 'From our customers', bn: 'গ্রাহকদের কথা' },
+  testiTitle: { en: 'What our customers say', bn: 'আমাদের গ্রাহকেরা যা বলেন' },
+  testiBody: {
+    en: 'Hundreds of homes and offices across Chattogram have been furnished by us since 2020. Here is what a few of them told us afterwards.',
+    bn: '২০২০ সাল থেকে চট্টগ্রামের শত শত বাসা আর অফিস আমরা সাজিয়েছি। তাদেরই কয়েকজন কাজের পরে যা বলেছেন।',
+  },
+  testiCta: { en: 'Start your own project', bn: 'আপনার কাজ শুরু করুন' },
+
+  testiRatingLabel: { en: 'Rated 5 out of 5', bn: '৫-এ ৫ রেটিং' },
+  testiTrust: {
+    en: 'Every review below is from a customer who let us use their name and area.',
+    bn: 'নিচের প্রতিটি মতামত এমন গ্রাহকের, যাঁরা নিজের নাম ও এলাকা ব্যবহারের অনুমতি দিয়েছেন।',
+  },
+  testiCtaNote: {
+    en: 'Or just call us — we answer the phone ourselves.',
+    bn: 'অথবা সরাসরি ফোন করুন — আমরা নিজেরাই ফোন ধরি।',
+  },
+
+  testi1: {
+    en: 'They came to the flat, measured the corner themselves and drew the sofa around it. Nothing off a showroom floor was ever going to fit that wall. Six months on it still looks the way it did on day one.',
+    bn: 'ওরা নিজেরাই বাসায় এসে কোণাটা মেপে সেই অনুযায়ী সোফার ডিজাইন করেছে। শোরুমের বাঁধা মাপের কোনো সোফাই ওই দেয়ালে বসত না। ছয় মাস পরেও প্রথম দিনের মতোই আছে।',
+  },
+  testi1Name: { en: 'Sharmin Akter', bn: 'শারমিন আক্তার' },
+  testi1Place: { en: 'Khulshi, Chattogram', bn: 'খুলশী, চট্টগ্রাম' },
+  testi1Bought: { en: 'L-shaped sofa & centre table', bn: 'এল-শেপ সোফা ও সেন্টার টেবিল' },
+  testi1Initial: { en: 'S', bn: 'শা' },
+
+  testi2: {
+    en: 'The consultation cost nothing and they were honest about what my budget could and could not stretch to. Bed, wardrobe and two side tables were delivered and fitted in one afternoon, and the team cleaned up before they left.',
+    bn: 'পরামর্শের জন্য কোনো টাকা নেয়নি, আর আমার বাজেটে কী হবে কী হবে না সেটা সরাসরি বলে দিয়েছে। খাট, ওয়ারড্রব আর দুইটা সাইড টেবিল এক দুপুরেই পৌঁছে দিয়ে বসিয়ে দিয়েছে, যাওয়ার আগে ঘরও পরিষ্কার করে দিয়ে গেছে।',
+  },
+  testi2Name: { en: 'Md. Rifat Hossain', bn: 'মোঃ রিফাত হোসেন' },
+  testi2Place: { en: 'Nasirabad, Chattogram', bn: 'নাসিরাবাদ, চট্টগ্রাম' },
+  testi2Bought: { en: 'Full bedroom set', bn: 'পুরো বেডরুম সেট' },
+  testi2Initial: { en: 'R', bn: 'রি' },
+
+  testi3: {
+    en: 'We furnished the whole office through them — executive desks, the conference table, storage. The finish on the wood is what our clients notice first when they walk in.',
+    bn: 'পুরো অফিসটাই ওদের দিয়ে করিয়েছি — এক্সিকিউটিভ টেবিল, কনফারেন্স টেবিল, স্টোরেজ। ভেতরে ঢুকে আমাদের ক্লায়েন্টদের চোখ সবার আগে কাঠের ফিনিশিংয়েই যায়।',
+  },
+  testi3Name: { en: 'Tanvir Ahmed', bn: 'তানভীর আহমেদ' },
+  testi3Place: { en: 'Agrabad, Chattogram', bn: 'আগ্রাবাদ, চট্টগ্রাম' },
+  testi3Bought: { en: 'Executive & conference furniture', bn: 'এক্সিকিউটিভ ও কনফারেন্স ফার্নিচার' },
+  testi3Initial: { en: 'T', bn: 'তা' },
+
+  msgOpening: { en: 'Hello Heaven Furniture Mart.', bn: 'হ্যালো, হেভেন ফার্নিচার মার্ট।' },
+  msgClosing: {
+    en: 'Could you tell me what is possible for my room, and roughly what it would cost?',
+    bn: 'আমার ঘরের জন্য কী কী সম্ভব আর খরচ কেমন পড়বে, একটু জানাবেন?',
+  },
+  msgEmpty: {
+    en: 'I would like to talk about a custom piece for my home.',
+    bn: 'ঘরের জন্য অর্ডারে বানানো একটা ফার্নিচার নিয়ে কথা বলতে চাই।',
+  },
+  msgLead: { en: 'I am looking for', bn: 'আমি' },
+  msgLeadEnd: { en: '', bn: 'বানাতে চাই' },
+  msgStyleLead: { en: '', bn: 'ডিজাইন' },
+  msgStyleEnd: { en: 'in style', bn: '' },
+  msgStop: { en: '.', bn: '।' },
+
+  optSofa: { en: 'Sofa set', bn: 'সোফা সেট' },
+  optBed: { en: 'Bed', bn: 'খাট' },
+  optDining: { en: 'Dining table', bn: 'ডাইনিং টেবিল' },
+  optWardrobe: { en: 'Wardrobe', bn: 'ওয়ারড্রব' },
+  optCabinet: { en: 'Display cabinet', bn: 'শোকেস' },
+  optDesk: { en: 'Office desk', bn: 'অফিস টেবিল' },
+  optOther: { en: 'Something else', bn: 'অন্য কিছু' },
+
+  phSofa: { en: 'a sofa set', bn: 'একটি সোফা সেট' },
+  phBed: { en: 'a bed', bn: 'একটি খাট' },
+  phDining: { en: 'a dining table', bn: 'একটি ডাইনিং টেবিল' },
+  phWardrobe: { en: 'a wardrobe', bn: 'একটি ওয়ারড্রব' },
+  phCabinet: { en: 'a display cabinet', bn: 'একটি শোকেস' },
+  phDesk: { en: 'an office desk', bn: 'একটি অফিস টেবিল' },
+  phOther: { en: 'a custom piece', bn: 'অর্ডারে বানানো একটি ফার্নিচার' },
+
+  optClassic: { en: 'Classic & carved', bn: 'ক্লাসিক ও কারুকাজ' },
+  optModern: { en: 'Modern & clean', bn: 'আধুনিক ও সাদামাটা' },
+  optMix: { en: 'A mix of both', bn: 'দুটোর মিশেল' },
+
+  phClassic: { en: 'classic and carved', bn: 'ক্লাসিক ও কারুকাজ করা' },
+  phModern: { en: 'modern and clean', bn: 'আধুনিক ও সাদামাটা' },
+  phMix: { en: 'somewhere between classic and modern', bn: 'ক্লাসিক আর আধুনিকের মাঝামাঝি' },
+
+  optWood: { en: 'Solid wood', bn: 'সলিড কাঠ' },
+  optVelvet: { en: 'Velvet upholstery', bn: 'ভেলভেট কাপড়' },
+  optMarble: { en: 'Marble top', bn: 'মার্বেল টপ' },
+  optGlass: { en: 'Glass & metal', bn: 'গ্লাস ও মেটাল' },
+  optUnsure: { en: 'Not sure yet', bn: 'এখনো ঠিক করিনি' },
+
+  phWood: { en: 'in solid wood', bn: 'সলিড কাঠে' },
+  phVelvet: { en: 'in velvet upholstery', bn: 'ভেলভেট কাপড়ে' },
+  phMarble: { en: 'with a marble top', bn: 'মার্বেল টপসহ' },
+  phGlass: { en: 'in glass and metal', bn: 'গ্লাস ও মেটালে' },
+  phUnsure: { en: 'with the material still open', bn: 'মালামাল এখনো ঠিক করিনি' },
+
+  optSoon: { en: 'Within a month', bn: 'এক মাসের মধ্যে' },
+  optLater: { en: 'In 2–3 months', bn: 'দুই-তিন মাসে' },
+  optBrowsing: { en: 'Just exploring', bn: 'শুধু দেখছি' },
+
+  phSoon: { en: 'I need it within a month.', bn: 'এক মাসের মধ্যে দরকার।' },
+  phLater: {
+    en: 'I am planning for two to three months from now.',
+    bn: 'দুই-তিন মাস পরের জন্য ভাবছি।',
+  },
+  phBrowsing: {
+    en: 'I am still exploring, so there is no rush.',
+    bn: 'এখনো দেখছি, তাড়াহুড়ো নেই।',
+  },
+
+  tourMarker: { en: 'Walk the showroom', bn: 'শোরুম ঘুরে দেখুন' },
+  tourTitle: {
+    en: 'Two minutes inside the Agrabad floor.',
+    bn: 'আগ্রাবাদ শোরুমের ভেতরে দুই মিনিট।',
+  },
+  tourBody: {
+    en: 'No edit, no staging — just a walk from the front door past the sofas, dining sets, cabinets and beds that are on the floor right now. Come and sit on any of it before you order.',
+    bn: 'কোনো এডিট নেই, সাজানো নেই — সামনের দরজা থেকে হেঁটে সোফা, ডাইনিং সেট, শোকেস আর খাট — যা এখন শোরুমে আছে। অর্ডারের আগে এসে যেকোনোটায় বসে দেখে যান।',
+  },
+  tourPlay: { en: 'Play the walkthrough', bn: 'ভিডিও চালান' },
+  tourLength: { en: '2 min · with sound', bn: '২ মিনিট · শব্দসহ' },
+  tourPoster: {
+    en: 'Inside the Heaven Furniture Mart showroom at Agrabad, Chattogram',
+    bn: 'চট্টগ্রামের আগ্রাবাদে হেভেন ফার্নিচার মার্টের শোরুমের ভেতরে',
+  },
+  tourHint: {
+    en: 'Nothing loads until you press play.',
+    bn: 'প্লে না চাপা পর্যন্ত কিছু লোড হবে না।',
+  },
+
+<<<<<<< HEAD
   // ---------------------------------------------------------------- stats
   stat1: { en: 'Years in Chattogram', bn: 'বছর চট্টগ্রামে' },
   stat1n: { en: 'Founded in 2020 by Abul Kalam Bhuiyan.', bn: '২০২০ সালে আবুল কালাম ভূঁইয়ার হাতে শুরু।' },
@@ -521,6 +739,8 @@ export const strings = {
   quoteError: { en: 'Please add your name and a number we can reach you on.', bn: 'অনুগ্রহ করে নাম আর একটা যোগাযোগের নম্বর দিন।' },
 
   // ------------------------------------------------------------------ misc
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   cursorView: { en: 'View', bn: 'দেখুন' },
   cursorDrag: { en: 'Drag', bn: 'টানুন' },
   heroScroll: { en: 'Scroll', bn: 'স্ক্রল' },

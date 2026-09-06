@@ -6,19 +6,8 @@ import Magnetic from '../fx/Magnetic'
 import { useMotionPrefs } from '../fx/MotionProvider'
 import { SPRING } from '../fx/config'
 
-/* --------------------------------------------------------------- reveals */
-
 export { Reveal, Stagger, StaggerItem }
 
-/**
- * Kept for the handful of places that wrap something other than a photograph
- * in the curtain — a map panel, a bordered card. Photographs should use
- * ParallaxImage, which does this plus the drift and the light sweep.
- *
- * The observer sits on the outer wrapper because Chromium factors an element's
- * own clip-path into its intersection ratio; observing the clipped node would
- * leave it stuck at zero and permanently hidden.
- */
 export function Unveil({ children, delay = 0, className = '' }) {
   const { still } = useMotionPrefs()
   const [shown, setShown] = useState(false)
@@ -56,12 +45,6 @@ export function Unveil({ children, delay = 0, className = '' }) {
   )
 }
 
-/* -------------------------------------------------------------------- 3D */
-
-/**
- * Pointer-driven tilt with a specular highlight that tracks the pointer, so a
- * card catches light the way a polished surface would rather than just leaning.
- */
 export function Tilt({ children, className = '', max = 9, lift = 14, glare = true }) {
   const { fine } = useMotionPrefs()
   const x = useMotionValue(0)
@@ -121,6 +104,7 @@ export function Tilt({ children, className = '', max = 9, lift = 14, glare = tru
   )
 }
 
+<<<<<<< HEAD
 /**
  * A child of `Tilt` that sits forward of, or behind, the card's own surface.
  *
@@ -134,6 +118,8 @@ export function Tilt({ children, className = '', max = 9, lift = 14, glare = tru
  * ancestor resolves to no visual change — so it is safe on touch, where `Tilt`
  * renders a plain div.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 export function Layer({ z = 0, children, className = '' }) {
   return (
     <div
@@ -144,14 +130,12 @@ export function Layer({ z = 0, children, className = '' }) {
     </div>
   )
 }
+<<<<<<< HEAD
 
 /* ------------------------------------------------------------ arch frames */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 
-/**
- * The arch motif: taken from the crowns of Heaven's display cabinets and the
- * curved headboards on their beds. Delegates to ParallaxImage so every framed
- * photograph on the page reveals and drifts identically.
- */
 export function ArchImage({
   src,
   alt,
@@ -164,6 +148,7 @@ export function ArchImage({
   priority = false,
   drift = 7,
   delay = 0,
+  focus = 'center',
 }) {
   return (
     <ParallaxImage
@@ -178,16 +163,14 @@ export function ArchImage({
       priority={priority}
       drift={drift}
       delay={delay}
+      focus={focus}
     />
   )
 }
 
-/* ---------------------------------------------------------------- buttons */
-
 const base =
-  'group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full px-7 py-3.5 text-[0.95rem] font-medium tracking-wide transition-colors duration-500'
+  'group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full px-7 py-3.5 text-[1.02rem] font-medium tracking-wide transition-colors duration-500'
 
-/** The wipe that fills a button from its lower edge on hover. */
 function Fill({ className }) {
   return (
     <span
@@ -224,14 +207,11 @@ export function GhostButton({ href, children, dark = false, className = '', magn
   return magnetic ? <Magnetic>{button}</Magnetic> : button
 }
 
-/* ----------------------------------------------------------------- labels */
-
-/** Small section marker. Sentence case on purpose — no shouty all-caps. */
 export function Marker({ children, dark = false, className = '' }) {
   const { still } = useMotionPrefs()
   return (
     <p
-      className={`flex items-center gap-3 text-[0.8rem] font-medium tracking-[0.12em] ${
+      className={`flex items-center gap-3 text-[0.86rem] font-medium tracking-[0.12em] ${
         dark ? 'text-gold' : 'text-gold-deep'
       } ${className}`}
     >
@@ -247,8 +227,6 @@ export function Marker({ children, dark = false, className = '' }) {
     </p>
   )
 }
-
-/* ------------------------------------------------------------------ icons */
 
 export function WhatsAppIcon({ className = 'h-[1.05em] w-[1.05em]' }) {
   return (

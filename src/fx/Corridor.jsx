@@ -5,6 +5,7 @@ import ParallaxImage from './ParallaxImage'
 import { Reveal } from './Reveal'
 import { useMotionPrefs } from './MotionProvider'
 
+<<<<<<< HEAD
 /**
  * A real three-dimensional corridor you walk down by scrolling.
  *
@@ -50,6 +51,10 @@ const GAP = 700
  *
  * The last panel sits dead ahead: the corridor has to arrive somewhere.
  */
+=======
+const GAP = 700
+
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 const PLACEMENTS = [
   { x: '27vw', rotateY: -34, wall: 'right' },
   { x: '-27vw', rotateY: 34, wall: 'left' },
@@ -61,6 +66,7 @@ const PLACEMENTS = [
 function Panel({ panel, index, count, progress, label }) {
   const place = PLACEMENTS[index % PLACEMENTS.length]
 
+<<<<<<< HEAD
   // Live depth of this panel, in px, relative to the camera plane.
   //
   // LEAD holds the first frame a little way off at the start, so the corridor
@@ -68,14 +74,19 @@ function Panel({ panel, index, count, progress, label }) {
   // TRAVEL then stops the camera just as the last frame reaches it — driving
   // the full `count * GAP` overshot the end and left the final half-screen of
   // the section showing an empty corridor.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const lead = GAP * 0.6
   const travel = (count - 1) * GAP + lead + GAP * 0.05
   const z = useTransform(progress, [0, 1], [-index * GAP - lead, -index * GAP - lead + travel])
 
+<<<<<<< HEAD
   // Fades up out of the dark, holds through the walk-past, gone once behind.
   // The band is deliberately wider than one gap: with three frames alive at
   // once the section reads as a corridor with depth, and with one it reads as
   // a slideshow that happens to be dark.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const opacity = useTransform(
     z,
     [-GAP * 2.7, -GAP * 1.5, GAP * 0.04, GAP * 0.34],
@@ -104,7 +115,10 @@ function Panel({ panel, index, count, progress, label }) {
           draggable={false}
           className="h-full w-full object-cover"
         />
+<<<<<<< HEAD
         {/* the wall each panel hangs on is lit from the corridor's centre */}
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
         <div
           aria-hidden="true"
           className={`pointer-events-none absolute inset-0 ${
@@ -115,17 +129,25 @@ function Panel({ panel, index, count, progress, label }) {
                 : 'bg-gradient-to-t from-forest-deep/55 via-transparent to-transparent'
           }`}
         />
+<<<<<<< HEAD
         <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-deep/85 to-transparent px-5 pt-10 pb-4 text-[0.8rem] leading-snug text-ivory/80">
+=======
+        <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-deep/85 to-transparent px-5 pt-10 pb-4 text-[0.86rem] leading-snug text-ivory/88">
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
           {label}
         </span>
       </div>
 
+<<<<<<< HEAD
       {/* a brass hairline under each frame, like a picture rail */}
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
       <div aria-hidden="true" className="mx-auto mt-4 h-px w-2/3 bg-gold/40" />
     </motion.figure>
   )
 }
 
+<<<<<<< HEAD
 /**
  * The 3D rail, as its own component.
  *
@@ -141,6 +163,8 @@ function Panel({ panel, index, count, progress, label }) {
  * Mounting the hook and the element it measures in the same commit is the fix.
  * `Workshop.jsx` already does this with `PinnedRail` — same reason.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 function DeepCorridor({ panels, labelFor, className }) {
   const wrap = useRef(null)
   const { scrollYProgress } = useScroll({ target: wrap, offset: ['start start', 'end end'] })
@@ -153,13 +177,17 @@ function DeepCorridor({ panels, labelFor, className }) {
       className={`relative ${className}`}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
+<<<<<<< HEAD
         {/* ceiling wash — the corridor is lit from above and ahead */}
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
         <div aria-hidden="true" className="absolute inset-0">
           <div className="absolute top-0 left-1/2 h-[46vh] w-[56vw] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(217,162,39,0.16),transparent_70%)] blur-2xl" />
         </div>
 
         <div className="absolute inset-0" style={{ perspective: 1100, perspectiveOrigin: '50% 48%' }}>
           <div className="relative h-full w-full" style={{ transformStyle: 'preserve-3d' }}>
+<<<<<<< HEAD
             {/* Two walls and a floor, all running away from the camera. These
                 are what make it a room: without a surface for the frames to
                 hang on, panels at different depths read as floating cards.
@@ -169,6 +197,8 @@ function DeepCorridor({ panels, labelFor, className }) {
                 a real 3D context the browser sorts by geometry, so the plane
                 cuts straight through the photograph and washes half of it
                 green. The clearance is the fix. */}
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
             <div
               aria-hidden="true"
               className="absolute top-1/2 left-1/2 h-[104vh] w-[520vh] bg-[linear-gradient(to_top,rgba(12,31,26,0.98)_0%,rgba(30,70,59,0.45)_52%,rgba(30,70,59,0)_100%)]"
@@ -198,13 +228,19 @@ function DeepCorridor({ panels, labelFor, className }) {
           </div>
         </div>
 
+<<<<<<< HEAD
         {/* vignette, so panels dissolve into the dark rather than clipping */}
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_38%,var(--color-forest-deep)_92%)]"
         />
 
+<<<<<<< HEAD
         {/* how far down the corridor you are */}
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
         <div className="pointer-events-none absolute inset-x-0 bottom-8 mx-auto h-px w-[min(38rem,70vw)] bg-ivory/15">
           <motion.div style={{ scaleX: eased }} className="h-px origin-left bg-gold" />
         </div>
@@ -213,6 +249,7 @@ function DeepCorridor({ panels, labelFor, className }) {
   )
 }
 
+<<<<<<< HEAD
 /**
  * The mobile corridor.
  *
@@ -228,6 +265,8 @@ function DeepCorridor({ panels, labelFor, className }) {
  * the scroll. All transform and opacity, all GPU, and consistent with the rest
  * of the page rather than a separate idea bolted on for small screens.
  */
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
 function FlatCorridor({ panels, labelFor, className }) {
   return (
     <div className={`mx-auto grid max-w-[1400px] grid-cols-1 gap-8 px-5 sm:grid-cols-2 sm:px-8 ${className}`}>
@@ -247,7 +286,11 @@ function FlatCorridor({ panels, labelFor, className }) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-deep/55 via-transparent to-transparent" />
           </div>
           <Reveal delay={0.1}>
+<<<<<<< HEAD
             <figcaption className="mt-4 flex items-start gap-3 text-[0.85rem] leading-relaxed text-ivory/65">
+=======
+            <figcaption className="mt-4 flex items-start gap-3 text-[0.92rem] leading-relaxed text-ivory/78">
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
               <span className="mt-[0.55em] h-px w-4 shrink-0 bg-gold" />
               {labelFor(panel)}
             </figcaption>
@@ -261,8 +304,11 @@ function FlatCorridor({ panels, labelFor, className }) {
 export default function Corridor({ panels, labelFor, className = '' }) {
   const { still } = useMotionPrefs()
 
+<<<<<<< HEAD
   // Read the breakpoint during the first render, not in an effect. Deciding
   // this after mount is what forced the wrong branch on commit one.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const [deep, setDeep] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches,
   )
@@ -275,7 +321,10 @@ export default function Corridor({ panels, labelFor, className = '' }) {
     return () => query.removeEventListener('change', sync)
   }, [])
 
+<<<<<<< HEAD
   // Remounting on the breakpoint keeps the scroll hook and its target in step.
+=======
+>>>>>>> 9df94b3 (Fixed all issues and improve the ui)
   const Rail = !deep || still ? FlatCorridor : DeepCorridor
   return (
     <Rail

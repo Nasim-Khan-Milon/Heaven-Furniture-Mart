@@ -2,11 +2,6 @@ import { motion } from 'framer-motion'
 import { EASE } from './config'
 import { useMotionPrefs } from './MotionProvider'
 
-/**
- * The quiet entrance. Rise, with a touch of blur burning off as it lands —
- * the blur is what separates this from the fade-and-slide every page does,
- * and it reads as something coming into focus rather than appearing.
- */
 export function Reveal({
   children,
   delay = 0,
@@ -38,10 +33,6 @@ export function Reveal({
   )
 }
 
-/**
- * Grid and list entrances. The parent owns the timing so the children stay in
- * sequence no matter how many there are, and a `<ul>` keeps its `<li>`s.
- */
 export function Stagger({
   children,
   className = '',

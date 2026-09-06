@@ -39,7 +39,10 @@ export default function HeroShowcase({ play = true }) {
 
   useEffect(() => {
     if (still || paused || !play) return
-    const timer = setInterval(() => setIndex((i) => (i + 1) % heroPieces.length), HOLD)
+    const timer = setInterval(() => {
+      setDir(1)
+      setIndex((i) => (i + 1) % COUNT)
+    }, HOLD)
     return () => clearInterval(timer)
   }, [still, paused, play])
 
@@ -104,8 +107,8 @@ export default function HeroShowcase({ play = true }) {
             className="absolute bottom-[16.5%] left-1/2 h-[3.5%] w-[52%] -translate-x-1/2 rounded-[50%] bg-walnut/25 blur-md"
             initial={still ? false : { opacity: 0, scaleX: 0.5 }}
             animate={{ opacity: 1, scaleX: 1 }}
-            exit={still ? {} : { opacity: 0, scaleX: 0.6 }}
-            transition={{ duration: 0.85, delay: 0.12, ease: EASE }}
+            exit={still ? {} : { opacity: 0, scaleX: 0.7 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
           />
         </AnimatePresence>
 
@@ -141,55 +144,61 @@ export default function HeroShowcase({ play = true }) {
         />
       </motion.div>
 
-      <div className="mt-4 flex items-start justify-between gap-4 pl-1">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={piece.id + lang}
-            initial={still ? false : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={still ? {} : { opacity: 0, y: -8 }}
-            transition={{ duration: 0.4 }}
-            className="max-w-xs text-[0.85rem] leading-relaxed text-walnut/65"
-          >
-            {t(piece.caption)}
-          </motion.p>
-        </AnimatePresence>
-
-        <div className="flex shrink-0 items-center gap-2 pt-1">
-          {heroPieces.map((item, i) => {
-            const active = i === index
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => setIndex(i)}
-                aria-label={t(item.alt)}
-                aria-current={active}
-                className="group p-1"
+      {/* Caption bar — set against the charcoal-teal panel now, so text goes light with a wood-tan accent */}
+      <div className="mt-5 flex items-end justify-between gap-5 lg:mt-7">
+        <div className="min-w-0">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={piece.id + lang}
+              initial={still ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={still ? {} : { opacity: 0, y: -10 }}
+              transition={{ duration: 0.38, ease: EASE }}
+            >
+              <p
+                className={`truncate font-display font-semibold text-[var(--color-wood-tan)] ${
+                  lang === 'bn' ? 'text-[0.8rem]' : 'text-[0.72rem] tracking-[0.16em] uppercase'
+                }`}
               >
-                <span
-                  className={`relative block h-[6px] overflow-hidden rounded-full transition-all duration-500 ${
-                    active ? 'w-7 bg-walnut/20' : 'w-[6px] bg-walnut/30 group-hover:bg-walnut/60'
-                  }`}
-                >
-                  {/* the active dot fills over the hold, so the rotation is
-                      visible rather than surprising */}
-                  {active && (
-                    <motion.span
-                      key={`fill-${index}-${paused}`}
-                      className="absolute inset-0 block origin-left rounded-full bg-gold-deep"
-                      initial={{ scaleX: still ? 1 : 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{
-                        duration: still || paused || !play ? 0 : HOLD / 1000,
-                        ease: 'linear',
-                      }}
-                    />
-                  )}
-                </span>
-              </button>
-            )
-          })}
+                {t(piece.room)} · {piece.ref}
+              </p>
+              <h2 className="mt-1.5 truncate font-display text-[1.15rem] leading-tight font-extrabold text-ivory sm:text-[1.35rem]">
+                {t(piece.name)}
+              </h2>
+              <p className="mt-1 text-[0.85rem] leading-snug text-ivory/75">
+                {t('heroPriceNote')}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+          <p className="sr-only" aria-live="polite">
+            {`${localiseNumber(pad(index), lang)} / ${localiseNumber(pad(COUNT - 1), lang)} — ${t(piece.name)}. ${t(piece.caption)}`}
+          </p>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-3">
+          <p className="hidden items-baseline font-display font-extrabold text-ivory/20 sm:flex">
+            <span className="text-[2.6rem] leading-none tabular-nums">
+              {localiseNumber(pad(index), lang)}
+            </span>
+          </p>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label={t('heroPrev')}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-ivory/25 text-ivory transition-colors duration-300 hover:bg-[var(--color-brass)] hover:text-[var(--color-charcoal-teal-deep)]"
+            >
+              <Chevron back />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label={t('heroNext')}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-brass)] text-[var(--color-charcoal-teal-deep)] transition-colors duration-300 hover:bg-[var(--color-brass-soft)]"
+            >
+              <Chevron />
+            </button>
+          </div>
         </div>
       </div>
     </div>

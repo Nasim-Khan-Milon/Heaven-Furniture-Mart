@@ -4,12 +4,6 @@ import { useMotionPrefs } from '../fx'
 
 const DRAW = { duration: 1.05, ease: [0.65, 0, 0.35, 1] }
 
-/**
- * An architect's dimension annotation that draws itself over the hero photo.
- * The headline promises furniture "made to the measure" of your home — this is
- * that promise, drawn. Set out like a real drawing: extension lines, arrowed
- * dimension line, and the label sitting in a break in the line.
- */
 export default function MeasureOverlay({ start = 1.5, play = true }) {
   const { t, lang } = useLang()
   const { still } = useMotionPrefs()
@@ -40,11 +34,9 @@ export default function MeasureOverlay({ start = 1.5, play = true }) {
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
       >
-        {/* extension lines */}
         <motion.path d="M54 400 V 430" {...draw(0, 0.4)} />
         <motion.path d="M346 400 V 430" {...draw(0.06, 0.4)} />
 
-        {/* horizontal dimension line, drawn out from the centre */}
         <motion.path d="M200 415 H 54" {...draw(0.22, 0.7)} />
         <motion.path d="M200 415 H 346" {...draw(0.22, 0.7)} />
         <motion.path d="M54 415 l 8 -3.5 M54 415 l 8 3.5" {...draw(0.85, 0.3)} />
@@ -52,7 +44,6 @@ export default function MeasureOverlay({ start = 1.5, play = true }) {
 
               </g>
 
-      {/* label sitting in a break in the dimension line */}
       <motion.g {...fade(0.75)}>
         <rect x={lang === "bn" ? 154 : 169} y="406" width={lang === "bn" ? 92 : 62} height="18" rx="2" fill="var(--color-ivory)" />
         <text

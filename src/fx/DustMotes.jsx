@@ -1,17 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useMotionPrefs } from './MotionProvider'
 
-/**
- * Dust catching the light behind the hero.
- *
- * Photographs of Heaven's showroom have shafts of light in them; this is the
- * cheapest honest way to put air into the space between the headline and the
- * arch. Thirty-odd motes on one canvas — no DOM nodes, no layout, one composite
- * per frame.
- *
- * Stops entirely when the hero scrolls off, and never starts on `lite`
- * hardware or under reduced motion.
- */
 export default function DustMotes({ count = 34 }) {
   const canvasRef = useRef(null)
   const { still, lite } = useMotionPrefs()
@@ -44,7 +33,7 @@ export default function DustMotes({ count = 34 }) {
         x: Math.random() * width,
         y: Math.random() * height,
         r: 0.6 + Math.random() * 1.7,
-        // Slow upward drift with a slight sideways bias, like warm air.
+
         vy: -(0.06 + Math.random() * 0.16),
         vx: (Math.random() - 0.5) * 0.09,
         a: 0.12 + Math.random() * 0.34,
@@ -65,7 +54,6 @@ export default function DustMotes({ count = 34 }) {
         if (m.x < -6) m.x = width + 6
         if (m.x > width + 6) m.x = -6
 
-        // Each mote breathes at its own rate so the field never looks uniform.
         const twinkle = 0.72 + 0.28 * Math.sin(time / 1400 + m.phase)
         ctx.beginPath()
         ctx.fillStyle = `rgba(217, 162, 39, ${m.a * twinkle})`
@@ -85,7 +73,6 @@ export default function DustMotes({ count = 34 }) {
     }
     window.addEventListener('resize', resize)
 
-    // Stop the loop the moment the hero leaves the viewport.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !running) {
